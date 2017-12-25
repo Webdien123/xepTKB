@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>@yield('title')</title>
+        <title>Trang đăng nhập</title>
 
         <!-- Bootstrap CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +43,19 @@
         <!-- Header trang web -->
         <nav class="navbar navbar-default nav-menu">
             <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".button-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" href="#">Xếp thời khóa biểu CTU</a>
+            </div>
+
+            <div class="collapse navbar-collapse button-menu">
+                <ul class="nav navbar-nav ">
+                    <li><a href="#">THÔNG TIN, LIÊN HỆ</a></li>
+                </ul>                  
             </div>
         </nav>
 
