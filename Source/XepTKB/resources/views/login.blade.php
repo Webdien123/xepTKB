@@ -30,25 +30,54 @@
         <!-- Footer css -->
         <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 
+        <style>
+            .input-group-addon {
+                color: #fff;
+                background: #3276B1;
+            }
+        </style>
+
     </head>
     <body>
 
         <!-- Header trang web -->
         <nav class="navbar navbar-default nav-menu">
             <div class="navbar-header">
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".button-menu">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" href="#">Xếp thời khóa biểu CTU</a>
             </div>
         </nav>
 
-        <!-- Form đang nhập -->
-
-        
+        <!-- Form đang nhập -->  
+        <div class="container">        
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                    <form role="form">
+                        <legend>Đăng nhập</legend>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="uLogin" placeholder="Login">
+                                <label for="uLogin" class="input-group-addon glyphicon glyphicon-user"></label>
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="uPassword" placeholder="Password">
+                                <label for="uPassword" class="input-group-addon glyphicon glyphicon-lock"></label>
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <button class="form-control btn btn-primary" type="submit">Ok</button>
+                        </div>
+    
+                        <div class="form-group">
+                            <a class="form-control btn btn-danger" href="">Đăng ký tài khoản</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>        
 
         <!-- Footer trang web -->
         <div class="container">
