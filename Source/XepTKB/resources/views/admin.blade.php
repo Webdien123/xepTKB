@@ -6,29 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>@yield('title')</title>
 
-        <!-- Bootstrap CSS -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-        <!-- Bootstrap JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-        
-        <!-- Header css -->
-        <link rel="stylesheet" href="{{ asset('css/header.css') }}">
-
-        <!-- Footer css -->
-        <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+        @include('import')
 
     </head>
     <body>
@@ -47,7 +25,8 @@
             
             <div class="collapse navbar-collapse button-menu">
                 <ul class="nav navbar-nav ">
-                    <li><a href="#">THỜI KHÓA BIỂU</a></li>
+                    <li><a href="#">TẠO TKB MỚI</a></li>
+                    <li><a href="#">TKB CỦA TÔI</a></li>
                     <li><a href="#">THÔNG TIN, LIÊN HỆ</a></li>
                 </ul>
                 
@@ -73,7 +52,10 @@
                                                 <p class="text-left"><strong>Lê Văn Heo</strong></p>
                                                 <p class="text-left small">heob1700001@student.ctu.edu.vn</p>
                                                 <p class="text-left">
-                                                    <a href="#" class="btn btn-primary btn-block btn-sm">Đăng xuất</a>
+                                                    <a href="#" class="btn btn-primary btn-block btn-sm">
+                                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                                        Đăng xuất
+                                                    </a>
                                                 </p>
                                             </div>
 
