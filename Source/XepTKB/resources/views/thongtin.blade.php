@@ -31,10 +31,10 @@
                                 <label for="subject">
                                     Chủ đề</label>
                                 <select id="subject" name="subject" class="form-control" required="required">
-                                    <option value="na" selected="">Choose One:</option>
-                                    <option value="service">General Customer Service</option>
-                                    <option value="suggestions">Suggestions</option>
-                                    <option value="product">Product Support</option>
+                                    <option value="sj_chinhsua" selected="">Chỉnh sửa hệ thống</option>
+                                    <option value="sj_baoloi">Báo lỗi</option>
+                                    <option value="sj_yeucau">Yêu cầu chức năng</option>
+                                    <option value="sj_khac">Khác</option>
                                 </select>
                             </div>
                         </div>

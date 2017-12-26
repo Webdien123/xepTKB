@@ -42,18 +42,18 @@
         <div class="container">        
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-                    <form role="form">
+                    <form role="form" class="form">
                         <legend>Đăng nhập</legend>
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="uLogin" placeholder="Login">
+                                <input type="text" class="form-control" id="uLogin" placeholder="Mã số sinh viên">
                                 <label for="uLogin" class="input-group-addon glyphicon glyphicon-user"></label>
                             </div>
                         </div>
             
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="password" class="form-control" id="uPassword" placeholder="Password">
+                                <input type="password" class="form-control" id="uPassword" placeholder="Mật khẩu">
                                 <label for="uPassword" class="input-group-addon glyphicon glyphicon-lock"></label>
                             </div>
                         </div>
@@ -64,6 +64,10 @@
     
                         <div class="form-group">
                             <a class="form-control btn btn-danger" href="">Đăng ký tài khoản</a>
+                        </div>
+
+                        <div class="form-group">
+                            <a class="form-control btn btn-link" href="">Quên mật khẩu?</a>
                         </div>
                     </form>
                 </div>
