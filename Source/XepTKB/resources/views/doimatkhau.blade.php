@@ -19,7 +19,7 @@
                     <form action="" method="POST" role="form">                    
                         <div class="form-group">
                             <label for="">Mật khẩu hiện tại</label>
-                            <input type="text" class="form-control" id="" placeholder="Nhập mật khẩu hiện tại">
+                            <input type="text" autofocus class="form-control" id="" placeholder="Nhập mật khẩu hiện tại">
                         </div>                    
                         
                         <div class="form-group">

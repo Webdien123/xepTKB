@@ -46,7 +46,7 @@
                         <legend>Đăng nhập</legend>
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="uLogin" placeholder="Mã số sinh viên">
+                                <input type="text" autofocus class="form-control" id="uLogin" placeholder="Mã số sinh viên">
                                 <label for="uLogin" class="input-group-addon glyphicon glyphicon-user"></label>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                         </div>
     
                         <div class="form-group">
-                            <button class="form-control btn btn-primary" type="submit">Ok</button>
+                            <button class="form-control btn btn-primary" type="submit">OK</button>
                         </div>
     
                         <div class="form-group">
