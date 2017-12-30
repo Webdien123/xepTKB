@@ -84,7 +84,7 @@
         @yield('noidung')
 
         <!-- Footer trang web -->
-        <div class="container">
+        <div class="container-fluid">
             <hr />
                 <div class="text-center center-block">
                     <p class="txt-railway">- Hệ thống hỗ trợ xếp thời khóa biểu sinh viên CTU -</p>
