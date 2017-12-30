@@ -2,34 +2,116 @@
 @extends('admin')
 
 {{--  Đặt title webpage  --}}
-@section('title', 'Xếp thời khóa biểu')
+@section('title', 'Tạo thời khóa biểu')
 
 {{--  Phần nội dung sẽ dẫn vào trang admin  --}}
 @section('noidung')
+
     <div class="container-fluid">
         
         <div class="row">
+
+            {{--  Modal thêm lớp học phần  --}}
+            <div class="modal fade" id="modal-them-hp">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title text-success"><b>Thêm học phần vào TKB</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <form action="" method="POST" class="form-inline" role="form">
+                            
+                                <div class="form-group">
+                                    <label for="" class="text-success">Nhập mã HP:</label>
+                                    <input type="text" class="form-control" id="" placeholder="Mã HP">
+                                </div>
+                            
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    Tìm
+                                </button>
+                            </form>
+                            <h4><b class="text-danger">Học phần không mở cho học kì này</b></h4>
+
+                            <div class="text-success">
+                                <i class="fa fa-spinner fa-spin" style="font-size:72px"></i>
+                                <b style="font-size:36px">Đang load dữ liệu</b>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                                Đóng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{--  Modal xác nhận xóa tất cả HP  --}}
+            <div class="modal fade" id="modal-xoatc-hp">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title text-danger"><b>Cảnh báo</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="row text-danger">
+                                <div class="col-xs-2 text-center">
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true" style="font-size:72px"></i>
+                                </div>
+                                <div class="col-xs-10" style="font-size:30px">
+                                    Bạn chắc chắn xóa hết học phần trong TKB này?
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            
+                            <a class="btn btn-danger" href="#" role="button">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                Có
+                            </a>
+                            
+                            <button type="button" class="btn btn-info" data-dismiss="modal">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                                Không
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
+            <div class="col-xs-12 text-center text-success">
+                <h3><strong>Học kì hiện tại: Học kì 2, 2017-2018</strong></h3>
+            </div>
+
             {{--  Phần chọn lớp học phần  --}}
             <div class="col-xs-12 col-lg-4 col-lg-push-8">
 
                 <h3>Học phần</h3>
 
                 <div class="btn-group">
-                        <button type="button" class="btn btn-success">
-                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                            Thêm HP
-                        </button>
-    
-                        <button type="button" class="btn btn-primary">
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                            Lưu TKB
-                        </button>
-    
-                        <button type="button" class="btn btn-danger">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                            Xóa tất cả HP
-                        </button>                                      
+                    <button type="button" class="btn btn-success" data-toggle="modal" href='#modal-them-hp'>
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        Thêm HP
+                    </button>
+
+                    <button type="button" class="btn btn-primary">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        Lưu TKB
+                    </button>
+
+                    <button type="button" class="btn btn-danger" data-toggle="modal" href='#modal-xoatc-hp'>
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        Xóa tất cả HP
+                    </button>                                      
                 </div>
                 
                 
