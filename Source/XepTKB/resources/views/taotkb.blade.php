@@ -7,6 +7,13 @@
 {{--  Phần nội dung sẽ dẫn vào trang admin  --}}
 @section('noidung')
 
+    {{--  Đặt màu cho cột thứ và tiết thời khóa biểu  --}}
+    <script>
+        $(document).ready(function () {
+            $('th, td').addClass("text-center");
+        });
+    </script>
+
     <div class="container-fluid">
         
         <div class="row">

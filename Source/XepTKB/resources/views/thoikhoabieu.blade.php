@@ -7,43 +7,65 @@
 {{--  Phần nội dung sẽ dẫn vào trang admin  --}}
 @section('noidung')
 
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                Trang thời khóa biểu
-            </div>
-        </div>
-    </div>
-
     {{--  Đặt margin giữa các thời khóa biểu thu nhỏ  --}}
     <style>
         .top-buffer { 
-            margin-top: 20px; 
+            margin-top: 5%; 
         }
         .left-buffer { 
             margin-left: 4%;
         }
+        @media only screen and (max-width: 992px) {
+            .left-buffer { 
+                margin-left: 0%;
+            }
+        }
+        
+        
     </style>
-
-    {{--  Đặt màu cho cột thứ và tiết thời khóa biểu  --}}
-    <script>
-        $(document).ready(function () {
-            
-            $('th, td').addClass("text-center");
-        });
-    </script>
     
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <a href="">
-            <div class="col-xs-12 col-sm-3 top-buffer col-sm-offset-1" style="border: 1px solid red">
-                <img id="a" src="#" class="img-responsive" alt="Image">        
+            <div class="col-xs-12">
+                Trang thời khóa biểu
             </div>
+
+            <a href="">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                </div>
+            </a>
+
+            <a href="">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                </div>
+            </a>
+
+            <a href="">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                </div>
+            </a>
+
+            <a href="">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                </div>
+            </a>
+
+            <a href="">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                </div>
             </a>
         </div>
-    </div>    
+    </div>
 
-    <div class="container" id="ddd">
+
+    {{--  PHẦN CHỤP ẢNH FILE VÀ LƯU FILE BẰNG AJAX  --}}
+
+    {{--  <div class="container" id="ddd">
         <div class="table-responsive">
             <table class="table table-hover table-bordered table-condensed">
                 <thead>
@@ -213,7 +235,9 @@
             });
         });
         
-    </script>
+    </script>  --}}
+
+    {{--  KẾT THÚC PHẦN CHỤP ẢNH BẰNG AJAX  --}}
 
 
 @endsection
