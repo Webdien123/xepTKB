@@ -6,7 +6,7 @@
 
 {{--  Phần nội dung sẽ dẫn vào trang admin  --}}
 @section('noidung')
-    
+
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
@@ -28,9 +28,7 @@
     {{--  Đặt màu cho cột thứ và tiết thời khóa biểu  --}}
     <script>
         $(document).ready(function () {
-            $('td:first-child').each(function() {
-                $(this).addClass("info");
-            });
+            
             $('th, td').addClass("text-center");
         });
     </script>
@@ -182,10 +180,39 @@
     <script src="{{ asset('js/html2canvas.min.js') }}"></script>
 
     <script>
-        html2canvas($("#ddd")[0]).then(function(canvas) {
-            $("#ddd-out").append(canvas);
-            $("#a").attr("src", canvas.toDataURL());
+        $(document).ready(function () {
+            html2canvas($("#ddd")[0]).then(function(canvas) {
+                var Img_url = canvas.toDataURL("image/jpg");
+                $("#a").attr("src", Img_url);
+            
+                var imagedata = canvas.toDataURL('image/png');
+                var imgdata = imagedata.replace(/^data:image\/(png|jpg);base64,/, "");
+
+                var token = "{{ csrf_token() }}";
+
+                //ajax call to save image inside folder
+                $.ajax({
+                    url: '/save_tkb_img',
+                    data: {
+                        imgdata: imgdata,
+                        id_tkb: "1",
+                        hocki: "2",
+                        namhoc: "17-18",
+                        _token: token
+                    },
+                    type: 'POST',
+                    success: function (response) {
+                        console.log("Lưu ảnh thành công, kết quả: " + response);
+                    },
+                    error: function(xhr,err){
+                        console.log("Lưu ảnh thất bại");
+                        console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+                    }
+                });
+                
+            });
         });
+        
     </script>
 
 

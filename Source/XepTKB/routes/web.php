@@ -13,5 +13,7 @@
 
 Route::get('/', function () {
     // return view('welcome');
-    return view('login');
+    return view('thoikhoabieu');
 });
+
+Route::post('save_tkb_img', 'FileController@Save_TKB_Img');
