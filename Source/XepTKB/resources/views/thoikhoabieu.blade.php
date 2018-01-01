@@ -15,47 +15,58 @@
         .left-buffer { 
             margin-left: 4%;
         }
+        .tkb{
+            background-color: darkgray
+        }
         @media only screen and (max-width: 992px) {
             .left-buffer { 
                 margin-left: 0%;
             }
-        }
-        
-        
+        }        
     </style>
     
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                Trang thời khóa biểu
+        {{--  Phần hiển thị tên trang và học kì hiện tại  --}}
+        <div class="row text-success">
+            <div class="col-xs-4">
+                <h4><b>Các TKB đã tạo</b></h4>
             </div>
 
+            <div class="col-xs-8 text-right">
+                <h4><strong>Học kì hiện tại: Học kì 2, 2017-2018</strong></h4>
+            </div>
+            <div class="col-xs-12">
+                    <hr>
+            </div>            
+        </div>
+
+        <div class="row">
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
                     <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
                     <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
                     <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
                     <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer" style="border: 1px solid red">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
                     <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
                 </div>
             </a>

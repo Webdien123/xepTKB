@@ -46,15 +46,15 @@
                         <legend>Đăng nhập</legend>
                         <div class="form-group">
                             <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input type="text" autofocus class="form-control" id="uLogin" placeholder="Mã số sinh viên">
-                                <label for="uLogin" class="input-group-addon glyphicon glyphicon-user"></label>
                             </div>
                         </div>
             
                         <div class="form-group">
                             <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input type="password" class="form-control" id="uPassword" placeholder="Mật khẩu">
-                                <label for="uPassword" class="input-group-addon glyphicon glyphicon-lock"></label>
                             </div>
                         </div>
     

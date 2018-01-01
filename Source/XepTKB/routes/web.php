@@ -11,9 +11,14 @@
 |
 */
 
+// Load trang chủ website.
 Route::get('/', function () {
     // return view('welcome');
-    return view('thoikhoabieu');
+    return view('quenmatkhau');
 });
 
+// Load trang đăng kí tài khoản.
+Route::get('dk_taikhoan', 'PageController@Load_Dky');
+
+// Lưu ảnh thu nhỏ thời khóa biểu lên máy chủ.
 Route::post('save_tkb_img', 'FileController@Save_TKB_Img');

@@ -16,7 +16,19 @@
 
     <div class="container-fluid">
         
-        <div class="row">
+        {{--  Phần hiển thị tên trang và học kì hiện tại  --}}
+        <div class="row text-success">
+            <div class="col-xs-4">
+                <h4><b>Tạo thời khóa biểu mới</b></h4>
+            </div>
+
+            <div class="col-xs-8 text-right">
+                <h4><strong>Học kì hiện tại: Học kì 2, 2017-2018</strong></h4>
+            </div>
+            <div class="col-xs-12">
+                    <hr>
+            </div>            
+        </div>
 
             {{--  Modal thêm lớp học phần  --}}
             <div class="modal fade" id="modal-them-hp">
@@ -94,10 +106,9 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="col-xs-12 text-center text-success">
-                <h3><strong>Học kì hiện tại: Học kì 2, 2017-2018</strong></h3>
-            </div>
+        
+
+        <div class="row">
 
             {{--  Phần chọn lớp học phần  --}}
             <div class="col-xs-12 col-lg-4 col-lg-push-8">
@@ -196,13 +207,13 @@
                             <tr>
                                 <td>1</td>
                                 <td>
-                                    Kỹ thuật các quá trình sinh học trong chế biến thực phẩm (103/NN)
+                                    NS114 (103/NN)
                                 </td>
-                                <td>Kỹ thuật các quá trình sinh học trong chế biến thực phẩm (103/NN)</td>
+                                <td>NS114 (103/NN)</td>
                                 <td></td>
-                                <td>Kỹ thuật các quá trình sinh học trong chế biến thực phẩm (103/NN)</td>
+                                <td>NS114 (103/NN)</td>
                                 <td></td>
-                                <td>Kỹ thuật các quá trình sinh học trong chế biến thực phẩm (103/NN)</td>
+                                <td>NS114 (103/NN)</td>
                             </tr>
                             <tr>
                                 <td>2</td>
