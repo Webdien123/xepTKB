@@ -20,14 +20,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Xếp thời khóa biểu CTU</a>
+                <a class="navbar-brand" href="/">Xếp thời khóa biểu CTU</a>
             </div>
             
             <div class="collapse navbar-collapse button-menu">
                 <ul class="nav navbar-nav ">
-                    <li><a href="#">TẠO TKB MỚI</a></li>
-                    <li><a href="#">TKB CỦA TÔI</a></li>
-                    <li><a href="#">THÔNG TIN, LIÊN HỆ</a></li>
+                    <li><a href="taotkb">TẠO TKB MỚI</a></li>
+                    <li><a href="qly_tkb">TKB CỦA TÔI</a></li>
+                    <li><a href="thongtin">THÔNG TIN, LIÊN HỆ</a></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
@@ -68,7 +68,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <p>
-                                                    <a href="#" class="btn btn-danger btn-block">Đổi mật khẩu</a>
+                                                    <a href="doi_mk" class="btn btn-danger btn-block">Đổi mật khẩu</a>
                                                 </p>
                                             </div>
                                         </div>

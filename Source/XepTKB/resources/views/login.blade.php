@@ -28,12 +28,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Xếp thời khóa biểu CTU</a>
+                <a class="navbar-brand" href="/">Xếp thời khóa biểu CTU</a>
             </div>
 
             <div class="collapse navbar-collapse button-menu">
                 <ul class="nav navbar-nav ">
-                    <li><a href="#">THÔNG TIN, LIÊN HỆ</a></li>
+                    <li><a href="thongtin">THÔNG TIN, LIÊN HỆ</a></li>
                 </ul>                  
             </div>
         </nav>
@@ -63,11 +63,11 @@
                         </div>
     
                         <div class="form-group">
-                            <a class="form-control btn btn-danger" href="">Đăng ký tài khoản</a>
+                            <a class="form-control btn btn-danger" href="dk_taikhoan">Đăng ký tài khoản</a>
                         </div>
 
                         <div class="form-group">
-                            <a class="form-control btn btn-link" href="">Quên mật khẩu?</a>
+                            <a class="form-control btn btn-link" href="quen_mk">Quên mật khẩu?</a>
                         </div>
                     </form>
                 </div>
