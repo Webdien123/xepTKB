@@ -43,31 +43,31 @@
         <div class="row">
             <a href="">
                 <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
-                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                    <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
                 <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
-                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                    <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
                 <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
-                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                    <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
                 <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
-                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                    <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
                 <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
-                    <img src="/tkb_img/1_2-17-18.png" class="img-responsive" alt="Image">
+                    <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
         </div>
