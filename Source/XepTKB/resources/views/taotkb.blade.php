@@ -14,6 +14,30 @@
         });
     </script>
 
+    {{--  Đặt style cho dấu gạch cách môn cùng lịch nhưng không cùng tuần học  --}}
+    <style>
+        hr.line_hocphan {
+            height: 2px;
+            background-color:#555;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+    </style>
+
+    <?php
+        $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK2_17_18.XLS";
+        $headers = @get_headers($url);
+        if(strpos($headers[0],'404') === false)
+        {
+            echo "URL Exists";
+        }
+        else
+        {
+            echo "URL Not Exists";
+        }
+    ?>
+
     <div class="container-fluid">
         
         {{--  Phần hiển thị tên trang và học kì hiện tại  --}}
@@ -26,7 +50,7 @@
                 <h4><strong>Học kì hiện tại: Học kì 2, 2017-2018</strong></h4>
             </div>
             <div class="col-xs-12">
-                    <hr>
+                <hr>
             </div>            
         </div>
 
@@ -200,14 +224,15 @@
                                 <th>Thứ 4</th>
                                 <th>Thứ 5</th>
                                 <th>Thứ 6</th>
-                                <th>Thứ 7</th>                   
+                                <th>Thứ 7</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>
-                                    NS114 (103/NN)
+                                <td class="bg-success">
+                                    <span>NS114 (103/NN)</span> (Tuần 1->10)<hr class="line_hocphan">
+                                    <span>HG256 (109/HA)</span> (Tuần 11->17)
                                 </td>
                                 <td>NS114 (103/NN)</td>
                                 <td></td>
