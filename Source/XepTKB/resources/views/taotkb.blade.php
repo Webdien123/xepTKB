@@ -230,9 +230,9 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td class="bg-success">
-                                    <span>NS114 (103/NN)</span> (Tuần 1->10)<hr class="line_hocphan">
-                                    <span>HG256 (109/HA)</span> (Tuần 11->17)
+                                <td class="bg-danger">
+                                    <span>NS114 (103/NN)</span> <span style="color: red">(Tuần 1->10)</span><hr class="line_hocphan">
+                                    <span>HG256 (109/HA)</span> <span style="color: red">(Tuần 11->17)</span>
                                 </td>
                                 <td>NS114 (103/NN)</td>
                                 <td></td>
