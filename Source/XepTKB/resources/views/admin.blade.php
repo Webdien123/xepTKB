@@ -10,7 +10,6 @@
 
     </head>
     <body>
-
         <!-- Header trang web -->
         <nav class="navbar navbar-default nav-menu">
             <div class="navbar-header">
@@ -34,7 +33,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span> 
-                                <strong>Lê Văn Heo</strong>
+                                <strong>Họ tên nè</strong>
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -49,8 +48,8 @@
 
                                             <!-- Nội dung khi đã đăng nhập -->
                                             <div class="col-lg-8">
-                                                <p class="text-left"><strong>Lê Văn Heo</strong></p>
-                                                <p class="text-left small">heob1700001@student.ctu.edu.vn</p>
+                                                <p class="text-left"><strong>Họ tên nè</strong></p>
+                                                <p class="text-left small">mailb1700001@student.ctu.edu.vn</p>
                                                 <p class="text-left">
                                                     <a href="#" class="btn btn-primary btn-block btn-sm">
                                                         <i class="fa fa-sign-out" aria-hidden="true"></i>

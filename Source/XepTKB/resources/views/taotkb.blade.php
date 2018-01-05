@@ -17,11 +17,10 @@
     {{--  Đặt style cho dấu gạch cách môn cùng lịch nhưng không cùng tuần học  --}}
     <style>
         hr.line_hocphan {
-            height: 2px;
-            background-color:#555;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            margin-top: 0px;
+            margin-bottom: 0px;
             width: 100%;
+            border: 0.25px dashed black;
         }
     </style>
 
@@ -171,28 +170,126 @@
                         <tbody>
 
                             {{--  Dòng hiển thị khi chưa có lớp học phần được chọn  --}}
-                            <tr>
+                            {{--  <tr>
                                 <td colspan="4" class="text-center"><b><i>
                                     Chưa có lớp HP nào được chọn
                                 </i></b>                                    
                                 </td>
-                            </tr>
+                            </tr>  --}}
 
-                            {{--  Dòng hiển thị khi đã có lớp học phần  --}}
-                            <tr>
+                            {{--  Các dòng hiển thị khi đã có lớp học phần  --}}
+                            <tr class="bg-danger">
                                 <td>
-                                    NS114
+                                    CN117
                                 </td>
                                 <td>
-                                    Kỹ thuật các quá trình sinh học trong chế biến thực phẩm
+                                    Phương pháp tính - Kỹ thuật
                                 </td>
                                 <td>
                                     <select name="" id="" required="required">
-                                        <option value="" selected>01</option>
-                                        <option value="">02</option>
-                                        <option value="">03</option>
+                                        <option value="" selected>H01</option>
                                     </select>
                                     
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-large btn-block btn-danger">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+
+                            <tr class="bg-success">
+                                <td>
+                                    CN118
+                                </td>
+                                <td>
+                                    Nguyên lý kiến trúc
+                                </td>
+                                <td>
+                                    <select name="" id="" required="required">
+                                        <option value="" selected>H02</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-large btn-block btn-danger">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+
+                            <tr class="bg-info">
+                                <td>
+                                    CN154
+                                </td>
+                                <td>
+                                    Cơ học kết cấu
+                                </td>
+                                <td>
+                                    <select name="" id="" required="required">
+                                        <option value="" selected>H01</option>
+                                        <option value="">H02</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-large btn-block btn-danger">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr class="bg-warning">
+                                <td>
+                                    CN349
+                                </td>
+                                <td>
+                                    Kết cấu bê-tông công trình dân dụng
+                                </td>
+                                <td>
+                                    <select name="" id="" required="required">
+                                        <option value="" selected>H02</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-large btn-block btn-danger">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    CN510
+                                </td>
+                                <td>
+                                    Kết cấu bê-tông công trình dân dụng<br>
+                                    <span class="text-danger">(Liên hệ GV để xếp lịch)</span>
+                                </td>
+                                <td>
+                                    <select name="" id="" required="required">
+                                        <option value="" selected>H01</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-large btn-block btn-danger">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr class="bg-info">
+                                <td>
+                                    CN514
+                                </td>
+                                <td>
+                                    Quản lý dự án xây dựng
+                                </td>
+                                <td>
+                                    {{--  <select name="" id="" style="color: black" required="required">  --}}
+                                    <select name="" id="" required="required">
+                                        <option value="" selected>H01</option>
+                                    </select>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-large btn-block btn-danger">
@@ -208,11 +305,9 @@
 
             {{--  Phần minh họa thời khóa biểu khi thêm lớp học phần  --}}
             <div class="col-xs-12 col-lg-8 col-lg-pull-4">
-
                 <h3 class="text-center">
                     Thời khóa biểu minh họa
                 </h3>
-
                 {{--  Bảng thể hiện thời khóa biểu  --}}
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered table-condensed">
@@ -230,49 +325,72 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td class="bg-danger">
-                                    <span>NS114 (103/NN)</span> <span style="color: red">(Tuần 1->10)</span><hr class="line_hocphan">
-                                    <span>HG256 (109/HA)</span> <span style="color: red">(Tuần 11->17)</span>
-                                </td>
-                                <td>NS114 (103/NN)</td>
                                 <td></td>
-                                <td>NS114 (103/NN)</td>
                                 <td></td>
-                                <td>NS114 (103/NN)</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>2</td>
+                                <td class="bg-danger">
+                                    <span>CN117 (331/QP)</span>
+                                </td>
                                 <td></td>
+                                <td class="bg-success">
+                                    <span>CN118 (105/HA)</span>
+                                </td>
+                                <td class="bg-warning">
+                                    <span>CN349 (334/QP)</span>
+                                </td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    <span>CN514 (103/HA)</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>3</td>
+                                <td class="bg-danger">
+                                    <span>CN117 (331/QP)</span>
+                                </td>
                                 <td></td>
+                                <td class="bg-success">
+                                    <span>CN118 (105/HA)</span>
+                                </td>
+                                <td class="bg-warning">
+                                    <span>CN349 (334/QP)</span>
+                                </td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    <span>CN514 (103/HA)</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>4</td>
+                                <td class="bg-danger">
+                                    <span>CN117 (331/QP)</span>
+                                </td>
                                 <td></td>
+                                <td class="bg-success">
+                                    <span>CN118 (105/HA)</span>
+                                </td>
+                                <td class="bg-warning">
+                                    <span>CN349 (334/QP)</span>
+                                </td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    <span>CN514 (103/HA)</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>5</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td class="bg-warning">
+                                    <span>CN349 (334/QP)</span>
+                                </td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -285,8 +403,16 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class="bg-info">
+                                    <span>CN154 (103/HA)</span><br>
+                                    <span style="color: red">(Tuần 1 -> 10)</span>
+                                    <hr class="line_hocphan">
+                                    <span>CN514 (111/HA)</span><br>
+                                    <span style="color: red">(Tuần 11 -> 17)</span>
+                                </td>
+                                <td class="bg-info">
+                                    <span>CN154 (103/HA)</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>7</td>
@@ -294,8 +420,16 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class="bg-info">
+                                    <span>CN154 (103/HA)</span><br>
+                                    <span style="color: red">(Tuần 1 -> 10)</span>
+                                    <hr class="line_hocphan">
+                                    <span>CN514 (111/HA)</span><br>
+                                    <span style="color: red">(Tuần 11 -> 17)</span>
+                                </td>
+                                <td class="bg-info">
+                                    <span>CN154 (103/HA)</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>8</td>
@@ -303,8 +437,16 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class="bg-info">
+                                    <span>CN154 (103/HA)</span><br>
+                                    <span style="color: red">(Tuần 1 -> 10)</span>
+                                    <hr class="line_hocphan">
+                                    <span>CN514 (111/HA)</span><br>
+                                    <span style="color: red">(Tuần 11 -> 17)</span>
+                                </td>
+                                <td class="bg-info">
+                                    <span>CN154 (103/HA)</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>9</td>
