@@ -90,7 +90,32 @@
                             <i class="fa fa-spinner fa-spin" style="font-size:72px"></i>
                             <b style="font-size:36px">Đang load dữ liệu</b>
                         </div>
-                        
+
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Mã HP</th>
+                                        <th>Tên học phần</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mã nè</td>
+                                        <td>Tên nè</td>
+                                        <td>
+                                            
+                                            <button type="button" class="btn btn-primary">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                Thêm
+                                            </button>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>                        
                         
                     </div>
                     <div class="modal-footer">
@@ -102,6 +127,27 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="modal-luu-hp">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Lưu thời khóa biểu</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            Đóng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
         {{--  Modal xác nhận xóa tất cả HP  --}}
         <div class="modal fade" id="modal-xoatc-hp">
@@ -138,7 +184,6 @@
                 </div>
             </div>
         </div>
-        
 
         <div class="row">
 
@@ -154,7 +199,7 @@
                         Thêm HP
                     </button>
 
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" href='#modal-luu-hp'>
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
                         Lưu TKB
                     </button>
@@ -163,8 +208,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         Xóa tất cả HP
                     </button>                                      
-                </div>
-                
+                </div>                
                 
                 {{--  Bảng chọn lớp học phần  --}}
                 <div class="table-responsive">
