@@ -22,6 +22,15 @@
             width: 100%;
             border: 0.25px dashed black;
         }
+
+        .vcenter {
+            vertical-align: middle !important;
+        }
+
+        #tb-tkb td:not(:first-child){
+            width: 16%;
+        }
+        
     </style>
 
     <?php
@@ -53,82 +62,82 @@
             </div>            
         </div>
 
-            {{--  Modal thêm lớp học phần  --}}
-            <div class="modal fade" id="modal-them-hp">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title text-success"><b>Thêm học phần vào TKB</b></h4>
-                        </div>
-                        <div class="modal-body">
-                            
-                            <form action="" method="POST" class="form-inline" role="form">
-                            
-                                <div class="form-group">
-                                    <label for="" class="text-success">Nhập mã HP:</label>
-                                    <input type="text" class="form-control" id="" placeholder="Mã HP">
-                                </div>
-                            
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                    Tìm
-                                </button>
-                            </form>
-                            <h4><b class="text-danger">Học phần không mở cho học kì này</b></h4>
-
-                            <div class="text-success">
-                                <i class="fa fa-spinner fa-spin" style="font-size:72px"></i>
-                                <b style="font-size:36px">Đang load dữ liệu</b>
+        {{--  Modal thêm lớp học phần  --}}
+        <div class="modal fade" id="modal-them-hp">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title text-success"><b>Thêm học phần vào TKB</b></h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form action="" method="POST" class="form-inline" role="form">
+                        
+                            <div class="form-group">
+                                <label for="" class="text-success">Nhập mã HP:</label>
+                                <input type="text" class="form-control" id="" placeholder="Mã HP">
                             </div>
-                            
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                                Đóng
+                        
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                Tìm
                             </button>
+                        </form>
+                        <h4><b class="text-danger">Học phần không mở cho học kì này</b></h4>
+
+                        <div class="text-success">
+                            <i class="fa fa-spinner fa-spin" style="font-size:72px"></i>
+                            <b style="font-size:36px">Đang load dữ liệu</b>
                         </div>
+                        
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            Đóng
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            {{--  Modal xác nhận xóa tất cả HP  --}}
-            <div class="modal fade" id="modal-xoatc-hp">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title text-danger"><b>Cảnh báo</b></h4>
-                        </div>
-                        <div class="modal-body">
-                            
-                            <div class="row text-danger">
-                                <div class="col-xs-2 text-center">
-                                    <i class="fa fa-exclamation-circle" aria-hidden="true" style="font-size:72px"></i>
-                                </div>
-                                <div class="col-xs-10" style="font-size:30px">
-                                    Bạn chắc chắn xóa hết học phần trong TKB này?
-                                </div>
+        {{--  Modal xác nhận xóa tất cả HP  --}}
+        <div class="modal fade" id="modal-xoatc-hp">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title text-danger"><b>Cảnh báo</b></h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="row text-danger">
+                            <div class="col-xs-2 text-center">
+                                <i class="fa fa-exclamation-circle" aria-hidden="true" style="font-size:72px"></i>
                             </div>
+                            <div class="col-xs-10" style="font-size:30px">
+                                Bạn chắc chắn xóa hết học phần trong TKB này?
+                            </div>
+                        </div>
 
-                        </div>
-                        <div class="modal-footer">
-                            
-                            <a class="btn btn-danger" href="#" role="button">
-                                <i class="fa fa-check" aria-hidden="true"></i>
-                                Có
-                            </a>
-                            
-                            <button type="button" class="btn btn-info" data-dismiss="modal">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                                Không
-                            </button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <a class="btn btn-danger" href="#" role="button">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Có
+                        </a>
+                        
+                        <button type="button" class="btn btn-info" data-dismiss="modal">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            Không
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
         
 
         <div class="row">
@@ -138,6 +147,7 @@
 
                 <h3>Học phần</h3>
 
+                {{--  Nhóm button thao tác menu học phần  --}}
                 <div class="btn-group">
                     <button type="button" class="btn btn-success" data-toggle="modal" href='#modal-them-hp'>
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -219,7 +229,7 @@
                             </tr>
 
 
-                            <tr class="bg-info">
+                            <tr class="bg-info" style="color: rgb(252, 9, 219)">
                                 <td>
                                     CN154
                                 </td>
@@ -227,7 +237,7 @@
                                     Cơ học kết cấu
                                 </td>
                                 <td>
-                                    <select name="" id="" required="required">
+                                    <select name="" id="" required="required" style="color: black">
                                         <option value="" selected>H01</option>
                                         <option value="">H02</option>
                                     </select>
@@ -263,7 +273,7 @@
                                     CN510
                                 </td>
                                 <td>
-                                    Kết cấu bê-tông công trình dân dụng<br>
+                                    Đồ án nền móng công trình<br>
                                     <span class="text-danger">(Liên hệ GV để xếp lịch)</span>
                                 </td>
                                 <td>
@@ -300,17 +310,21 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="text-danger"><b>
+                    Lịch họp cố vấn vào lúc 4h 10 chiều thứ 4 tuần 3, 6, 9, 11
+                </b></div>
                 
             </div>
 
             {{--  Phần minh họa thời khóa biểu khi thêm lớp học phần  --}}
             <div class="col-xs-12 col-lg-8 col-lg-pull-4">
-                <h3 class="text-center">
+                <h3>
                     Thời khóa biểu minh họa
                 </h3>
                 {{--  Bảng thể hiện thời khóa biểu  --}}
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered table-condensed">
+                    <table id="tb-tkb" class="table table-bordered table-condensed">
                         <thead>
                             <tr class="info">
                                 <th></th>
@@ -325,8 +339,11 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                </td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -334,63 +351,37 @@
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td class="bg-danger">
-                                    <span>CN117 (331/QP)</span>
+                                <td class="bg-danger vcenter" rowspan="3">
+                                    <span>Phương pháp tính - Kỹ thuật <br> (331/QP)</span>
                                 </td>
                                 <td></td>
-                                <td class="bg-success">
-                                    <span>CN118 (105/HA)</span>
+                                <td class="bg-success vcenter" rowspan="3">
+                                    <span>Nguyên lý kiến trúc <br> (105/HA)</span>
                                 </td>
-                                <td class="bg-warning">
-                                    <span>CN349 (334/QP)</span>
+                                <td class="bg-warning vcenter" rowspan="4">
+                                    <span>Kết cấu bê-tông công trình dân dụng <br> (334/QP)</span>
                                 </td>
                                 <td></td>
-                                <td>
-                                    <span>CN514 (103/HA)</span>
+                                <td class="bg-info vcenter" rowspan="3">
+                                    <span >Quản lý dự án xây dựng <br> (103/HA)</span><br>
+                                    <span class="text-danger">(Tuần 11 -> 17)</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td class="bg-danger">
-                                    <span>CN117 (331/QP)</span>
-                                </td>
                                 <td></td>
-                                <td class="bg-success">
-                                    <span>CN118 (105/HA)</span>
-                                </td>
-                                <td class="bg-warning">
-                                    <span>CN349 (334/QP)</span>
-                                </td>
                                 <td></td>
-                                <td>
-                                    <span>CN514 (103/HA)</span>
-                                </td>
                             </tr>
                             <tr>
                                 <td>4</td>
-                                <td class="bg-danger">
-                                    <span>CN117 (331/QP)</span>
-                                </td>
                                 <td></td>
-                                <td class="bg-success">
-                                    <span>CN118 (105/HA)</span>
-                                </td>
-                                <td class="bg-warning">
-                                    <span>CN349 (334/QP)</span>
-                                </td>
                                 <td></td>
-                                <td>
-                                    <span>CN514 (103/HA)</span>
-                                </td>
                             </tr>
                             <tr>
                                 <td>5</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="bg-warning">
-                                    <span>CN349 (334/QP)</span>
-                                </td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -403,15 +394,18 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="bg-info">
-                                    <span>CN154 (103/HA)</span><br>
-                                    <span style="color: red">(Tuần 1 -> 10)</span>
+                                <td class="vcenter bg-info" rowspan="3">
+                                    <span style="color: rgb(252, 9, 219)">Cơ học kết cấu <br> (103/HA)</span><br>
+                                    <span class="text-danger">(Tuần 1 -> 10)</span>
+
                                     <hr class="line_hocphan">
-                                    <span>CN514 (111/HA)</span><br>
-                                    <span style="color: red">(Tuần 11 -> 17)</span>
+
+                                    <span>Quản lý dự án xây dựng <br> (111/HA)</span><br>
+                                    <span class="text-danger">(Tuần 11 -> 17)</span>
                                 </td>
-                                <td class="bg-info">
-                                    <span>CN154 (103/HA)</span>
+                                <td class="bg-info vcenter" rowspan="3">
+                                    <span style="color: rgb(252, 9, 219)">Cơ học kết cấu <br> (103/HA)</span><br>
+                                    <span class="text-danger">(Tuần 1 -> 10)</span>
                                 </td>
                             </tr>
                             <tr>
@@ -420,16 +414,6 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="bg-info">
-                                    <span>CN154 (103/HA)</span><br>
-                                    <span style="color: red">(Tuần 1 -> 10)</span>
-                                    <hr class="line_hocphan">
-                                    <span>CN514 (111/HA)</span><br>
-                                    <span style="color: red">(Tuần 11 -> 17)</span>
-                                </td>
-                                <td class="bg-info">
-                                    <span>CN154 (103/HA)</span>
-                                </td>
                             </tr>
                             <tr>
                                 <td>8</td>
@@ -437,16 +421,6 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="bg-info">
-                                    <span>CN154 (103/HA)</span><br>
-                                    <span style="color: red">(Tuần 1 -> 10)</span>
-                                    <hr class="line_hocphan">
-                                    <span>CN514 (111/HA)</span><br>
-                                    <span style="color: red">(Tuần 11 -> 17)</span>
-                                </td>
-                                <td class="bg-info">
-                                    <span>CN154 (103/HA)</span>
-                                </td>
                             </tr>
                             <tr>
                                 <td>9</td>
