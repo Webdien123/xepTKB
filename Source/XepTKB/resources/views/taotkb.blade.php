@@ -17,8 +17,8 @@
     {{--  Đặt style cho dấu gạch cách môn cùng lịch nhưng không cùng tuần học  --}}
     <style>
         hr.line_hocphan {
-            margin-top: 0px;
-            margin-bottom: 0px;
+            margin-top: 4px;
+            margin-bottom: 4px;
             width: 100%;
             border: 0.25px dashed black;
         }
@@ -106,7 +106,7 @@
                                         <td>Tên nè</td>
                                         <td>
                                             
-                                            <button type="button" class="btn btn-primary">
+                                            <button type="button" class="btn btn-success">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                 Thêm
                                             </button>
@@ -408,7 +408,7 @@
                                 <td></td>
                                 <td class="bg-info vcenter" rowspan="3">
                                     <span >Quản lý dự án xây dựng <br> (103/HA)</span><br>
-                                    <span class="text-danger">(Tuần 11 -> 17)</span>
+                                    <span class="text-danger">(Tuần 11->17)</span>
                                 </td>
                             </tr>
                             <tr>
@@ -440,16 +440,16 @@
                                 <td></td>
                                 <td class="vcenter bg-info" rowspan="3">
                                     <span style="color: rgb(252, 9, 219)">Cơ học kết cấu <br> (103/HA)</span><br>
-                                    <span class="text-danger">(Tuần 1 -> 10)</span>
+                                    <span class="text-danger">(Tuần 1->10)</span>
 
                                     <hr class="line_hocphan">
 
                                     <span>Quản lý dự án xây dựng <br> (111/HA)</span><br>
-                                    <span class="text-danger">(Tuần 11 -> 17)</span>
+                                    <span class="text-danger">(Tuần 11->17)</span>
                                 </td>
                                 <td class="bg-info vcenter" rowspan="3">
                                     <span style="color: rgb(252, 9, 219)">Cơ học kết cấu <br> (103/HA)</span><br>
-                                    <span class="text-danger">(Tuần 1 -> 10)</span>
+                                    <span class="text-danger">(Tuần 1->10)</span>
                                 </td>
                             </tr>
                             <tr>
