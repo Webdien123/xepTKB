@@ -66,7 +66,10 @@
                         
                             <div class="form-group">
                                 <label for="" class="text-success">Nhập mã HP:</label>
-                                <input type="text" class="form-control" id="mahp_input" placeholder="Mã HP">
+                                <input type="text" required class="form-control" 
+                                    id="mahp_input" placeholder="Mã HP"
+                                    oninvalid="this.setCustomValidity('Chưa nhập mã HP')"
+                                    oninput="setCustomValidity('')">
                             </div>
                         
                             <button type="submit" class="btn btn-success">
