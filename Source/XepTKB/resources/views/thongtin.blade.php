@@ -31,9 +31,9 @@
                                 <label for="subject">
                                     Chủ đề</label>
                                 <select id="subject" name="subject" class="form-control" required="required">
-                                    <option value="sj_chinhsua" selected="">Chỉnh sửa hệ thống</option>
+                                    <option value="sj_chinhsua" selected="">Góp ý</option>
                                     <option value="sj_baoloi">Báo lỗi</option>
-                                    <option value="sj_yeucau">Yêu cầu chức năng</option>
+                                    <option value="sj_yeucau">Thêm chức năng mới</option>
                                     <option value="sj_khac">Khác</option>
                                 </select>
                             </div>
@@ -58,6 +58,12 @@
             <div class="col-md-4">
                 <form>
                 <legend><span class="glyphicon glyphicon-globe"></span>Thông tin trang web</legend>
+                <address>
+                    Website xếp thời khóa biểu online được xây dựng cho sinh viên Đại học Cần thơ. 
+                    Hệ thống phục vụ cho việc xây dựng các thời khóa biểu trực quan nhầm hỗ trợ cho quá trình chuẩn bị thời khóa biểu của sinh viên được dễ dàng hơn.
+                    <br>
+                    Website này là phi lợi nhuận và không yêu cầu bất kì khoảng phí nào từ người sử dụng.
+                </address>
                 <address>
                     <strong>Người thực hiện: Trần Lý Văn</strong><br>
                     KS ngành CNTT Đại học Cần Thơ<br>

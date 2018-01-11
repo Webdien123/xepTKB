@@ -15,23 +15,7 @@
     </script>
 
     {{--  Đặt style cho thời khóa biểu minh họa  --}}
-    <style>
-        hr.line_hocphan {
-            margin-top: 4px;
-            margin-bottom: 4px;
-            width: 100%;
-            border: 0.25px dashed black;
-        }
-
-        .vcenter {
-            vertical-align: middle !important;
-        }
-
-        #tb-tkb td:not(:first-child){
-            width: 16%;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/tkb_minh_hoa.css') }}">
 
     <?php
         $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK2_17_18.XLS";
@@ -45,6 +29,12 @@
             echo "URL Not Exists";
         }
     ?>
+
+    {{--  Script xử lý tìm thông tin học phần  --}}
+    <script>
+        var token = "{{ csrf_token() }}";
+    </script>
+    <script src="{{ asset('js/tim_hp.js') }}"></script>
 
     <div class="container-fluid">
         
@@ -72,11 +62,11 @@
                     </div>
                     <div class="modal-body">
                         
-                        <form action="" method="POST" class="form-inline" role="form">
+                        <form id="f_tim_hp" class="form-inline">
                         
                             <div class="form-group">
                                 <label for="" class="text-success">Nhập mã HP:</label>
-                                <input type="text" class="form-control" id="" placeholder="Mã HP">
+                                <input type="text" class="form-control" id="mahp_input" placeholder="Mã HP">
                             </div>
                         
                             <button type="submit" class="btn btn-success">
@@ -84,14 +74,17 @@
                                 Tìm
                             </button>
                         </form>
-                        <h4><b class="text-danger">Học phần không mở cho học kì này</b></h4>
 
-                        <div class="text-success">
+                        <div class="text-success" id="finding_hp">
                             <i class="fa fa-spinner fa-spin" style="font-size:72px"></i>
                             <b style="font-size:36px">Đang load dữ liệu</b>
                         </div>
 
-                        <div class="table-responsive">
+                        <h4 id="not_found_hp"><b class="text-danger">
+                            Học phần không mở trong học kì này.
+                        </b></h4>
+
+                        <div class="table-responsive" id="found_hp">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -102,21 +95,22 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Mã nè</td>
-                                        <td>Tên nè</td>
+                                        <td id="mahp_tim">Mã nè</td>
+                                        <td id="tenhp_tim">Tên nè</td>
                                         <td>
-                                            
                                             <button type="button" class="btn btn-success">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                 Thêm
                                             </button>
-                                            
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>                        
-                        
+                        </div>
+
+                        <h4 id="error_found_hp"><b class="text-danger">
+                            Máy chủ đang có vấn đề, vui lòng thử lại sau.
+                        </b></h4>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -148,7 +142,6 @@
             </div>
         </div>
         
-
         {{--  Modal xác nhận xóa tất cả HP  --}}
         <div class="modal fade" id="modal-xoatc-hp">
             <div class="modal-dialog">

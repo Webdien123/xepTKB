@@ -32,6 +32,10 @@ Route::get('xac_nhan_ms', 'PageController@Xac_Nhan_MS');
 // Load trang tạo thời khóa biểu mới.
 Route::get('taotkb', 'TKBController@Tao_TKB');
 
+// Tìm thông tin học phần.
+Route::post('tim_hp', 'HocPhanController@TimHP');
+
+
 // Load trang quản lý tkb cũ.
 Route::get('qly_tkb', 'TKBController@QLy_TKB');
 

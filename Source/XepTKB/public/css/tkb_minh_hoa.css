@@ -1,0 +1,14 @@
+hr.line_hocphan {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    width: 100%;
+    border: 0.25px dashed black;
+}
+
+.vcenter {
+    vertical-align: middle !important;
+}
+
+#tb-tkb td:not(:first-child){
+    width: 16%;
+}
