@@ -14,7 +14,7 @@
         });
     </script>
 
-    {{--  Đặt style cho thời khóa biểu minh họa  --}}
+    {{--  Đặt style cho dấu gạch cách môn cùng lịch nhưng không cùng tuần học  --}}
     <style>
         hr.line_hocphan {
             margin-top: 4px;
@@ -59,7 +59,7 @@
             </div>
             <div class="col-xs-12">
                 <hr>
-            </div>
+            </div>            
         </div>
 
         {{--  Modal thêm lớp học phần  --}}

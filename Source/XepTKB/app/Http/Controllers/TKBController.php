@@ -10,7 +10,7 @@ class TKBController extends Controller
     // Hàm load trang tạo TKB mới.
     public function Tao_TKB()
     {
-        return view('taotkb');
+        return view('taotkb');        
     }
 
     // Hàm load trang quản lý tkb cũ.
