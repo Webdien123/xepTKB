@@ -1,7 +1,10 @@
 // Hàm sắp xếp bảng dữ liệu học phần theo sỉ số (cột thứ 3)
 function sortTable(){
+
+    // Lấy DS các dòng.
     var rows = $('#tb_hp tbody tr').get();
 
+    // Sắp xếp các dòng theo cột chỉ số thứ 2 (thứ tự thứ 3/sỉ sổ)
     rows.sort(function(a, b) {
 
         var A = Number($(a).children('td').eq(2).text());
@@ -19,11 +22,11 @@ function sortTable(){
 
     });
 
+    // Lấy tất cả các dòng đã sắp xếp theo lần lượt vào bảng.
     $.each(rows, function(index, row) {
         $('#tb_hp').children('tbody').append(row);
     });
 }
-  
 
 // Hàm thêm học phần mới lên bảng học phần.
 function them_hp() {
@@ -88,18 +91,18 @@ function them_hp() {
         $("#error_trung_hp").show(0);
         $("#error_trung_hp").hide(1800);
     }
-
-        
 }
 
 // Hàm kiểm tra học phần đã thêm trước đó hay chưa.
 function da_them_hp() {
     ketqua = false;
-    ds_hp.forEach(element => {
-        if (element[0].MAHP == hp_vua_them[0].MAHP) {            
+    for (let index = 0; index < ds_hp.length; index++) {
+        if (ds_hp[index][0].MAHP == hp_vua_them[0].MAHP) {
             ketqua = true;
+            break;
         }
-    });
+        console.log("Kiem tra hp");
+    }
     return ketqua;
 }
 
