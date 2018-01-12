@@ -31,6 +31,8 @@ $(document).ready(function () {
             success: function (response) {
                 $("#finding_hp").hide(0);
 
+                hp_vua_them = response;
+
                 console.log(response);
 
                 // Tính số lớp học phần tìm được.

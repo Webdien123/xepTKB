@@ -17,6 +17,9 @@
     {{--  Đặt style cho thời khóa biểu minh họa  --}}
     <link rel="stylesheet" href="{{ asset('css/tkb_minh_hoa.css') }}">
 
+    {{--  Đặt màu cho các môn học   --}}
+    <link rel="stylesheet" href="{{ asset('css/to_mau_hp.css') }}">
+
     <?php
         $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK2_17_18.XLS";
         $headers = @get_headers($url);
@@ -32,7 +35,11 @@
 
     {{--  Script xử lý tìm thông tin học phần  --}}
     <script>
+        // Lưu trữ token.
         var token = "{{ csrf_token() }}";
+
+        // Lưu học phần vừa thêm gần nhất.
+        var hp_vua_them = null;
     </script>
     <script src="{{ asset('js/tim_hp.js') }}"></script>
 
@@ -62,6 +69,7 @@
                     </div>
                     <div class="modal-body">
                         
+                        {{--  Form tìm kiếm học phần  --}}
                         <form id="f_tim_hp" class="form-inline">
                         
                             <div class="form-group">
@@ -78,15 +86,18 @@
                             </button>
                         </form>
 
+                        {{--  Thông báo đang tìm HP  --}}
                         <div class="text-success" id="finding_hp">
                             <i class="fa fa-spinner fa-spin" style="font-size:72px"></i>
                             <b style="font-size:36px">Đang load dữ liệu</b>
                         </div>
 
+                        {{--  Thông báo không tìm thấy HP  --}}
                         <h4 id="not_found_hp"><b class="text-danger">
                             Học phần không mở trong học kì này.
                         </b></h4>
 
+                        {{--  Thông báo tìm thấy HP  --}}
                         <div class="table-responsive" id="found_hp">
                             <table class="table table-hover">
                                 <thead>
@@ -98,19 +109,67 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td id="mahp_tim">Mã nè</td>
-                                        <td id="tenhp_tim">Tên nè</td>
+                                        <td id="mahp_tim"></td>
+                                        <td id="tenhp_tim"></td>
                                         <td>
-                                            <button type="button" class="btn btn-success">
+                                            <button type="button" class="btn btn-success"
+                                                onclick="them_hp()">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                 Thêm
                                             </button>
+
+                                            {{--  Script xử lý thêm học phần  --}}
+                                            <script>
+                                                // Hàm thêm học phần mới lên bảng học phần.
+                                                function them_hp() {
+                                                    // console.log("Them hoc phan" + hp_vua_them[0].TENHP);
+
+                                                    // Tính danh sách kí hiệu lớp học phần.
+                                                    var ds_kihieu = [];
+                                                    var option_kihieu = "";
+
+                                                    $.each(hp_vua_them, function(i, el){
+                                                        if($.inArray(el.KIHIEU, ds_kihieu) === -1) {
+                                                            ds_kihieu.push(el.KIHIEU);
+                                                            if (ds_kihieu.length == 1) {
+                                                                option_kihieu += '<option value="" selected>' + ds_kihieu[ds_kihieu.length-1] + '</option>';
+                                                            }
+                                                            else{
+                                                                option_kihieu += '<option value="">' + ds_kihieu[ds_kihieu.length-1] + '</option>';
+                                                            }
+                                                        }
+                                                    });
+
+                                                    // console.log(ds_kihieu);
+                                                    // console.log(option_kihieu);
+                                                    
+
+                                                    data_row = 
+                                                        '<tr>\
+                                                            <td>' + hp_vua_them[0].MAHP + '</td>\
+                                                            <td>' + hp_vua_them[0].TENHP + '</td>\
+                                                            <td>\
+                                                                <select name="" id="">' +
+                                                                    option_kihieu
+                                                                + '</select>\
+                                                            </td>\
+                                                            <td>\
+                                                                <button type="button" class="btn btn-large btn-block btn-danger">\
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>\
+                                                                </button>\
+                                                            </td>\
+                                                        </tr>';
+
+                                                    $('#tb_hp tbody').append(data_row);
+                                                }
+                                            </script>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
+                        {{--  Thông báo có lỗi trong quá trình tìm HP  --}}
                         <h4 id="error_found_hp"><b class="text-danger">
                             Máy chủ đang có vấn đề, vui lòng thử lại sau.
                         </b></h4>
@@ -125,6 +184,7 @@
             </div>
         </div>
 
+        {{--  Modal lưu thời khóa biểu  --}}
         <div class="modal fade" id="modal-luu-hp">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -181,11 +241,11 @@
             </div>
         </div>
 
+        {{--  Nội dung trang tạo TKB  --}}
         <div class="row">
 
-            {{--  Phần chọn lớp học phần  --}}
+            {{--  Nhóm nút chọn lớp học phần  --}}
             <div class="col-xs-12 col-lg-4 col-lg-push-8">
-
                 <h3>Học phần</h3>
 
                 {{--  Nhóm button thao tác menu học phần  --}}
@@ -208,7 +268,7 @@
                 
                 {{--  Bảng chọn lớp học phần  --}}
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="tb_hp">
                         <thead>
                             <tr class="info">
                                 <th>Mã HP</th>
@@ -217,8 +277,8 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
 
+                        <tbody>
                             {{--  Dòng hiển thị khi chưa có lớp học phần được chọn  --}}
                             {{--  <tr>
                                 <td colspan="4" class="text-center"><b><i>
@@ -228,48 +288,7 @@
                             </tr>  --}}
 
                             {{--  Các dòng hiển thị khi đã có lớp học phần  --}}
-                            <tr class="bg-danger">
-                                <td>
-                                    CN117
-                                </td>
-                                <td>
-                                    Phương pháp tính - Kỹ thuật
-                                </td>
-                                <td>
-                                    <select name="" id="" required="required">
-                                        <option value="" selected>H01</option>
-                                    </select>
-                                    
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-large btn-block btn-danger">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-
-                            <tr class="bg-success">
-                                <td>
-                                    CN118
-                                </td>
-                                <td>
-                                    Nguyên lý kiến trúc
-                                </td>
-                                <td>
-                                    <select name="" id="" required="required">
-                                        <option value="" selected>H02</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-large btn-block btn-danger">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-
-                            <tr class="bg-info" style="color: rgb(252, 9, 219)">
+                            {{--  <tr class="hp_1_bg hp_1_text">
                                 <td>
                                     CN154
                                 </td>
@@ -277,7 +296,7 @@
                                     Cơ học kết cấu
                                 </td>
                                 <td>
-                                    <select name="" id="" required="required" style="color: black">
+                                    <select name="" id="" required="required">
                                         <option value="" selected>H01</option>
                                         <option value="">H02</option>
                                     </select>
@@ -306,47 +325,7 @@
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </button>
                                 </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    CN510
-                                </td>
-                                <td>
-                                    Đồ án nền móng công trình<br>
-                                    <span class="text-danger">(Liên hệ GV để xếp lịch)</span>
-                                </td>
-                                <td>
-                                    <select name="" id="" required="required">
-                                        <option value="" selected>H01</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-large btn-block btn-danger">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr class="bg-info">
-                                <td>
-                                    CN514
-                                </td>
-                                <td>
-                                    Quản lý dự án xây dựng
-                                </td>
-                                <td>
-                                    {{--  <select name="" id="" style="color: black" required="required">  --}}
-                                    <select name="" id="" required="required">
-                                        <option value="" selected>H01</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-large btn-block btn-danger">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            </tr>  --}}
                         </tbody>
                     </table>
                 </div>
