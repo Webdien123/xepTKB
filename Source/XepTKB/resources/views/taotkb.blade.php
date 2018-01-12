@@ -49,7 +49,7 @@
     <script src="{{ asset('js/tim_hp.js') }}"></script>
 
     {{--  Script xử lý trang tạo thời khóa biểu.  --}}
-    <script src="{{ asset('js/tao_tkb.js') }}"></script>
+    <script src="{{ asset('js/tao_tkb.js') }}"></script>    
 
     {{--  Nội dung trang tạo tkb.  --}}
     <div class="container-fluid">
@@ -243,6 +243,7 @@
                             <tr class="info">
                                 <th>Mã HP</th>
                                 <th>Tên HP</th>
+                                <th>Sỉ số</th>
                                 <th>Ký hiệu</th>
                                 <th></th>
                             </tr>
@@ -251,7 +252,7 @@
                         <tbody>
                             {{--  Dòng hiển thị khi chưa có lớp học phần được chọn  --}}
                             <tr id="tr_no_hp">
-                                <td colspan="4" class="text-center"><b><i>
+                                <td colspan="5" class="text-center"><b><i>
                                     Chưa có lớp HP nào được chọn
                                 </i></b>                                    
                                 </td>

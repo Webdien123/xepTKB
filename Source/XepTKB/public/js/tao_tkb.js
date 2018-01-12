@@ -1,3 +1,30 @@
+// Hàm sắp xếp bảng dữ liệu học phần theo sỉ số (cột thứ 3)
+function sortTable(){
+    var rows = $('#tb_hp tbody tr').get();
+
+    rows.sort(function(a, b) {
+
+        var A = Number($(a).children('td').eq(2).text());
+        var B = Number($(b).children('td').eq(2).text());
+
+        if(A < B) {
+            return -1;
+        }
+
+        if(A > B) {
+            return 1;
+        }
+
+        return 0;
+
+    });
+
+    $.each(rows, function(index, row) {
+        $('#tb_hp').children('tbody').append(row);
+    });
+}
+  
+
 // Hàm thêm học phần mới lên bảng học phần.
 function them_hp() {
 
@@ -32,6 +59,7 @@ function them_hp() {
             '<tr class="tr_hp">\
                 <td>' + hp_vua_them[0].MAHP + '</td>\
                 <td>' + hp_vua_them[0].TENHP + '</td>\
+                <td>' + hp_vua_them[0].SISO + '</td>\
                 <td>\
                     <select name="" id="">' +
                         option_kihieu
@@ -49,6 +77,10 @@ function them_hp() {
 
         // Thêm thông tin hp vào mảng toàn cục.
         ds_hp.push(hp_vua_them);
+
+        // Sắp xếp tăng dần theo sỉ sổ.
+        sortTable();
+
     }
     // Nếu hp đã thêm trước đó.
     else {
