@@ -33,19 +33,28 @@
         }
     ?>
 
-    {{--  Script xử lý tìm thông tin học phần  --}}
+    {{--  Script tạo biến cục bộ js và xử lý ban đầu khi trang khởi động  --}}
     <script>
         // Lưu trữ token.
         var token = "{{ csrf_token() }}";
 
         // Lưu học phần vừa thêm gần nhất.
         var hp_vua_them = null;
+
+        // Lưu tất cả học phần đã thêm.
+        var ds_hp = [];
     </script>
+
+    {{--  Script xử lý tìm thông tin học phần.  --}}
     <script src="{{ asset('js/tim_hp.js') }}"></script>
 
+    {{--  Script xử lý trang tạo thời khóa biểu.  --}}
+    <script src="{{ asset('js/tao_tkb.js') }}"></script>
+
+    {{--  Nội dung trang tạo tkb.  --}}
     <div class="container-fluid">
         
-        {{--  Phần hiển thị tên trang và học kì hiện tại  --}}
+        {{--  Phần hiển thị tên trang và học kì hiện tại.  --}}
         <div class="row text-success">
             <div class="col-xs-4">
                 <h4><b>Tạo thời khóa biểu mới</b></h4>
@@ -59,7 +68,7 @@
             </div>
         </div>
 
-        {{--  Modal thêm lớp học phần  --}}
+        {{--  Modal thêm lớp học phần.  --}}
         <div class="modal fade" id="modal-them-hp">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -97,7 +106,7 @@
                             Học phần không mở trong học kì này.
                         </b></h4>
 
-                        {{--  Thông báo tìm thấy HP  --}}
+                        {{--  Bảng thông tin HP đã tìm thấy  --}}
                         <div class="table-responsive" id="found_hp">
                             <table class="table table-hover">
                                 <thead>
@@ -117,52 +126,13 @@
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                 Thêm
                                             </button>
-
-                                            {{--  Script xử lý thêm học phần  --}}
-                                            <script>
-                                                // Hàm thêm học phần mới lên bảng học phần.
-                                                function them_hp() {
-                                                    // console.log("Them hoc phan" + hp_vua_them[0].TENHP);
-
-                                                    // Tính danh sách kí hiệu lớp học phần.
-                                                    var ds_kihieu = [];
-                                                    var option_kihieu = "";
-
-                                                    $.each(hp_vua_them, function(i, el){
-                                                        if($.inArray(el.KIHIEU, ds_kihieu) === -1) {
-                                                            ds_kihieu.push(el.KIHIEU);
-                                                            if (ds_kihieu.length == 1) {
-                                                                option_kihieu += '<option value="" selected>' + ds_kihieu[ds_kihieu.length-1] + '</option>';
-                                                            }
-                                                            else{
-                                                                option_kihieu += '<option value="">' + ds_kihieu[ds_kihieu.length-1] + '</option>';
-                                                            }
-                                                        }
-                                                    });
-
-                                                    // console.log(ds_kihieu);
-                                                    // console.log(option_kihieu);
-                                                    
-
-                                                    data_row = 
-                                                        '<tr>\
-                                                            <td>' + hp_vua_them[0].MAHP + '</td>\
-                                                            <td>' + hp_vua_them[0].TENHP + '</td>\
-                                                            <td>\
-                                                                <select name="" id="">' +
-                                                                    option_kihieu
-                                                                + '</select>\
-                                                            </td>\
-                                                            <td>\
-                                                                <button type="button" class="btn btn-large btn-block btn-danger">\
-                                                                    <i class="fa fa-trash" aria-hidden="true"></i>\
-                                                                </button>\
-                                                            </td>\
-                                                        </tr>';
-
-                                                    $('#tb_hp tbody').append(data_row);
-                                                }
-                                            </script>
+                                        </td>
+                                    </tr>
+                                    <tr id="error_trung_hp">
+                                        <td colspan="3">
+                                            <b class="text-danger">
+                                                Học phần đã thêm trước đó.
+                                            </b>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -184,7 +154,7 @@
             </div>
         </div>
 
-        {{--  Modal lưu thời khóa biểu  --}}
+        {{--  Modal lưu thời khóa biểu.  --}}
         <div class="modal fade" id="modal-luu-hp">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -205,7 +175,7 @@
             </div>
         </div>
         
-        {{--  Modal xác nhận xóa tất cả HP  --}}
+        {{--  Modal xác nhận xóa tất cả HP.  --}}
         <div class="modal fade" id="modal-xoatc-hp">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -227,7 +197,7 @@
                     </div>
                     <div class="modal-footer">
                         
-                        <a class="btn btn-danger" href="#" role="button">
+                        <a class="btn btn-danger" id="btn_xoa_all_hp" href="#" role="button" data-dismiss="modal">
                             <i class="fa fa-check" aria-hidden="true"></i>
                             Có
                         </a>
@@ -241,10 +211,10 @@
             </div>
         </div>
 
-        {{--  Nội dung trang tạo TKB  --}}
+        {{--  Phần thêm học phần và tkb minh họa.  --}}
         <div class="row">
 
-            {{--  Nhóm nút chọn lớp học phần  --}}
+            {{--  Nhóm nút chọn lớp học phần và bảng học phần  --}}
             <div class="col-xs-12 col-lg-4 col-lg-push-8">
                 <h3>Học phần</h3>
 
@@ -280,52 +250,12 @@
 
                         <tbody>
                             {{--  Dòng hiển thị khi chưa có lớp học phần được chọn  --}}
-                            {{--  <tr>
+                            <tr id="tr_no_hp">
                                 <td colspan="4" class="text-center"><b><i>
                                     Chưa có lớp HP nào được chọn
                                 </i></b>                                    
                                 </td>
-                            </tr>  --}}
-
-                            {{--  Các dòng hiển thị khi đã có lớp học phần  --}}
-                            {{--  <tr class="hp_1_bg hp_1_text">
-                                <td>
-                                    CN154
-                                </td>
-                                <td>
-                                    Cơ học kết cấu
-                                </td>
-                                <td>
-                                    <select name="" id="" required="required">
-                                        <option value="" selected>H01</option>
-                                        <option value="">H02</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-large btn-block btn-danger">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </td>
                             </tr>
-
-                            <tr class="bg-warning">
-                                <td>
-                                    CN349
-                                </td>
-                                <td>
-                                    Kết cấu bê-tông công trình dân dụng
-                                </td>
-                                <td>
-                                    <select name="" id="" required="required">
-                                        <option value="" selected>H02</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-large btn-block btn-danger">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>  --}}
                         </tbody>
                     </table>
                 </div>

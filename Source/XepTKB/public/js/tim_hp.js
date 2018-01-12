@@ -6,6 +6,7 @@ $(document).ready(function () {
     $("#not_found_hp").hide(0);
     $("#found_hp").hide(0);
     $("#error_found_hp").hide(0);
+    $("#error_trung_hp").hide(0);
 
     // Khi ấn chọn tìm học phần.
     $("#f_tim_hp").submit(function (e) {
@@ -16,6 +17,7 @@ $(document).ready(function () {
         $("#not_found_hp").hide(0);
         $("#found_hp").hide(0);
         $("#error_found_hp").hide(0);
+        $("#error_trung_hp").hide(0);
 
         // Lấy giá trị mã hp cần tìm và tạo token.
         ma_hp = $("#mahp_input").val();
@@ -33,7 +35,7 @@ $(document).ready(function () {
 
                 hp_vua_them = response;
 
-                console.log(response);
+                // console.log(response);
 
                 // Tính số lớp học phần tìm được.
                 sl = response.length;
@@ -45,6 +47,7 @@ $(document).ready(function () {
                     // ẩn phần thông báo không tìm thấy và thông báo lỗi.
                     $("#not_found_hp").hide(0);
                     $("#error_found_hp").hide(0);
+                    $("#error_trung_hp").hide(0);
                     $("#found_hp").show(0);
 
                     // Điền mã và tên học phần lên bảng thông tin.
