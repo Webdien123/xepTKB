@@ -57,10 +57,25 @@ function them_hp() {
             }
         });
 
+        // Lưu trữ html của tr chứa học phần cần thêm.
+        mau_can_to = "";
+
+        // Nếu HP không có lịch học thì không gán lớp "can_to_mau".
+        if (hp_vua_them[0].THU == '0') {
+            mau_can_to = '<tr class="tr_hp">';
+        } else {
+            
+            // Tính số màu đã tô.
+            sluong_mau_da_to = $(".can_to_mau").length;
+            sluong_mau_da_to++;
+
+            mau_can_to = '<tr class="tr_hp can_to_mau hp_' + sluong_mau_da_to + '_bg">';
+        }
+
         // Tính html cho dòng học phần cần thêm.
-        data_row = 
-            '<tr class="tr_hp">\
-                <td>' + hp_vua_them[0].MAHP + '</td>\
+        data_row =
+            mau_can_to +
+                '<td>' + hp_vua_them[0].MAHP + '</td>\
                 <td>' + hp_vua_them[0].TENHP + '</td>\
                 <td>' + hp_vua_them[0].SISO + '</td>\
                 <td>\

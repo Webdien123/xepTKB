@@ -35,7 +35,7 @@ $(document).ready(function () {
 
                 hp_vua_them = response;
 
-                // console.log(response);
+                console.log(response);
 
                 // Tính số lớp học phần tìm được.
                 sl = response.length;
