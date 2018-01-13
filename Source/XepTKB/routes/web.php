@@ -35,6 +35,8 @@ Route::get('taotkb', 'TKBController@Tao_TKB');
 // Tìm thông tin học phần.
 Route::post('tim_hp', 'HocPhanController@TimHP');
 
+// Lấy thời gian học theo mã học phần và kí hiệu nhóm.
+Route::post('lay_tgian_hoc', 'HocPhanController@LayTGianHoc');
 
 // Load trang quản lý tkb cũ.
 Route::get('qly_tkb', 'TKBController@QLy_TKB');

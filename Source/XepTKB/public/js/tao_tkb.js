@@ -28,6 +28,61 @@ function sortTable(){
     });
 }
 
+// Thêm một buổi học lên thời khóa biểu minh họa.
+function them_buoi_hoc(thu, tiet_bd, sotiet, tenhp, phong) {
+    tenhp_canthem = 
+        '<span>' + 
+            tenhp + '<br>(' +
+            phong + 
+        ')</span>';
+
+    // Tính tiết đầu tiên cần điền HP dạng tr và tính tiết tr tiếp theo.
+    tiet_dau_tien = $(".tr_tiet_hoc:eq("+ (tiet_bd - 1) + ")");
+    tiet_tt = tiet_dau_tien.next('tr');
+
+    // Tính tiết đầu tiên dạng td thêm nội dung và css cần thiết.
+    tiet_dau_tien = tiet_dau_tien.find('td').eq(thu - 1);
+    tiet_dau_tien.html(tenhp_canthem);
+    tiet_dau_tien.addClass("vcenter");
+    tiet_dau_tien.attr('rowspan', sotiet);
+    
+    for (let index = 0; index < sotiet - 1; index++) {
+        tiet_tt.find('td').eq(thu - 1).addClass("hide");
+        tiet_tt = tiet_tt.next('tr');
+    }
+}
+
+// Điền thời gian học của HP lên thời khóa biểu.
+function dien_tkb(ma_hp, kihieu) {
+    $.ajax({
+        type: "POST",
+        url: "/lay_tgian_hoc",
+        data: {
+            ma_hp: ma_hp,
+            kihieu: kihieu,
+            _token: token
+        },                    
+        success: function (response) {
+            console.log(response);
+
+            if (response[0].THU != 0) {
+                response.forEach(element => {
+                    them_buoi_hoc(
+                        element.THU, 
+                        element.TIETBD, 
+                        element.SOTIET, 
+                        element.TENHP, 
+                        element.PHONG
+                    );
+                });
+            }                   
+        },
+        error: function(xhr,err){
+            console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+        }
+    });
+}
+
 // Hàm thêm học phần mới lên bảng học phần.
 function them_hp() {
 
@@ -44,6 +99,11 @@ function them_hp() {
         var ds_kihieu = [];
         var option_kihieu = "";
 
+        //======================================================================
+        // Đoạn xử lý kí hiệu lớp học phần tạm thời.
+        // 
+        //======================================================================
+        // 
         // Tính danh sách kí hiệu lớp học phần.
         $.each(hp_vua_them, function(i, el){
             if($.inArray(el.KIHIEU, ds_kihieu) === -1) {
@@ -56,13 +116,17 @@ function them_hp() {
                 }
             }
         });
+        // 
+        //==========================================================================
 
-        // Lưu trữ html của tr chứa học phần cần thêm.
+        // Lưu trữ html của tr chứa học phần cần thêm và dòng thông báo khi hp không có lịch.
         mau_can_to = "";
+        no_tkb = "";
 
         // Nếu HP không có lịch học thì không gán lớp "can_to_mau".
         if (hp_vua_them[0].THU == '0') {
             mau_can_to = '<tr class="tr_hp">';
+            no_tkb = '</br><span class="text-danger">(Liên hệ GV để xếp lịch)</span>';
         } else {
             
             // Tính số màu đã tô.
@@ -76,7 +140,10 @@ function them_hp() {
         data_row =
             mau_can_to +
                 '<td>' + hp_vua_them[0].MAHP + '</td>\
-                <td>' + hp_vua_them[0].TENHP + '</td>\
+                <td>' + 
+                    hp_vua_them[0].TENHP + 
+                    no_tkb 
+                + '</td>\
                 <td>' + hp_vua_them[0].SISO + '</td>\
                 <td>\
                     <select name="" id="">' +
@@ -99,6 +166,9 @@ function them_hp() {
         // Sắp xếp tăng dần theo sỉ sổ.
         sortTable();
 
+        console.log(hp_vua_them);
+
+        dien_tkb(hp_vua_them[0].MAHP, hp_vua_them[0].KIHIEU);
     }
     // Nếu hp đã thêm trước đó.
     else {
@@ -115,8 +185,7 @@ function da_them_hp() {
         if (ds_hp[index][0].MAHP == hp_vua_them[0].MAHP) {
             ketqua = true;
             break;
-        }
-        console.log("Kiem tra hp");
+        }        
     }
     return ketqua;
 }

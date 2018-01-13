@@ -271,7 +271,29 @@
             <div class="col-xs-12 col-lg-8 col-lg-pull-4">
                 <h3>
                     Thời khóa biểu minh họa
-                </h3>
+                </h3>                
+
+                <script>
+                    // $(document).ready(function () {
+
+                        // function doilich() {                            
+                        
+                        //     // Tính số tiết của HP cần xóa khỏi thời khóa biểu.
+                        //     sotiet =  $("#CT111").attr("rowspan");
+
+                        //     // Tính tr chứa tiết đầu tiên.
+                        //     console.log($("#CT111").parent());
+
+                        //     // console.log(sotiet);
+
+                        //     for (let index = 0; index < sotiet - 1; index++) {
+                        //         console.log("Xoa tiet");
+                        //     }
+                        // }
+                    // });
+                </script>
+
+
                 {{--  Bảng thể hiện thời khóa biểu  --}}
                 <div class="table-responsive">
                     <table id="tb-tkb" class="table table-bordered table-condensed">
@@ -287,48 +309,45 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>1</td>
-                                <td>
-                                    
-                                </td>
-                                <td>
-                                </td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>2</td>
-                                <td class="bg-danger vcenter" rowspan="3">
-                                    <span>Phương pháp tính - Kỹ thuật <br> (331/QP)</span>
-                                </td>
                                 <td></td>
-                                <td class="bg-success vcenter" rowspan="3">
-                                    <span>Nguyên lý kiến trúc <br> (105/HA)</span>
-                                </td>
-                                <td class="bg-warning vcenter" rowspan="4">
-                                    <span>Kết cấu bê-tông công trình dân dụng <br> (334/QP)</span>
-                                </td>
                                 <td></td>
-                                <td class="bg-info vcenter" rowspan="3">
-                                    <span >Quản lý dự án xây dựng <br> (103/HA)</span><br>
-                                    <span class="text-danger">(Tuần 11->17)</span>
-                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>3</td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>4</td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>5</td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -338,41 +357,34 @@
                             <tr>
                                 <td colspan="7"></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>6</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="vcenter bg-info" rowspan="3">
-                                    <span style="color: rgb(252, 9, 219)">Cơ học kết cấu <br> (103/HA)</span><br>
-                                    <span class="text-danger">(Tuần 1->10)</span>
-
-                                    <hr class="line_hocphan">
-
-                                    <span>Quản lý dự án xây dựng <br> (111/HA)</span><br>
-                                    <span class="text-danger">(Tuần 11->17)</span>
-                                </td>
-                                <td class="bg-info vcenter" rowspan="3">
-                                    <span style="color: rgb(252, 9, 219)">Cơ học kết cấu <br> (103/HA)</span><br>
-                                    <span class="text-danger">(Tuần 1->10)</span>
-                                </td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>7</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>8</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>9</td>
                                 <td></td>
                                 <td></td>
@@ -381,7 +393,7 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>10</td>
                                 <td></td>
                                 <td></td>
@@ -393,7 +405,7 @@
                             <tr>
                                 <td colspan="7"></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>11</td>
                                 <td></td>
                                 <td></td>
@@ -402,7 +414,7 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <tr>
+                            <tr class="tr_tiet_hoc">
                                 <td>12</td>
                                 <td></td>
                                 <td></td>
