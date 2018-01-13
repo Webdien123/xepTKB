@@ -8,8 +8,7 @@
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
         <!-- Font awsome -->
-        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-        {{--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">  --}}
+        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">        
 
         <!-- Icon website -->
         <link rel="shortcut icon" type="image/x-icon" href="https://lhpu.com/wp-content/uploads/2017/06/schedule-icon-8.png" />
