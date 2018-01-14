@@ -17,7 +17,7 @@ class LopHocPhan extends Model
     // Truy xuất thời gian học của học phần.
     public static function GetTimeHP($ma_hp, $kihieu)
     {
-        $hocphan = \DB::select('SELECT THU, TIETBD, SOTIET, TENHP, PHONG FROM `lop_hoc_phan` WHERE MAHP = ? AND KIHIEU = ?', [$ma_hp, $kihieu]);
+        $hocphan = \DB::select('SELECT MAHP, THU, TIETBD, SOTIET, TENHP, PHONG FROM `lop_hoc_phan` WHERE MAHP = ? AND KIHIEU = ?', [$ma_hp, $kihieu]);
         return $hocphan;
     }
 }

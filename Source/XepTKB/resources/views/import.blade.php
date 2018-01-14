@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">        
 
         <!-- Icon website -->
-        <link rel="shortcut icon" type="image/x-icon" href="https://lhpu.com/wp-content/uploads/2017/06/schedule-icon-8.png" />
+        {{--  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('icons/schedule-icon-8.png') }}" />  --}}
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

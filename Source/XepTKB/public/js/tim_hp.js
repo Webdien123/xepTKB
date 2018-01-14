@@ -33,7 +33,14 @@ $(document).ready(function () {
             success: function (response) {
                 $("#finding_hp").hide(0);
 
+                //==================================================================
+                // Tính học phần và kí hiệu vừa thêm.
+                // 
                 hp_vua_them = response;
+
+                // console.log(hp_vua_them);
+                // 
+                //==================================================================
 
                 // console.log(response);
 
