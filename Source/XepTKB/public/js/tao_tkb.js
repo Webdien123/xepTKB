@@ -90,11 +90,20 @@ function xoa_all_buoi_hoc() {
     $(".hide").removeClass().addClass("text-center");
 }
 
+function Doi_Ki_hieu(ma_hp, mau_can_to) {
+
+    // Lấy kí hiệu nhóm HP đã chọn của HP vừa thêm.
+    kihieu_nhom_hp = $('#sl_' + ma_hp).children(":selected").text();
+
+    // Xóa các buổi học cũ đã hiển thị.
+    xoa_buoi_hoc(ma_hp);
+
+    // Điền lại buổi học theo kí hiệu mới.
+    dien_tkb(ma_hp, kihieu_nhom_hp, mau_can_to);
+}
+
 // Điền thời gian học của HP lên thời khóa biểu.
 function dien_tkb(ma_hp, kihieu, mau_can_to) {
-
-    // Tính số màu đã tô.
-    // mau_can_to = Tinh_Mau_Can_To();
 
     $.ajax({
         type: "POST",
@@ -105,6 +114,7 @@ function dien_tkb(ma_hp, kihieu, mau_can_to) {
             _token: token
         },
         success: function (response) {
+            // console.log(response);
             if (response[0].THU != 0) {
                 response.forEach(element => {
                     them_buoi_hoc(
@@ -188,7 +198,7 @@ function them_hp() {
                 + '</td>\
                 <td>' + hp_vua_them[0].SISO + '</td>\
                 <td>\
-                    <select name="" id="sl_'+ hp_vua_them[0].MAHP +'">' +
+                    <select id="sl_'+ hp_vua_them[0].MAHP +'" onchange="Doi_Ki_hieu(\'' + hp_vua_them[0].MAHP + '\', \'' + class_mau_can_to + '\')">' +
                         option_kihieu
                     + '</select>\
                 </td>\
@@ -204,6 +214,8 @@ function them_hp() {
 
         // Thêm thông tin hp vào mảng toàn cục.
         ds_hp.push(hp_vua_them);
+
+        console.log(ds_hp);
 
         // Sắp xếp tăng dần theo sỉ sổ.
         sortTable();
@@ -249,7 +261,7 @@ $(document).ready(function () {
             // Tính mã học phần cần xóa.
             mahp_can_xoa = tr_can_xoa.find("td:first").text();
 
-            // Xóa HP trên giao diện.
+            // Xóa HP trên bảng HP.
             tr_can_xoa.remove();
 
             // Xóa các buổi thọc đang hiển thị trên thời của khóa biểu của HP cần xóa.
@@ -264,7 +276,9 @@ $(document).ready(function () {
             
             // Kiểm tra số lượng HP còn lại.
             kiem_sluong_hp();
-        }        
+        }
+        
+        console.log(ds_hp);
     });
 
     // Xóa tất cả học phần.
@@ -276,6 +290,8 @@ $(document).ready(function () {
 
         // Xóa tất cả HP trên TKB.
         xoa_all_buoi_hoc();
+
+        console.log(ds_hp);
     });
 
     // Hàm kiểm tra số lượng học phần còn lại và

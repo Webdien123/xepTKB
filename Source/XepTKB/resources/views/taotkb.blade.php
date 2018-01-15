@@ -271,28 +271,7 @@
             <div class="col-xs-12 col-lg-8 col-lg-pull-4">
                 <h3>
                     Thời khóa biểu minh họa
-                </h3>                
-
-                <script>
-                    // $(document).ready(function () {
-
-                        // function doilich() {                            
-                        
-                        //     // Tính số tiết của HP cần xóa khỏi thời khóa biểu.
-                        //     sotiet =  $("#CT111").attr("rowspan");
-
-                        //     // Tính tr chứa tiết đầu tiên.
-                        //     console.log($("#CT111").parent());
-
-                        //     // console.log(sotiet);
-
-                        //     for (let index = 0; index < sotiet - 1; index++) {
-                        //         console.log("Xoa tiet");
-                        //     }
-                        // }
-                    // });
-                </script>
-
+                </h3>
 
                 {{--  Bảng thể hiện thời khóa biểu  --}}
                 <div class="table-responsive">
@@ -426,6 +405,13 @@
                         </tbody>
                     </table>
                 </div>
+
+                <script>
+                    $("select#sl").change(function (e) { 
+                        console.log();
+                        
+                    });
+                </script>
             </div>
         </div>
         
