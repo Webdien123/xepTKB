@@ -12,7 +12,9 @@
 */
 
 // Load trang chủ website.
-Route::get('/', 'TKBController@Tao_TKB');
+Route::get('/', function() {
+    return redirect('taotkb');
+});
 
 // Load trang đăng kí tài khoản.
 Route::get('dk_taikhoan', 'PageController@Dky_TaiKhoan');

@@ -105,34 +105,73 @@ function Doi_Ki_hieu(ma_hp, mau_can_to) {
 // Điền thời gian học của HP lên thời khóa biểu.
 function dien_tkb(ma_hp, kihieu, mau_can_to) {
 
-    $.ajax({
-        type: "POST",
-        url: "/lay_tgian_hoc",
-        data: {
-            ma_hp: ma_hp,
-            kihieu: kihieu,
-            _token: token
-        },
-        success: function (response) {
-            // console.log(response);
-            if (response[0].THU != 0) {
-                response.forEach(element => {
-                    them_buoi_hoc(
-                        element.MAHP,
-                        element.THU, 
-                        element.TIETBD, 
-                        element.SOTIET, 
-                        element.TENHP, 
-                        element.PHONG,
-                        mau_can_to
-                    );
-                });
+    // Xóa thông tin của lớp HP theo kí hiệu cũ.
+    for (let index = 0; index < ds_hp_can_luu.length; index++) {
+        if (ds_hp_can_luu[index].MAHP == ma_hp) {
+            ds_hp_can_luu.splice(index, 1);
+            index--;
+        }        
+    }
+
+    // Xết tất cả phần tử trong mảng HP tổng hợp.
+    for (let i = 0; i < ds_hp.length; i++) {
+
+        // Tìm học phần cần điền
+        if (ds_hp[i][0].MAHP == ma_hp) {
+
+            // Tìm kí hiệu cần điền.
+            for (let j = 0; j < ds_hp[i].length; j++) {
+                if (ds_hp[i][j].KIHIEU == kihieu) {
+                    if (ds_hp[i][j].THU != 0) {
+                        // Điền giờ học lên TKB.
+                        them_buoi_hoc(
+                            ds_hp[i][j].MAHP,
+                            ds_hp[i][j].THU, 
+                            ds_hp[i][j].TIETBD, 
+                            ds_hp[i][j].SOTIET, 
+                            ds_hp[i][j].TENHP, 
+                            ds_hp[i][j].PHONG,
+                            mau_can_to
+                        );                        
+                    }
+
+                    // Thêm thông tin theo HP mới.
+                    ds_hp_can_luu.push(ds_hp[i][j]);
+                    
+                    console.log(ds_hp_can_luu);
+                }
             }
-        },
-        error: function(xhr,err){
-            console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
         }
-    });
+    }
+
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/lay_tgian_hoc",
+    //     data: {
+    //         ma_hp: ma_hp,
+    //         kihieu: kihieu,
+    //         _token: token
+    //     },
+    //     success: function (response) {
+    //         // console.log(response);
+    //         if (response[0].THU != 0) {
+    //             response.forEach(element => {
+    //                 them_buoi_hoc(
+    //                     element.MAHP,
+    //                     element.THU, 
+    //                     element.TIETBD, 
+    //                     element.SOTIET, 
+    //                     element.TENHP, 
+    //                     element.PHONG,
+    //                     mau_can_to
+    //                 );
+    //             });
+    //         }
+    //     },
+    //     error: function(xhr,err){
+    //         console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+    //     }
+    // });
 }
 
 // Hàm thêm học phần mới lên bảng học phần.
@@ -215,8 +254,6 @@ function them_hp() {
         // Thêm thông tin hp vào mảng toàn cục.
         ds_hp.push(hp_vua_them);
 
-        console.log(ds_hp);
-
         // Sắp xếp tăng dần theo sỉ sổ.
         sortTable();
 
@@ -236,9 +273,11 @@ function them_hp() {
 
 // Hàm kiểm tra học phần đã thêm trước đó hay chưa.
 function da_them_hp() {
+
     ketqua = false;
-    for (let index = 0; index < ds_hp.length; index++) {
-        if (ds_hp[index][0].MAHP == hp_vua_them[0].MAHP) {
+
+    for (let index = 0; index < ds_hp_can_luu.length; index++) {
+        if (ds_hp_can_luu[index].MAHP == hp_vua_them[0].MAHP) {
             ketqua = true;
             break;
         }
@@ -277,21 +316,18 @@ $(document).ready(function () {
             // Kiểm tra số lượng HP còn lại.
             kiem_sluong_hp();
         }
-        
-        console.log(ds_hp);
     });
 
     // Xóa tất cả học phần.
     $("#btn_xoa_all_hp").click(function (e) { 
         e.preventDefault();
         $(".tr_hp").remove();
-        ds_hp = [];        
+        ds_hp = [];    
+        ds_hp_can_luu = [];
         $("#tr_no_hp").show(0);
 
         // Xóa tất cả HP trên TKB.
-        xoa_all_buoi_hoc();
-
-        console.log(ds_hp);
+        xoa_all_buoi_hoc();        
     });
 
     // Hàm kiểm tra số lượng học phần còn lại và

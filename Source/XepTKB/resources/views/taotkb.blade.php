@@ -43,6 +43,9 @@
 
         // Lưu tất cả học phần đã thêm.
         var ds_hp = [];
+
+        // Lưu các HP cần lưu vào CSDL.
+        var ds_hp_can_luu = [];
     </script>
 
     {{--  Script xử lý tìm thông tin học phần.  --}}
