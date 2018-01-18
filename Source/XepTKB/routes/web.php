@@ -40,6 +40,12 @@ Route::post('tim_hp', 'HocPhanController@TimHP');
 // Lấy thời gian học theo mã học phần và kí hiệu nhóm.
 Route::post('lay_tgian_hoc', 'HocPhanController@LayTGianHoc');
 
+// Lấy học kì hiện tại.
+Route::post('lay_hocki_hientai', 'HocPhanController@LayHKiHienTai');
+
+// Lấy học kì hiện tại.
+Route::post('lay_namhoc_hientai', 'HocPhanController@LayNamHocHienTai');
+
 // Load trang quản lý tkb cũ.
 Route::get('qly_tkb', 'TKBController@QLy_TKB');
 

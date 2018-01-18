@@ -46,6 +46,10 @@
 
         // Lưu các HP cần lưu vào CSDL.
         var ds_hp_can_luu = [];
+
+        var hki_hientai = null;
+
+        var namhoc_hientai = null;
     </script>
 
     {{--  Script xử lý tìm thông tin học phần.  --}}

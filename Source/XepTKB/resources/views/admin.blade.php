@@ -25,21 +25,21 @@
             <div class="collapse navbar-collapse button-menu">
                 <ul class="nav navbar-nav ">
                     @if (strpos ($_SERVER['REQUEST_URI'], 'taotkb'))
-                        {!! '<li><a href="taotkb" style="background-color: #cc6600">TẠO TKB MỚI</a></li>' !!}
+                        {!! '<li><a href="taotkb" style="background-color: #b36b00">TẠO TKB MỚI</a></li>' !!}
                         
                     @else
                         {!! '<li><a href="taotkb">TẠO TKB MỚI</a></li>' !!}
                     @endif
 
                     @if (strpos ($_SERVER['REQUEST_URI'], 'qly_tkb'))
-                        {!! '<li><a href="qly_tkb" style="background-color: #cc6600">TKB CỦA TÔI</a></li>' !!}
+                        {!! '<li><a href="qly_tkb" style="background-color: #b36b00">TKB CỦA TÔI</a></li>' !!}
                         
                     @else
                         {!! '<li><a href="qly_tkb">TKB CỦA TÔI</a></li>' !!}
                     @endif
 
                     @if (strpos ($_SERVER['REQUEST_URI'], 'thongtin'))
-                        {!! '<li><a href="thongtin" style="background-color: #cc6600">THÔNG TIN, LIÊN HỆ</a></li>' !!}
+                        {!! '<li><a href="thongtin" style="background-color: #b36b00">THÔNG TIN, LIÊN HỆ</a></li>' !!}
                         
                     @else
                         {!! '<li><a href="thongtin">THÔNG TIN, LIÊN HỆ</a></li>' !!}

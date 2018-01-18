@@ -24,4 +24,18 @@ class HocPhanController extends Controller
         $hocphan = LopHocPhan::GetTimeHP($ma_hp, $kihieu);
         return $hocphan;
     }
+
+    // Hàm load học kì hiện tại.
+    public function LayHKiHienTai(Request $R)
+    {
+        $hocki = LopHocPhan::GetHKI();
+        return $hocki;
+    }
+
+    // Hàm load năm học hiện tại.
+    public function LayNamHocHienTai(Request $R)
+    {
+        $namhoc = LopHocPhan::GetNAMHOC();
+        return $namhoc;
+    }    
 }
