@@ -39,6 +39,11 @@ function Tinh_Mau_Can_To() {
     return "";
 }
 
+// Hàm kiểm tra HP vừa thêm có trùng lịch các HP trước đó không.
+function KiemTra_TrungLich(params) {
+    
+}
+
 // Thêm một buổi học lên thời khóa biểu minh họa.
 function them_buoi_hoc(ma_hp, thu, tiet_bd, sotiet, tenhp, phong, tuanhoc, mau_can_to) {
 
@@ -102,7 +107,7 @@ function xoa_all_buoi_hoc() {
 }
 
 // Thay cập nhật thời gian học của một HP khi chọn kí hiệu khác.
-function Doi_Ki_hieu(ma_hp, mau_can_to) {
+function Doi_Ki_hieu(ma_hp) {
 
     // Lấy kí hiệu nhóm HP đã chọn của HP vừa thêm.
     kihieu_nhom_hp = $('#sl_' + ma_hp).children(":selected").text();
@@ -110,12 +115,25 @@ function Doi_Ki_hieu(ma_hp, mau_can_to) {
     // Xóa các buổi học cũ đã hiển thị.
     xoa_buoi_hoc(ma_hp);
 
-    // Điền lại buổi học theo kí hiệu mới.
-    dien_tkb(ma_hp, kihieu_nhom_hp, mau_can_to);
+    // Tính thông tin HP đã được tô màu chưa.
+    da_to_mau = $("#no_tkb_" + ma_hp).closest('tr').hasClass("can_to_mau").toString();
 
-    // console.log(ds_hp);
+    if (da_to_mau == "false"){
+        $("#no_tkb_" + ma_hp).closest('tr').addClass("can_to_mau");
+        mau_can_to = Tinh_Mau_Can_To();
+        $("#no_tkb_" + ma_hp).closest('tr').addClass(mau_can_to);
+        dien_tkb(ma_hp, kihieu_nhom_hp, mau_can_to);
+    }
+    else{
+        ten_class = $("#no_tkb_" + ma_hp).closest('tr').attr('class');
+    
+        ten_class = ten_class.split(' ');
 
-    console.log(ds_hp_can_luu);
+        mau_can_to = ten_class[2];
+
+        // Điền lại buổi học theo kí hiệu mới.
+        dien_tkb(ma_hp, kihieu_nhom_hp, mau_can_to);
+    }
 }
 
 // Điền thời gian học của HP lên thời khóa biểu.
@@ -140,31 +158,26 @@ function dien_tkb(ma_hp, kihieu, mau_can_to) {
                 if (ds_hp[i][j].KIHIEU == kihieu) {
                     if (ds_hp[i][j].THU != 0) {
 
-                        if($("#no_tkb_" + ds_hp[i][j].MAHP).length != 0){
-                            $("#no_tkb_" + ds_hp[i][j].MAHP).closest('tr').addClass('can_to_mau ' + mau_can_to);
-                            $("#no_tkb_" + ds_hp[i][j].MAHP).remove();
+                        if($("#no_tkb_" + ds_hp[i][j].MAHP).text() != ""){
+                            $("#no_tkb_" + ds_hp[i][j].MAHP).text("");
                         }
 
                         // Điền giờ học lên TKB.
                         them_buoi_hoc(
                             ds_hp[i][j].MAHP,
-                            ds_hp[i][j].THU, 
+                            ds_hp[i][j].THU,
                             ds_hp[i][j].TIETBD, 
                             ds_hp[i][j].SOTIET, 
                             ds_hp[i][j].TENHP, 
                             ds_hp[i][j].PHONG,
                             ds_hp[i][j].TUANHOC,
                             mau_can_to
-                        );   
+                        );
                     }
                     else{
-                        if($("#no_tkb_" + ds_hp[i][j].MAHP).length == 0){
-                            $('.' + mau_can_to).children('td').eq(1).html(
-                                ds_hp[i][j].TENHP + 
-                                '</br><span id="no_tkb_' + ds_hp[i][j].MAHP + '" class="text-danger">(Liên hệ GV để xếp lịch)</span>' 
-                            );
-                            $('.' + mau_can_to).removeClass().addClass("tr_hp");
-                        }                        
+
+                        $("#no_tkb_" + ds_hp[i][j].MAHP).text("(Liên hệ GV để xếp lịch)");
+                        $("#no_tkb_" + ds_hp[i][j].MAHP).closest('tr').removeClass().addClass("tr_hp");
                     }
 
                     // Thêm thông tin theo HP mới.
@@ -173,35 +186,6 @@ function dien_tkb(ma_hp, kihieu, mau_can_to) {
             }
         }
     }
-
-    // $.ajax({
-    //     type: "POST",
-    //     url: "/lay_tgian_hoc",
-    //     data: {
-    //         ma_hp: ma_hp,
-    //         kihieu: kihieu,
-    //         _token: token
-    //     },
-    //     success: function (response) {
-    //         // console.log(response);
-    //         if (response[0].THU != 0) {
-    //             response.forEach(element => {
-    //                 them_buoi_hoc(
-    //                     element.MAHP,
-    //                     element.THU, 
-    //                     element.TIETBD, 
-    //                     element.SOTIET, 
-    //                     element.TENHP, 
-    //                     element.PHONG,
-    //                     mau_can_to
-    //                 );
-    //             });
-    //         }
-    //     },
-    //     error: function(xhr,err){
-    //         console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-    //     }
-    // });
 }
 
 // Hàm thêm học phần mới lên bảng học phần.
@@ -255,6 +239,8 @@ function them_hp() {
             class_mau_can_to = Tinh_Mau_Can_To();
 
             mau_can_to = '<tr class="tr_hp can_to_mau ' + class_mau_can_to + '">';
+
+            no_tkb = '</br><span id="no_tkb_' + hp_vua_them[0].MAHP + '" class="text-danger"></span>'
         }
 
         // Tính html cho dòng học phần cần thêm.
@@ -267,7 +253,7 @@ function them_hp() {
                 + '</td>\
                 <td>' + hp_vua_them[0].SISO + '</td>\
                 <td>\
-                    <select id="sl_'+ hp_vua_them[0].MAHP +'" onchange="Doi_Ki_hieu(\'' + hp_vua_them[0].MAHP + '\', \'' + class_mau_can_to + '\')">' +
+                    <select id="sl_'+ hp_vua_them[0].MAHP +'" onchange="Doi_Ki_hieu(\'' + hp_vua_them[0].MAHP + '\')">' +
                         option_kihieu
                     + '</select>\
                 </td>\
@@ -326,7 +312,7 @@ function LayHKiHienTai() {
         success: function (response) {
             // console.log(response[0].HOCKI);
             hki_hientai = response[0].HOCKI;
-            console.log("HKI = " + hki_hientai);
+            // console.log("HKI = " + hki_hientai);
         },
         error: function(xhr,err){
             console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
@@ -345,7 +331,7 @@ function LayNamHocHienTai() {
         success: function (response) {
             // console.log(response[0].NAMHOC);
             namhoc_hientai = response[0].NAMHOC;
-            console.log("NAMHOC = " + namhoc_hientai);
+            // console.log("NAMHOC = " + namhoc_hientai);
         },
         error: function(xhr,err){
             console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);

@@ -47,9 +47,13 @@
         // Lưu các HP cần lưu vào CSDL.
         var ds_hp_can_luu = [];
 
+        // Lưu học kì hiện tại.
         var hki_hientai = null;
 
+        // Lưu năm học hiện tại.
         var namhoc_hientai = null;
+
+        console.log($( "p:first" ).hasClass( "selected" ).toString());
     </script>
 
     {{--  Script xử lý tìm thông tin học phần.  --}}
