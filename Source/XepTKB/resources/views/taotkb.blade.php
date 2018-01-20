@@ -51,9 +51,7 @@
         var hki_hientai = null;
 
         // Lưu năm học hiện tại.
-        var namhoc_hientai = null;
-
-        console.log($( "p:first" ).hasClass( "selected" ).toString());
+        var namhoc_hientai = null;        
     </script>
 
     {{--  Script xử lý tìm thông tin học phần.  --}}

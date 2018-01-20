@@ -51,16 +51,65 @@ function them_buoi_hoc(ma_hp, thu, tiet_bd, sotiet, tenhp, phong, tuanhoc, mau_c
     var so_tuan_hoc = 18 - (tuanhoc.match(/[*]/g) || []).length;
     if (so_tuan_hoc == 15 && hki_hientai < 3 || so_tuan_hoc == 5 && hki_hientai == 3) {
         tuanhoc = '';
+        tuannghi = '';
     }
     else{
-        tuanhoc = '<span class="text-danger">(ABC)</span>';
+        
+        start = 0;
+        end = 0;
+
+        // Tính tuần học đầu tiên.
+        for (let index = 0; index < tuanhoc.length; index++) {
+            if (tuanhoc[index] != '*') {
+                start = index + 1;
+                break;
+            }
+        }
+
+        // Tính tuần học cuối cùng.
+        for (let index = tuanhoc.length - 1; index >= 0; index--) {
+            if (tuanhoc[index] != '*') {
+                end = index + 1;
+                break;
+            }
+        }
+
+        cut_str = tuanhoc.slice(start - 1, end);
+
+        tuanhoc = '<span class="text-primary small">(HỌC '+ start +'->'+ end +')</span><br>';
+
+        start = 0;
+        end = 0;
+
+        // Tính tuần học đầu tiên.
+        for (let index = 0; index < cut_str.length; index++) {
+            if (cut_str[index] == '*') {
+                start = index + 1;
+                break;
+            }
+        }
+
+        // Tính tuần học cuối cùng.
+        for (let index = cut_str.length - 1; index >= 0; index--) {
+            if (cut_str[index] == '*') {
+                end = index + 1;
+                break;
+            }
+        }
+
+        if (start == 0 && end == 0) {
+            tuannghi = '';
+        }
+        else{
+            tuannghi = '<span class="text-success small">(NGHỈ '+ start +'->'+ end +')</span><br>';
+        }
     }
 
     tenhp_canthem = 
         '<span>' + 
             tenhp + '<br>(' +
             phong + ')<br>' +
-            tuanhoc
+            tuanhoc + tuannghi
         '</span>';
 
     // Tính tiết đầu tiên cần điền HP dạng tr và tính tiết tr tiếp theo.
@@ -118,17 +167,20 @@ function Doi_Ki_hieu(ma_hp) {
     // Tính thông tin HP đã được tô màu chưa.
     da_to_mau = $("#no_tkb_" + ma_hp).closest('tr').hasClass("can_to_mau").toString();
 
+    // Nếu HP chưa tô màu.
     if (da_to_mau == "false"){
+
+        // Tính màu mới và điền lên tkb.
         $("#no_tkb_" + ma_hp).closest('tr').addClass("can_to_mau");
         mau_can_to = Tinh_Mau_Can_To();
         $("#no_tkb_" + ma_hp).closest('tr').addClass(mau_can_to);
         dien_tkb(ma_hp, kihieu_nhom_hp, mau_can_to);
     }
+    // Nếu HP đã có màu trước đó.
     else{
-        ten_class = $("#no_tkb_" + ma_hp).closest('tr').attr('class');
-    
+        // Lấy màu đã tô.
+        ten_class = $("#no_tkb_" + ma_hp).closest('tr').attr('class');    
         ten_class = ten_class.split(' ');
-
         mau_can_to = ten_class[2];
 
         // Điền lại buổi học theo kí hiệu mới.
@@ -156,9 +208,14 @@ function dien_tkb(ma_hp, kihieu, mau_can_to) {
             // Tìm kí hiệu cần điền.
             for (let j = 0; j < ds_hp[i].length; j++) {
                 if (ds_hp[i][j].KIHIEU == kihieu) {
+
+                    // Nếu HP cần điền có lịch học.
                     if (ds_hp[i][j].THU != 0) {
 
+                        // Nếu kí hiệu đã chọn trước đó không có lịch học.
                         if($("#no_tkb_" + ds_hp[i][j].MAHP).text() != ""){
+
+                            // Điều chỉnh về có lịch học.
                             $("#no_tkb_" + ds_hp[i][j].MAHP).text("");
                         }
 
@@ -174,9 +231,12 @@ function dien_tkb(ma_hp, kihieu, mau_can_to) {
                             mau_can_to
                         );
                     }
+                    // Nếu HP cần điền không có lịch học.
                     else{
-
+                        // Điều chỉnh thông báo sang không có lịch học.
                         $("#no_tkb_" + ds_hp[i][j].MAHP).text("(Liên hệ GV để xếp lịch)");
+
+                        // Xóa màu HP đang dùng.
                         $("#no_tkb_" + ds_hp[i][j].MAHP).closest('tr').removeClass().addClass("tr_hp");
                     }
 
