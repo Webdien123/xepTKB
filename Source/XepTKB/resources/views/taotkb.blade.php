@@ -112,7 +112,7 @@
 
                         {{--  Thông báo không tìm thấy HP  --}}
                         <h4 id="not_found_hp"><b class="text-danger">
-                            Học phần không mở trong học kì này.
+                            Không có mã học phần này, vui lòng kiểm tra lại.
                         </b></h4>
 
                         {{--  Bảng thông tin HP đã tìm thấy  --}}

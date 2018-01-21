@@ -49,6 +49,7 @@ function them_buoi_hoc(ma_hp, thu, tiet_bd, sotiet, tenhp, phong, tuanhoc, mau_c
 
     // Tính số tuần học của HP.
     var so_tuan_hoc = 18 - (tuanhoc.match(/[*]/g) || []).length;
+    str_tuanhoc = tuanhoc;
     if (so_tuan_hoc == 15 && hki_hientai < 3 || so_tuan_hoc == 5 && hki_hientai == 3) {
         tuanhoc = '';
         tuannghi = '';
@@ -74,34 +75,46 @@ function them_buoi_hoc(ma_hp, thu, tiet_bd, sotiet, tenhp, phong, tuanhoc, mau_c
             }
         }
 
-        cut_str = tuanhoc.slice(start - 1, end);
-
         tuanhoc = '<span class="text-primary small">(HỌC '+ start +'->'+ end +')</span><br>';
+        tuannghi = '';
 
         start = 0;
         end = 0;
 
-        // Tính tuần học đầu tiên.
-        for (let index = 0; index < cut_str.length; index++) {
-            if (cut_str[index] == '*') {
+        // Tính tuần nghỉ đầu tiên.
+        for (let index = 0; index < str_tuanhoc.length; index++) {
+            if (str_tuanhoc[index] == '*') {
                 start = index + 1;
+                tuannghi = '<span class="text-success small">(NGHỈ ' + start;
                 break;
             }
         }
 
-        // Tính tuần học cuối cùng.
-        for (let index = cut_str.length - 1; index >= 0; index--) {
-            if (cut_str[index] == '*') {
-                end = index + 1;
-                break;
-            }
-        }
+        if (tuannghi.length != 0) {
 
-        if (start == 0 && end == 0) {
-            tuannghi = '';
-        }
-        else{
-            tuannghi = '<span class="text-success small">(NGHỈ '+ start +'->'+ end +')</span><br>';
+            // Tính tuần nghỉ tiếp theo.
+            for (let index = start; index < str_tuanhoc.length; index++) {
+                if (str_tuanhoc[index] != '*' && str_tuanhoc[index - 1] == '*') {
+                    tuannghi += ', ';
+                    continue;
+                }
+                if (str_tuanhoc[index] == '*'){
+                    if (str_tuanhoc[index - 1] != '*'){
+                        tuannghi += (index + 1);
+                    }
+                    else{
+                        if (str_tuanhoc[index + 1] != '*'){
+                            tuannghi += ('->' + (index + 1));
+                        }
+                    }
+                }
+            }
+
+            if (hki_hientai == 2){
+                tuannghi = tuannghi.replace("7->8, ", "");
+            }
+
+            tuannghi += ')</span>';
         }
     }
 
@@ -372,7 +385,7 @@ function LayHKiHienTai() {
         success: function (response) {
             // console.log(response[0].HOCKI);
             hki_hientai = response[0].HOCKI;
-            // console.log("HKI = " + hki_hientai);
+            console.log("HKI = " + hki_hientai);
         },
         error: function(xhr,err){
             console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
