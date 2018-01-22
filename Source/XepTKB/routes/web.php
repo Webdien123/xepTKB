@@ -13,11 +13,17 @@
 
 // Load trang chủ website.
 Route::get('/', function() {
-    return redirect('taotkb');
+    return redirect('login');
 });
 
 // Load trang đăng kí tài khoản.
 Route::get('dk_taikhoan', 'PageController@Dky_TaiKhoan');
+
+// Xử lý đăng kí.
+Route::post('dangki_process', 'AccountController@Dangki_Process');
+
+// Xử lý gửi mail.
+Route::get('gui_mail', 'MailController@GuiMail');
 
 // Load trang đăng nhập.
 Route::get('login', 'PageController@Login');

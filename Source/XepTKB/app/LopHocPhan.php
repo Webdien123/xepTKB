@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-// Lớp định nghĩa các hàm tham tác trên dữ liệu bảng lớp học phần.
+// Lớp định nghĩa các hàm tham tác trên dữ liệu bảng 'lophocphan'.
 class LopHocPhan extends Model
 {
     // Truy xuất lớp HP theo mã HP.
