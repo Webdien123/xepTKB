@@ -7,31 +7,40 @@
 {{--  Phần nội dung sẽ dẫn vào trang khách  --}}
 @section('noidung')
 
-    {{--  Đặt màu cho phần form đăng nhập  --}}
-    <style>
-        .input-group-addon {
-            color: #fff;
-            background: #3276B1;
-        }
-    </style>
+    {{--  Script import jquery validate  --}}
+    <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+
+    {{--  Script validate dữ liệu đăng ký --}}
+    <script src="{{ asset('js/validate_login_form.js') }}"></script>
 
     <!-- Form đang nhập -->  
     <div class="container">        
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-                    <form role="form" class="form">
+                    <form role="form" id="form_login" action="login_process" class="form" method="post">
                         <legend>Đăng nhập</legend>
+
+                        {{ csrf_field() }}
+
+                        @if ($errors->first('errorlogin') != "")
+                            <label>
+                                <b class='text-danger'>{{ $errors->first('errorlogin') }}</b>
+                            </label>
+                        @endif
+                        
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input type="text" autofocus class="form-control" id="uLogin" placeholder="Mã số sinh viên">
+                                <input type="text" autofocus required class="form-control" 
+                                id="mssv" name="mssv" placeholder="Mã số sinh viên"
+                                value="{{ $mssv_xac_thuc }}">
                             </div>
                         </div>
             
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input type="password" class="form-control" id="uPassword" placeholder="Mật khẩu">
+                                <input type="password" required class="form-control" id="password" name="password" placeholder="Mật khẩu">
                             </div>
                         </div>
     

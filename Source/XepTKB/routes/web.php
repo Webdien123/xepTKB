@@ -28,6 +28,9 @@ Route::get('gui_mail', 'MailController@GuiMail');
 // Load trang đăng nhập.
 Route::get('login', 'PageController@Login');
 
+// Xử lý đăng nhập.
+Route::post('login_process', 'AccountController@Login_Process');
+
 // Load trang đổi mật khẩu.
 Route::get('doi_mk', 'PageController@Doi_MK');
 

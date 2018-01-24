@@ -28,7 +28,7 @@ class PageController extends Controller
     // Hàm load trang đăng nhập.
     public function Login()
     {
-        return view('login');
+        return view('login', ['mssv_xac_thuc' => '']);
     }
 
     // Hàm load trang đổi mật khẩu.

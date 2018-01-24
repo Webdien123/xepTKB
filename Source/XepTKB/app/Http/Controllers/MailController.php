@@ -10,21 +10,17 @@ use Mail;
 class MailController extends Controller
 {
     // Xử lý gửi mail xác thực.
-    public static function GuiMail($email, $content, $mail_type)
+    public static function GuiMail($email, $content)
     {
         try{
 
             Mail::to($email)->send(new OrderShipped($content));
 
-            // Nếu trang vừa gửi mail là đăng ký tài khoản thì dẫn về trang xác thực mã số.
-            if ($mail_type == "dangky") {
-                return view('xac_nhan_maso', [
-                    'email' => $email,
-                    'status' => ''
-                ]);
-            }
-
-            return "OK";
+            // Về trang xác nhận mã số.
+            return view('xac_nhan_maso', [
+                'email' => $email,
+                'status' => ''
+            ]);
         }
         catch(\Exception $e){
             // return "LOI";
@@ -52,7 +48,7 @@ class MailController extends Controller
     }
 
     // Xử lý gửi mail xác thực đăng ký (dạng tham số).
-    public static function GuiMail_KichHoat_P($email, $name, $mail_type)
+    public static function GuiMail_KichHoat_P($email, $name)
     {
         // Tính random mã số xác thực.
         $ma_so_xac_thuc = mt_rand(100000, 999999);
@@ -67,6 +63,6 @@ class MailController extends Controller
         ];
 
         // Gọi hàm xử lý gửi mail.
-        return MailController::GuiMail($email, $content, $mail_type);
+        return MailController::GuiMail($email, $content);
     }
 }

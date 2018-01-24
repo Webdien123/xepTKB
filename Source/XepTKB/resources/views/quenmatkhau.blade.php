@@ -1,5 +1,5 @@
 {{--  Mở rộng cho trang admin  --}}
-@extends('admin')
+@extends('guest')
 
 {{--  Đặt title webpage  --}}
 @section('title', 'Quên mật khẩu')

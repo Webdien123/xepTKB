@@ -64,11 +64,15 @@ class NguoiDung extends Model
         try{
             // Thêm thông tin tài khoản vào hệ thống.
             \DB::insert('INSERT INTO `nguoi_dung`(`MSSV`, `HOTEN`, `EMAIL`, `MKHAU`, `MALOP`) VALUES (?, ?, ?, ?, ?)', [
-                $mssv, $name, $email, $password, $malop
+                $mssv, 
+                ucwords($name),
+                $email, 
+                $password, 
+                $malop
             ]);
 
             // Gửi mail xác thực và kích hoạt tài khoản.
-            return MailController::GuiMail_KichHoat_P($email, $name, "dangky");
+            return MailController::GuiMail_KichHoat_P($email, $name);
         }
         catch (\Exception $e){
             dd($e->getMessage());
@@ -80,7 +84,7 @@ class NguoiDung extends Model
     public static function KichHoat($email)
     {
         try{
-            \DB::update('update nguoi_dung set kichhoat = `Y` where email = ?', [$email]);
+            \DB::update('update nguoi_dung set kichhoat = "Y" where email = ?', [$email]);
             return true;
         }
         catch (\Exception $e){

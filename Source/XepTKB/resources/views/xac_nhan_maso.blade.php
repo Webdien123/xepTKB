@@ -14,7 +14,8 @@
 				<div class="panel-body">
 					<div class="text-center">
 						@if ($status != "Over")
-						<h4 class="text-center">Một email xác nhận đã gửi vào địa chỉ mail của bạn</h4>
+						<h4 class="text-center">Tài khoản chưa được kích hoạt</h4>
+						<h4 class="text-center">Một email xác nhận đã gửi vào địa chỉ mail trường của bạn</h4>
 						<p>Kiểm tra mail rồi nhập mã số đã nhận để tiếp tục</p>
 						<div class="panel-body">
 						
