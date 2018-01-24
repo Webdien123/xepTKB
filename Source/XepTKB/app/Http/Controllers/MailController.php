@@ -10,22 +10,19 @@ use Mail;
 class MailController extends Controller
 {
     // Xử lý gửi mail xác thực.
-    public static function GuiMail($email, $name)
+    public static function GuiMail($email, $content, $mail_type)
     {
         try{
-            // Tính random mã số xác thực.
-            $ma_so_xac_thuc = mt_rand(100000, 999999);
-
-            // Thêm mã số vào session.
-            \Session()->put('ma_so_xac_thuc', $ma_so_xac_thuc);
-
-            // Tạo nội dung dựa theo tên người nhận
-            $content = [
-                'noidung'=> 'Xin chào '. $name .
-                    "<br>Mã số kích hoạt tài khoản của bạn là: " . $ma_so_xac_thuc
-            ];
 
             Mail::to($email)->send(new OrderShipped($content));
+
+            // Nếu trang vừa gửi mail là đăng ký tài khoản thì dẫn về trang xác thực mã số.
+            if ($mail_type == "dangky") {
+                return view('xac_nhan_maso', [
+                    'email' => $email,
+                    'status' => ''
+                ]);
+            }
 
             return "OK";
         }
@@ -35,9 +32,41 @@ class MailController extends Controller
         }
     }
 
-    // Xử lý gửi mail.
-    public static function FunctionName(Type $var = null)
+    // Xử lý gửi mail xác thực đăng ký (dạng API).
+    public function GuiMail_KichHoat(Request $R)
     {
-        # code...
+        // Tính random mã số xác thực.
+        $ma_so_xac_thuc = mt_rand(100000, 999999);
+
+        // Thêm mã số vào session.
+        \Session()->put('ma_so_xac_thuc', $ma_so_xac_thuc);
+
+        // Tạo nội dung dựa theo tên người nhận
+        $content = [
+            'noidung'=> 'Xin chào '. $R->name .
+                "<br>Mã số kích hoạt tài khoản của bạn là: " . $ma_so_xac_thuc
+        ];
+
+        // Gọi hàm xử lý gửi mail.
+        return MailController::GuiMail($R->email, $content, $R->mail_type);
+    }
+
+    // Xử lý gửi mail xác thực đăng ký (dạng tham số).
+    public static function GuiMail_KichHoat_P($email, $name, $mail_type)
+    {
+        // Tính random mã số xác thực.
+        $ma_so_xac_thuc = mt_rand(100000, 999999);
+
+        // Thêm mã số vào session.
+        \Session()->put('ma_so_xac_thuc', $ma_so_xac_thuc);
+
+        // Tạo nội dung dựa theo tên người nhận
+        $content = [
+            'noidung'=> 'Xin chào '. $name .
+                "<br>Mã số kích hoạt tài khoản của bạn là: " . $ma_so_xac_thuc
+        ];
+
+        // Gọi hàm xử lý gửi mail.
+        return MailController::GuiMail($email, $content, $mail_type);
     }
 }

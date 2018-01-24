@@ -34,8 +34,14 @@ Route::get('doi_mk', 'PageController@Doi_MK');
 // Load trang quên mật khẩu.
 Route::get('quen_mk', 'PageController@Quen_MK');
 
+// Gửi lại mail bị lỗi.
+Route::post('send_mail', 'MailController@GuiMail_KichHoat');
+
 // Load trang xác nhận mã số sau khi gửi mail.
 Route::get('xac_nhan_ms', 'PageController@Xac_Nhan_MS');
+
+// Xử lý mã số kích hoạt tài khoản.
+Route::post('kich_hoat_account', 'AccountController@KichHoat');
 
 // Load trang báo lỗi khi gửi mail.
 Route::get('error_mail', 'PageController@Error_Mail');

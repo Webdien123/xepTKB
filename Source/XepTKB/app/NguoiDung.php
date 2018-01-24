@@ -68,18 +68,24 @@ class NguoiDung extends Model
             ]);
 
             // Gửi mail xác thực và kích hoạt tài khoản.
-            $kq_guimail = MailController::GuiMail($email, "ABC");
-
-            if ($kq_guimail == "OK") {
-                return redirect('xac_nhan_ms');
-            }
-            else{
-                return redirect('error_mail');
-            }
+            return MailController::GuiMail_KichHoat_P($email, $name, "dangky");
         }
         catch (\Exception $e){
             dd($e->getMessage());
         }
         
+    }
+
+    // Kích hoạt tài khoản theo email.
+    public static function KichHoat($email)
+    {
+        try{
+            \DB::update('update nguoi_dung set kichhoat = `Y` where email = ?', [$email]);
+            return true;
+        }
+        catch (\Exception $e){
+            // return false;
+            dd($e->getMessage());
+        }
     }
 }
