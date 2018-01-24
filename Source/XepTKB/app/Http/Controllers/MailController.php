@@ -10,27 +10,34 @@ use Mail;
 class MailController extends Controller
 {
     // Xử lý gửi mail xác thực.
-    public function GuiMail()
+    public static function GuiMail($email, $name)
     {
         try{
+            // Tính random mã số xác thực.
+            $ma_so_xac_thuc = mt_rand(100000, 999999);
+
+            // Thêm mã số vào session.
+            \Session()->put('ma_so_xac_thuc', $ma_so_xac_thuc);
+
             // Tạo nội dung dựa theo tên người nhận
             $content = [
-                'noidung'=> 'Xin chào '.
-                    "<br>Mã số kích hoạt tài khoản của bạn là: "
+                'noidung'=> 'Xin chào '. $name .
+                    "<br>Mã số kích hoạt tài khoản của bạn là: " . $ma_so_xac_thuc
             ];
 
-            // Gửi mail.
-            // Mail::to($email)->send(new ChuyenMail($content));
-
-            $receiverAddress = 'lyvamax2018@gmail.com';
-
-            Mail::to($receiverAddress)->send(new OrderShipped($content));
+            Mail::to($email)->send(new OrderShipped($content));
 
             return "OK";
         }
         catch(\Exception $e){
             // return "LOI";
-            dd($e->getMessage());
+            return $e->getMessage();
         }
+    }
+
+    // Xử lý gửi mail.
+    public static function FunctionName(Type $var = null)
+    {
+        # code...
     }
 }

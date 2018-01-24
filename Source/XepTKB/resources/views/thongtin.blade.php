@@ -72,7 +72,7 @@
                 </address>
                 <address>
                     <strong>Email</strong><br>
-                    <a href="mailto:#">lyvamax2018@gmail.com</a>
+                    <a href="mailto:#">xeptkb.ctu@gmail.com</a>
                 </address>
                 </form>
             </div>

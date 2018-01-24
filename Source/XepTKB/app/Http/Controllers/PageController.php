@@ -19,6 +19,12 @@ class PageController extends Controller
         return view('xac_nhan_maso');
     }
 
+    // Hàm load trang thông báo gửi mail thất bại.
+    public function Error_Mail()
+    {
+        return view('error_mail');
+    }
+
     // Hàm load trang đăng nhập.
     public function Login()
     {

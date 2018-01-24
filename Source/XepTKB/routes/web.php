@@ -37,6 +37,9 @@ Route::get('quen_mk', 'PageController@Quen_MK');
 // Load trang xác nhận mã số sau khi gửi mail.
 Route::get('xac_nhan_ms', 'PageController@Xac_Nhan_MS');
 
+// Load trang báo lỗi khi gửi mail.
+Route::get('error_mail', 'PageController@Error_Mail');
+
 // Load trang tạo thời khóa biểu mới.
 Route::get('taotkb', 'TKBController@Tao_TKB');
 

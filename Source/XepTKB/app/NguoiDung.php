@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\MessageBag;
+use App\Http\Controllers\MailController;
 
 // Lớp định nghĩa các hàm tham tác trên dữ liệu bảng 'nguoidung'.
 class NguoiDung extends Model
@@ -66,8 +67,15 @@ class NguoiDung extends Model
                 $mssv, $name, $email, $password, $malop
             ]);
 
-            
-            return redirect('xac_nhan_ms');
+            // Gửi mail xác thực và kích hoạt tài khoản.
+            $kq_guimail = MailController::GuiMail($email, "ABC");
+
+            if ($kq_guimail == "OK") {
+                return redirect('xac_nhan_ms');
+            }
+            else{
+                return redirect('error_mail');
+            }
         }
         catch (\Exception $e){
             dd($e->getMessage());
