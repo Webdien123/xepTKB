@@ -4,7 +4,7 @@ $(document).ready(function () {
     $("#email_ctu").hide(0);
 
     // Kiểm tra email có phải do trường cấp hay không?
-    $(form_dki_tk).submit(function (e) { 
+    $("#form_dki_tk").submit(function (e) { 
         
         mail = $("#email").val();
         if (mail != ""){

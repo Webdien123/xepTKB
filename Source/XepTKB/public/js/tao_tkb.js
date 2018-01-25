@@ -385,7 +385,8 @@ function LayHKiHienTai() {
         success: function (response) {
             // console.log(response[0].HOCKI);
             hki_hientai = response[0].HOCKI;
-            console.log("HKI = " + hki_hientai);
+            // console.log("HKI = " + hki_hientai);
+            $("#hocki_ht").text(hki_hientai);
         },
         error: function(xhr,err){
             console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
@@ -404,6 +405,8 @@ function LayNamHocHienTai() {
         success: function (response) {
             // console.log(response[0].NAMHOC);
             namhoc_hientai = response[0].NAMHOC;
+            namhoc_array = namhoc_hientai.split('-');
+            $("#namhoc_ht").text('20' + namhoc_array[0] + '-20' + namhoc_array[1]);
             // console.log("NAMHOC = " + namhoc_hientai);
         },
         error: function(xhr,err){
@@ -418,6 +421,10 @@ $(document).ready(function () {
     // Tính học kì và năm học hiện tại, lưu trữ vào biến toàn cục.
     LayHKiHienTai();
     LayNamHocHienTai();
+
+    // Hiển thị năm học và học kì lên trang.
+    $("#hocki_ht").text("2");
+    $("#namhoc_ht").text("1");
 
     // Xóa một học phần.
     $("#tb_hp").on('click', '.btn_xoa_hp', function () {

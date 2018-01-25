@@ -25,22 +25,33 @@
             <div class="collapse navbar-collapse button-menu">
                 <ul class="nav navbar-nav ">
                     @if (strpos ($_SERVER['REQUEST_URI'], 'taotkb'))
-                        {!! '<li><a href="taotkb" style="background-color: #b36b00">TẠO TKB MỚI</a></li>' !!}
+                        {!! '<li><a href="taotkb" 
+                            style="color: #ffcc80; border-bottom: #ffcc80 solid 5px;
+                            font-weight: bold">
+                            TẠO TKB MỚI
+                        </a></li>' !!}
                         
                     @else
                         {!! '<li><a href="taotkb">TẠO TKB MỚI</a></li>' !!}
                     @endif
 
                     @if (strpos ($_SERVER['REQUEST_URI'], 'qly_tkb'))
-                        {!! '<li><a href="qly_tkb" style="background-color: #b36b00">TKB CỦA TÔI</a></li>' !!}
+                        {!! '<li><a href="qly_tkb" 
+                            style="color: #ffcc80; border-bottom: #ffcc80 solid 5px;
+                            font-weight: bold">
+                            TKB CỦA TÔI
+                        </a></li>' !!}
                         
                     @else
                         {!! '<li><a href="qly_tkb">TKB CỦA TÔI</a></li>' !!}
                     @endif
 
                     @if (strpos ($_SERVER['REQUEST_URI'], 'thongtin'))
-                        {!! '<li><a href="thongtin" style="background-color: #b36b00">THÔNG TIN, LIÊN HỆ</a></li>' !!}
-                        
+                        {!! '<li><a href="thongtin" 
+                            style="color: #ffcc80; border-bottom: #ffcc80 solid 5px;
+                            font-weight: bold">
+                            THÔNG TIN, LIÊN HỆ
+                        </a></li>' !!}
                     @else
                         {!! '<li><a href="thongtin">THÔNG TIN, LIÊN HỆ</a></li>' !!}
                     @endif
@@ -52,7 +63,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span> 
-                                <strong>Họ tên nè</strong>
+                                <strong>{{ \Session::get('name_login') }}</strong>
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -67,10 +78,10 @@
 
                                             <!-- Nội dung khi đã đăng nhập -->
                                             <div class="col-lg-8">
-                                                <p class="text-left"><strong>Họ tên nè</strong></p>
-                                                <p class="text-left small">mailb1700001@student.ctu.edu.vn</p>
+                                                <p class="text-left"><strong>{{ \Session::get('name_login') }}</strong></p>
+                                                <p class="text-left small">{{ \Session::get('email_login') }}</p>
                                                 <p class="text-left">
-                                                    <a href="#" class="btn btn-primary btn-block btn-sm">
+                                                    <a href="logout" class="btn btn-primary btn-block btn-sm">
                                                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                                                         Đăng xuất
                                                     </a>

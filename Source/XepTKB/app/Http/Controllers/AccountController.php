@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use App\NguoiDung;
+use Hash;
 
 // Lớp xử lý các thao tác trên thông tin tài khoản.
 class AccountController extends Controller
@@ -37,18 +38,20 @@ class AccountController extends Controller
             \Session::forget('ma_so_xac_thuc');
             
             // Kích hoạt tài khoản.
-            $kq_kh = NguoiDung::KichHoat($email);
+            $kq_kichhoat = NguoiDung::KichHoat($email);
 
-            if ($kq_kh) {
+            if ($kq_kichhoat) {
 
                 // Tìm người dùng theo email.
                 $nguoidung = NguoiDung::TimEmail($email);
 
                 return view('login', ['mssv_xac_thuc' => $nguoidung[0]->MSSV]);
             } else {
-                return "LỖI KHI KÍCH HOẠT TÀI KHOẢN";
+                return route('error', [
+                    'mes' => 'Kích hoạt tài khoản thất bại',
+                    're' => 'Vui lòng đăng nhập và thử lại']
+                );
             }
-            
         }
         else {
 
@@ -66,6 +69,7 @@ class AccountController extends Controller
         }
     }
 
+    // Xử lý đăng nhập.
     public function Login_Process(Request $R)
     {
         // Tính giá trị các input.
@@ -77,16 +81,71 @@ class AccountController extends Controller
 
         if ($nguoidung != null) {
 
+            // Nếu tài khoản người dùng đã kích hoạt.
             if ($nguoidung[0]->KICHHOAT == "Y")
-                return "OK";
+
+                // Tính kết quả đăng nhập.
+                if (Hash::check($password, $nguoidung[0]->MKHAU)) {
+
+                    // Tạo phiên làm việc.
+                    \Session::put('mssv_login', $mssv);
+                    \Session::put('name_login', $nguoidung[0]->HOTEN);
+                    \Session::put('email_login', $nguoidung[0]->EMAIL);
+
+                    // Load trang tạo tkb.
+                    return redirect('taotkb');
+                    
+                } else {
+                    $errors = new MessageBag(['errorlogin' => 'MSSV hoặc mật khẩu không đúng.']);
+                    return redirect()->back()->withInput()->withErrors($errors);
+                }                
+                
             else {
                 return MailController::GuiMail_KichHoat_P(
-                    $nguoidung[0]->EMAIL, $nguoidung[0]->HOTEN
+                    $nguoidung[0]->EMAIL,
+                    $nguoidung[0]->HOTEN
                 );
             }
         }
         else {
             $errors = new MessageBag(['errorlogin' => 'Tài khoản này chưa được đăng ký.']);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+    }
+
+    // Xử lý đăng xuất.
+    public function Logout()
+    {
+        // Xóa phiên làm việc của người đang đăng nhập.
+        \Session::forget('mssv_login');
+        \Session::forget('name_login');
+        \Session::forget('email_login');
+
+        // Load trang chủ.
+        return redirect('/');
+    }
+
+    // Đổi mật khẩu.
+    public function DoiMK(Request $R)
+    {
+        // Nhận giá trị từ input.
+        $old_pass = $R->old_pass;
+        $new_pass = $R->new_pass;
+
+        // Lấy thông tin người dùng đang đăng nhập.
+        $nguoidung = NguoiDung::TimMSSV(\Session::get('mssv_login'));
+
+        // Nếu mật khẩu cũ khớp mật khẩu đang dùng.
+        if (Hash::check($old_pass, $nguoidung[0]->MKHAU)) {
+
+            // Cập nhật mật khẩu mới cho người dùng
+            NguoiDung::Update_Password($nguoidung[0]->MSSV, $new_pass);
+
+            // Logout ra để đăng nhập lại.
+            return $this->Logout();
+        }
+        else {
+            $errors = new MessageBag(['errorlogin' => 'Mật khẩu cũ không đúng.']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
     }

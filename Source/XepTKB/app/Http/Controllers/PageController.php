@@ -28,6 +28,9 @@ class PageController extends Controller
     // Hàm load trang đăng nhập.
     public function Login()
     {
+        if (\Session::has('mssv_login')){
+            return redirect('taotkb');
+        }
         return view('login', ['mssv_xac_thuc' => '']);
     }
 
@@ -47,5 +50,14 @@ class PageController extends Controller
     public function ThongTin_LienHe()
     {
         return view('thongtin');
+    }
+
+    // Hàm load trang báo lỗi.
+    public function Error($mes, $re)
+    {
+        return view('Error', [
+            'mes' => $mes,
+            're' => $re
+        ]);
     }
 }

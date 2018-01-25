@@ -29,8 +29,6 @@
             @endif
             <div class="main-login main-center">
 
-                
-
                 <form class="form-horizontal" id="form_dki_tk" method="post" action="dangki_process">                        
 
                     {{ csrf_field() }}

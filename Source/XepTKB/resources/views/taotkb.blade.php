@@ -70,7 +70,7 @@
             </div>
 
             <div class="col-xs-8 text-right">
-                <h4><strong>Học kì hiện tại: Học kì 2, 2017-2018</strong></h4>
+                <h4><strong>Học kì hiện tại: Học kì <span id="hocki_ht"></span>, <span id="namhoc_ht"></span></strong></h4>
             </div>
             <div class="col-xs-12">
                 <hr>
@@ -414,13 +414,6 @@
                         </tbody>
                     </table>
                 </div>
-
-                <script>
-                    $("select#sl").change(function (e) { 
-                        console.log();
-                        
-                    });
-                </script>
             </div>
         </div>
         

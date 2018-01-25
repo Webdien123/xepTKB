@@ -28,12 +28,22 @@
                             </label>
                         @endif
                         
+                        <?php
+                            $mssv_old = '';
+                            if ($mssv_xac_thuc){
+                                $mssv_old = $mssv_xac_thuc;
+                            }
+                            else{
+                                $mssv_old = old('mssv');
+                            }
+                        ?>
+
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input type="text" autofocus required class="form-control" 
                                 id="mssv" name="mssv" placeholder="Mã số sinh viên"
-                                value="{{ $mssv_xac_thuc }}">
+                                value="{{ $mssv_old }}">
                             </div>
                         </div>
             
@@ -43,6 +53,14 @@
                                 <input type="password" required class="form-control" id="password" name="password" placeholder="Mật khẩu">
                             </div>
                         </div>
+
+                        <script>
+                            $(document).ready(function () {
+                                if ( $( "#mssv" ).val() != "") {
+                                    $( "#password" ).focus();
+                                }
+                            });
+                        </script>
     
                         <div class="form-group">
                             <button class="form-control btn btn-primary" type="submit">OK</button>

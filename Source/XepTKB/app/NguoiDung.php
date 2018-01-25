@@ -67,7 +67,7 @@ class NguoiDung extends Model
                 $mssv, 
                 ucwords($name),
                 $email, 
-                $password, 
+                bcrypt($password), 
                 $malop
             ]);
 
@@ -85,6 +85,22 @@ class NguoiDung extends Model
     {
         try{
             \DB::update('update nguoi_dung set kichhoat = "Y" where email = ?', [$email]);
+            return true;
+        }
+        catch (\Exception $e){
+            // return false;
+            dd($e->getMessage());
+        }
+    }
+
+    // Cập nhật mật khẩu mới cho người dùng.
+    public static function Update_Password($mssv, $new_pass)
+    {
+        try{
+            \DB::update('update nguoi_dung set mkhau = ? where mssv = ?', [
+                bcrypt($new_pass), 
+                $mssv
+            ]);
             return true;
         }
         catch (\Exception $e){

@@ -14,7 +14,7 @@
 // Load trang chủ website.
 Route::get('/', function() {
     return redirect('login');
-});
+})->name('home');
 
 // Load trang đăng kí tài khoản.
 Route::get('dk_taikhoan', 'PageController@Dky_TaiKhoan');
@@ -22,8 +22,8 @@ Route::get('dk_taikhoan', 'PageController@Dky_TaiKhoan');
 // Xử lý đăng kí.
 Route::post('dangki_process', 'AccountController@Dangki_Process');
 
-// Xử lý gửi mail.
-Route::get('gui_mail', 'MailController@GuiMail');
+// // Xử lý gửi mail.
+// Route::get('gui_mail', 'MailController@GuiMail');
 
 // Load trang đăng nhập.
 Route::get('login', 'PageController@Login');
@@ -31,11 +31,20 @@ Route::get('login', 'PageController@Login');
 // Xử lý đăng nhập.
 Route::post('login_process', 'AccountController@Login_Process');
 
+// Xử lý đăng xuất.
+Route::get('logout', 'AccountController@Logout');
+
 // Load trang đổi mật khẩu.
 Route::get('doi_mk', 'PageController@Doi_MK');
 
 // Load trang quên mật khẩu.
 Route::get('quen_mk', 'PageController@Quen_MK');
+
+// Xử lý gửi mail khi quên mật khẩu.
+Route::post('lost_pass', 'MailController@GuiMail_QuenMK');
+
+// Xử lý gửi mail khi đổi mật khẩu.
+Route::post('change_pass', 'AccountController@DoiMK');
 
 // Gửi lại mail bị lỗi.
 Route::post('send_mail', 'MailController@GuiMail_KichHoat');
@@ -72,3 +81,6 @@ Route::get('thongtin', 'PageController@ThongTin_LienHe');
 
 // Lưu ảnh thu nhỏ thời khóa biểu lên máy chủ.
 Route::post('save_tkb_img', 'FileController@Save_TKB_Img');
+
+// Load trang báo lỗi.
+Route::get('error', 'PageController@Error')->name('error');
