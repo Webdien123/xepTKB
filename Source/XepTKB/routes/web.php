@@ -62,7 +62,7 @@ Route::get('xac_nhan_ms', 'PageController@Xac_Nhan_MS');
 Route::post('kich_hoat_account', 'AccountController@KichHoat');
 
 // Load trang báo lỗi khi gửi mail.
-Route::get('error_mail', 'PageController@Error_Mail');
+// Route::get('error_mail', 'PageController@Error_Mail');
 
 // Load trang tạo thời khóa biểu mới.
 Route::get('taotkb', 'TKBController@Tao_TKB');

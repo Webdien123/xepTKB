@@ -34,27 +34,27 @@
 							@endif
 
 							<div class="form-group">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-								<input id="email" name="email" autofocus placeholder="Nhập email sinh viên" class="form-control" type="email"
-								required>
-							</div>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+									<input id="email" name="email" autofocus placeholder="Nhập email sinh viên" class="form-control" type="email"
+									required>
+								</div>
 						
-							<h4 id="email_ctu" class="text-danger">Vui lòng nhập email do trường cung cấp</h4>
-							<script>
-								function hide_email_err() {
-									
-									mail = $("#email").val();
-									if (mail != ""){
-										if (mail.indexOf("ctu.edu.vn") == -1){
-											$("#email_ctu").show(0);
-										}
-										else {
-											$("#email_ctu").hide(0);
+								<h4 id="email_ctu" class="text-danger">Vui lòng nhập email do trường cung cấp</h4>
+								<script>
+									function hide_email_err() {
+										
+										mail = $("#email").val();
+										if (mail != ""){
+											if (mail.indexOf("ctu.edu.vn") == -1){
+												$("#email_ctu").show(0);
+											}
+											else {
+												$("#email_ctu").hide(0);
+											}
 										}
 									}
-								}
-							</script>
+								</script>
 							</div>
 
 							<div id="slow_warning" style="display:none" class="text-center text-success">

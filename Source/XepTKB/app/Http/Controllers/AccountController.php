@@ -45,7 +45,10 @@ class AccountController extends Controller
                 // Tìm người dùng theo email.
                 $nguoidung = NguoiDung::TimEmail($email);
 
-                return view('login', ['mssv_xac_thuc' => $nguoidung[0]->MSSV]);
+                return view('login', [
+                    'mssv_xac_thuc' => $nguoidung[0]->MSSV,
+                    'ketqua_xuly' => 'Kích hoạt thành công'
+                ]);
             } else {
                 return route('error', [
                     'mes' => 'Kích hoạt tài khoản thất bại',
@@ -128,26 +131,32 @@ class AccountController extends Controller
     // Đổi mật khẩu.
     public function DoiMK(Request $R)
     {
-        // Nhận giá trị từ input.
-        $old_pass = $R->old_pass;
-        $new_pass = $R->new_pass;
+        if (\Session::has('mssv_login')){
+            // Nhận giá trị từ input.
+            $old_pass = $R->old_pass;
+            $new_pass = $R->new_pass;
 
-        // Lấy thông tin người dùng đang đăng nhập.
-        $nguoidung = NguoiDung::TimMSSV(\Session::get('mssv_login'));
+            // Lấy thông tin người dùng đang đăng nhập.
+            $nguoidung = NguoiDung::TimMSSV(\Session::get('mssv_login'));
 
-        // Nếu mật khẩu cũ khớp mật khẩu đang dùng.
-        if (Hash::check($old_pass, $nguoidung[0]->MKHAU)) {
+            // Nếu mật khẩu cũ khớp mật khẩu đang dùng.
+            if (Hash::check($old_pass, $nguoidung[0]->MKHAU)) {
 
-            // Cập nhật mật khẩu mới cho người dùng
-            NguoiDung::Update_Password($nguoidung[0]->MSSV, $new_pass);
+                // Cập nhật mật khẩu mới cho người dùng
+                NguoiDung::Update_Password($nguoidung[0]->MSSV, $new_pass);
 
-            // Logout ra để đăng nhập lại.
-            return $this->Logout();
+                // Logout ra để đăng nhập lại.
+                return $this->Logout();
+            }
+            else {
+                $errors = new MessageBag(['errorlogin' => 'Mật khẩu cũ không đúng.']);
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
         }
-        else {
-            $errors = new MessageBag(['errorlogin' => 'Mật khẩu cũ không đúng.']);
-            return redirect()->back()->withInput()->withErrors($errors);
-        }
+        return view('login', [
+            'mssv_xac_thuc' => '',
+            'ketqua_xuly' => ''
+        ]);
     }
 
     // Reset password.
@@ -168,7 +177,10 @@ class AccountController extends Controller
             NguoiDung::Update_Password($mssv, $pass);
 
             // Về trang đăng nhập.
-            return view('login', ['mssv_xac_thuc' => $mssv]);
+            return view('login', [
+                'mssv_xac_thuc' => $mssv,
+                'ketqua_xuly' => 'Đặt lại mật khẩu thành công'
+            ]);
         }
         else {
             $errors = new MessageBag(['errorlogin' => 'Mã số không đúng.']);

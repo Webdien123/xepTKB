@@ -20,10 +20,10 @@ class PageController extends Controller
     }
 
     // Hàm load trang thông báo gửi mail thất bại.
-    public function Error_Mail()
-    {
-        return view('error_mail');
-    }
+    // public function Error_Mail()
+    // {
+    //     return view('error_mail');
+    // }
 
     // Hàm load trang đăng nhập.
     public function Login()
@@ -31,13 +31,22 @@ class PageController extends Controller
         if (\Session::has('mssv_login')){
             return redirect('taotkb');
         }
-        return view('login', ['mssv_xac_thuc' => '']);
+        return view('login', [
+            'mssv_xac_thuc' => '',
+            'ketqua_xuly' => ''
+        ]);
     }
 
     // Hàm load trang đổi mật khẩu.
     public function Doi_MK()
     {
-        return view('doimatkhau');
+        if (\Session::has('mssv_login')){
+            return view('doimatkhau');
+        }
+        return view('login', [
+            'mssv_xac_thuc' => '',
+            'ketqua_xuly' => ''
+        ]);
     }
 
     // Hàm load trang quên mật khẩu.

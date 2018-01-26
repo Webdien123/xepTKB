@@ -9,10 +9,13 @@
     
     <div class="container">
         <div class="row">
+
+            {{--  Phần chức năng phản hồi.  --}}
             <div class="col-md-8">
                 <div class="well well-sm">
-                    <form>
-                    <div class="row">
+                    
+                    <form>                    
+                    <div class="row">                        
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">
@@ -38,6 +41,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">
@@ -55,6 +59,8 @@
                     </form>
                 </div>
             </div>
+
+            {{--  Phần thông tin website  --}}
             <div class="col-md-4">
                 <form>
                 <legend><span class="glyphicon glyphicon-globe"></span>Thông tin trang web</legend>

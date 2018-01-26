@@ -10,12 +10,24 @@ class TKBController extends Controller
     // Hàm load trang tạo TKB mới.
     public function Tao_TKB()
     {
-        return view('taotkb');        
+        if (\Session::has('mssv_login')){
+            return view('taotkb');
+        }
+        return view('login', [
+            'mssv_xac_thuc' => '',
+            'ketqua_xuly' => ''
+        ]);
     }
 
     // Hàm load trang quản lý tkb cũ.
     public function QLy_TKB()
     {
-        return view('thoikhoabieu');
+        if (\Session::has('mssv_login')){
+            return view('thoikhoabieu');
+        }
+        return view('login', [
+            'mssv_xac_thuc' => '',
+            'ketqua_xuly' => ''
+        ]);
     }
 }

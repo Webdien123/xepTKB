@@ -15,7 +15,6 @@ class MailController extends Controller
     public static function GuiMail($email, $content, $mail_type = "dangky", $mssv_mail = "")
     {
         try{
-
             Mail::to($email)->send(new OrderShipped($content));
 
             // Nếu yêu cầu gửi mail từ trang quên mật khẩu.
@@ -36,21 +35,41 @@ class MailController extends Controller
             
         }
         catch(\Exception $e){
-            // return "LOI";
-            return $e->getMessage();
+
+            if ($mail_type == "dangky") {
+
+                // Tìm tài khoản theo email.
+                $nguoidung = NguoiDung::TimEmail($email);
+
+                return view("error_mail", [
+                    'email' => $email,
+                    '$name' => $nguoidung[0]->EMAIL,
+                    'mail_type' => $mail_type
+                ]);
+            }
+
+            if ($mail_type == "quenmk") {
+
+                return view("error_mail", [
+                    'email' => $email,
+                    'mail_type' => $mail_type
+                ]);
+            }
+
+            // return $e->getMessage();
         }
     }
 
     // Xử lý gửi mail xác thực đăng ký (dạng API).
     public function GuiMail_KichHoat(Request $R)
     {
-        // Tính random mã số xác thực.
+        // // Tính random mã số xác thực.
         $ma_so_xac_thuc = mt_rand(100000, 999999);
 
-        // Thêm mã số vào session.
+        // // Thêm mã số vào session.
         \Session()->put('ma_so_xac_thuc', $ma_so_xac_thuc);
 
-        // Tạo nội dung dựa theo tên người nhận
+        // // Tạo nội dung dựa theo tên người nhận
         $content = [
             'noidung'=> 'Xin chào '. $R->name .
                 "<br>Mã số kích hoạt tài khoản của bạn là: " . $ma_so_xac_thuc
@@ -106,7 +125,7 @@ class MailController extends Controller
             \Session()->put('ma_so_re_pass', $temp_pass);
 
             // Cập nhạt mật khẩu cho người dùng.
-            // NguoiDung::Update_Password($nguoidung[0]->MSSV, $temp_pass);
+            NguoiDung::Update_Password($nguoidung[0]->MSSV, $temp_pass);
 
             // Tạo nội dung dựa theo tên người nhận
             $content = [

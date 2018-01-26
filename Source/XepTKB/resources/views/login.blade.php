@@ -13,6 +13,9 @@
     {{--  Script validate dữ liệu đăng ký --}}
     <script src="{{ asset('js/validate_login_form.js') }}"></script>
 
+    {{--  Script xử lý 2 thông báo thành công hoặc thất bại khi cập nhật  --}}
+    <script src="{{ asset('js/thong_bao.js') }}"></script>
+
     <!-- Form đang nhập -->  
     <div class="container">        
             <div class="row">
@@ -26,6 +29,12 @@
                             <label>
                                 <b class='text-danger'>{{ $errors->first('errorlogin') }}</b>
                             </label>
+                        @endif
+
+                        @if ($ketqua_xuly)
+                            <div class="alert alert-success" id="success-alert">
+                                <strong>{{ $ketqua_xuly }}</strong>                                
+                          </div>
                         @endif
                         
                         <?php
