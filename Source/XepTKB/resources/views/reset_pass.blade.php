@@ -23,7 +23,7 @@
                 <div class="panel-body">
                     
                     <form action="reset_pass_process" id="form_reset_mk" method="POST">
-                        {{ csrf_field() }}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         @if ($errors->first('errorlogin') != "")
                             <label>

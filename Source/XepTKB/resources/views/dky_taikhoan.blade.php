@@ -31,7 +31,7 @@
 
                 <form class="form-horizontal" id="form_dki_tk" method="post" action="dangki_process">                        
 
-                    {{ csrf_field() }}
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="form-group">
                         <label for="name" class="cols-sm-2 control-label">Họ tên</label>

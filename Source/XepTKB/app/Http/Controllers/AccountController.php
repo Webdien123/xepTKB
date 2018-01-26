@@ -145,8 +145,16 @@ class AccountController extends Controller
                 // Cập nhật mật khẩu mới cho người dùng
                 NguoiDung::Update_Password($nguoidung[0]->MSSV, $new_pass);
 
-                // Logout ra để đăng nhập lại.
-                return $this->Logout();
+                // Xóa phiên làm việc của người đang đăng nhập.
+                \Session::forget('mssv_login');
+                \Session::forget('name_login');
+                \Session::forget('email_login');
+
+                // Về trang đăng nhập.
+                return view('login', [
+                    'mssv_xac_thuc' => $nguoidung[0]->MSSV,
+                    'ketqua_xuly' => 'Đổi mật khẩu thành công'
+                ]);
             }
             else {
                 $errors = new MessageBag(['errorlogin' => 'Mật khẩu cũ không đúng.']);

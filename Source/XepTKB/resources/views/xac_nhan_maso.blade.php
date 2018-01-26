@@ -21,7 +21,7 @@
 						
 						<form id="register-form" action="kich_hoat_account" class="form" method="post">
 
-							{{ csrf_field() }}
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-random" aria-hidden="true"></i></span>

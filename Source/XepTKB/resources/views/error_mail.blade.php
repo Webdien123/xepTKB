@@ -22,7 +22,7 @@
                                 <form id="send_mail" action="send_mail" class="form" method="post">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            {{ csrf_field() }}
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type="hidden" name="email" id="email" class="form-control" value="{{ $email }}">
                                             <input type="hidden" name="name" id="name" class="form-control" value="{{ $name }}">
                                             <input type="hidden" name="mail_type" id="mail_type" class="form-control" value="{{ $mail_type }}">
@@ -64,7 +64,8 @@
                                 <script src="{{ asset('js/validate_quenmk.js') }}"></script>
 
                                 <form id="form_quenmk" action="lost_pass" class="form" method="post">
-                                    {{ csrf_field() }}
+                                    
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
         
                                     @if ($errors->first('errorlogin') != "")
                                         <label>

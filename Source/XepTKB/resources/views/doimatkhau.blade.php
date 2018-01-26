@@ -23,7 +23,8 @@
                 <div class="panel-body">
                     
                     <form action="change_pass" id="form_doimk" method="POST">
-                        {{ csrf_field() }}
+                        
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         
                         @if ($errors->first('errorlogin') != "")
                             <label>
