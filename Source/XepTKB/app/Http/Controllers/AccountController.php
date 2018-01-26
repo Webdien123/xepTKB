@@ -149,4 +149,30 @@ class AccountController extends Controller
             return redirect()->back()->withInput()->withErrors($errors);
         }
     }
+
+    // Reset password.
+    public function Reset_MK(Request $R)
+    {
+        // Nhận giá trị từ input.
+        $pass_num = $R->pass_num;
+        $pass = $R->pass;
+        $mssv = $R->mssv;
+
+        // Lấy thông tin người dùng đang đăng nhập.
+        $nguoidung = NguoiDung::TimMSSV($mssv);
+
+        // Nếu mật khẩu cũ khớp mật khẩu đang dùng.
+        if (\Session::get('ma_so_re_pass') == $pass_num) {
+
+            // Cập nhật mật khẩu mới cho người dùng
+            NguoiDung::Update_Password($mssv, $pass);
+
+            // Về trang đăng nhập.
+            return view('login', ['mssv_xac_thuc' => $mssv]);
+        }
+        else {
+            $errors = new MessageBag(['errorlogin' => 'Mã số không đúng.']);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+    }
 }

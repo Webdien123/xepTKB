@@ -60,4 +60,10 @@ class PageController extends Controller
             're' => $re
         ]);
     }
+
+    // Hàm load trang reset password.
+    public function Reset_MK()
+    {
+        return view('reset_pass');
+    }
 }

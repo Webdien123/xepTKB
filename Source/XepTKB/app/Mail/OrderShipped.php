@@ -29,6 +29,7 @@ class OrderShipped extends Mailable
     public function build()
     {
         return $this->markdown('emails')
-            ->with('content',$this->content);
+            ->with('content',$this->content)
+            ->subject('Xác thực email');
     }
 }

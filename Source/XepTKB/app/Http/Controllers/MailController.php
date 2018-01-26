@@ -12,7 +12,7 @@ use Mail;
 class MailController extends Controller
 {
     // Xử lý gửi mail xác thực.
-    public static function GuiMail($email, $content, $mail_type = "dangky", $mssv_mail)
+    public static function GuiMail($email, $content, $mail_type = "dangky", $mssv_mail = "")
     {
         try{
 
@@ -20,7 +20,10 @@ class MailController extends Controller
 
             // Nếu yêu cầu gửi mail từ trang quên mật khẩu.
             if ($mail_type == "quenmk") {
-                return view('login', ['mssv_xac_thuc' => $mssv_mail]);
+                
+                // Về trang reset password.
+                $info = new MessageBag(['mssv' => $mssv_mail]);                
+                return redirect('reset_pass')->withErrors($info);
             }
 
             else {
@@ -97,20 +100,23 @@ class MailController extends Controller
         $nguoidung = NguoiDung::TimEmail($email);
 
         if ($nguoidung != null) {
-            $temp_pass = MailController::generateRandomString(10);
+            $temp_pass = MailController::generateRandomString(25);
+
+            // Thêm mã số vào session.
+            \Session()->put('ma_so_re_pass', $temp_pass);
 
             // Cập nhạt mật khẩu cho người dùng.
-            NguoiDung::Update_Password($nguoidung[0]->MSSV, $temp_pass);
+            // NguoiDung::Update_Password($nguoidung[0]->MSSV, $temp_pass);
 
             // Tạo nội dung dựa theo tên người nhận
             $content = [
                 'noidung'=> 'Xin chào '. $R->name .
-                    "<br>Mật khẩu của bạn đã được đổi thành: " . $temp_pass .
-                    "<br>Hãy sử dụng mật khẩu này đăng nhập, sau đó đổi mật khẩu nếu cần."
+                    "<br>Copy dòng mã dưới đây dán lên trang reset mật khẩu để đặt mật khẩu mới:<br>".
+                    $temp_pass
             ];
 
-            // Gọi hàm xử lý gửi mail.
-            return MailController::GuiMail($R->email, $content, "quenmk", $nguoidung[0]->MSSV);
+            // Về trang reset mật khẩu.
+            return MailController::GuiMail($email, $content, "quenmk", $nguoidung[0]->MSSV);
         } else {
             $errors = new MessageBag(['errorlogin' => 'Email này chưa được đăng ký.']);
             return redirect()->back()->withInput()->withErrors($errors);

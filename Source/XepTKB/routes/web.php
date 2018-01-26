@@ -46,6 +46,12 @@ Route::post('lost_pass', 'MailController@GuiMail_QuenMK');
 // Xử lý gửi mail khi đổi mật khẩu.
 Route::post('change_pass', 'AccountController@DoiMK');
 
+// Load trang reset mật khẩu.
+Route::get('reset_pass', 'PageController@Reset_MK');
+
+// Xử lý reset mật khẩu.
+Route::post('reset_pass_process', 'AccountController@Reset_MK');
+
 // Gửi lại mail bị lỗi.
 Route::post('send_mail', 'MailController@GuiMail_KichHoat');
 

@@ -35,6 +35,10 @@
 							<div class="form-group">
 								<input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Kích hoạt tài khoản" type="submit">
 							</div>
+
+							<div class="form-group">
+								<a class="form-control btn btn-danger" href="login">Về trang đăng nhập</a>
+							</div>
 						</form>
 						@endif
 
