@@ -94,6 +94,7 @@ class AccountController extends Controller
                     \Session::put('mssv_login', $mssv);
                     \Session::put('name_login', $nguoidung[0]->HOTEN);
                     \Session::put('email_login', $nguoidung[0]->EMAIL);
+                    \Session::put('malop_login', $nguoidung[0]->MALOP);
 
                     // Load trang tạo tkb.
                     return redirect('taotkb');
@@ -123,6 +124,7 @@ class AccountController extends Controller
         \Session::forget('mssv_login');
         \Session::forget('name_login');
         \Session::forget('email_login');
+        \Session::forget('malop_login');
 
         // Load trang chủ.
         return redirect('/');
@@ -149,6 +151,7 @@ class AccountController extends Controller
                 \Session::forget('mssv_login');
                 \Session::forget('name_login');
                 \Session::forget('email_login');
+                \Session::forget('malop_login');                
 
                 // Về trang đăng nhập.
                 return view('login', [

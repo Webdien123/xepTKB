@@ -79,6 +79,9 @@ Route::post('lay_hocki_hientai', 'HocPhanController@LayHKiHienTai');
 // Lấy học kì hiện tại.
 Route::post('lay_namhoc_hientai', 'HocPhanController@LayNamHocHienTai');
 
+// Lấy lịch họp cố vấn.
+Route::post('lay_lich_co_van', 'HocPhanController@LayLichCoVan');
+
 // Load trang quản lý tkb cũ.
 Route::get('qly_tkb', 'TKBController@QLy_TKB');
 

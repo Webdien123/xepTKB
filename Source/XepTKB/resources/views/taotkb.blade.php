@@ -38,6 +38,9 @@
         // Lưu trữ token.
         var token = "{{ csrf_token() }}";
 
+        // Lưu mã lớp của người dùng đăng nhập.
+        var malop_login = "{{ \Session::get('malop_login') }}";
+
         // Lưu học phần vừa thêm gần nhất.
         var hp_vua_them = null;
 
@@ -58,7 +61,7 @@
     <script src="{{ asset('js/tim_hp.js') }}"></script>
 
     {{--  Script xử lý trang tạo thời khóa biểu.  --}}
-    <script src="{{ asset('js/tao_tkb.js') }}"></script>    
+    <script src="{{ asset('js/tao_tkb.js') }}"></script>
 
     {{--  Nội dung trang tạo tkb.  --}}
     <div class="container-fluid">
@@ -243,7 +246,10 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         Xóa tất cả HP
                     </button>                                      
-                </div>                
+                </div>
+                
+                {{--  Thông báo trùng học phần  --}}
+                <div class="alert alert-danger" id="bao_trung_hp"></div>
                 
                 {{--  Bảng chọn lớp học phần  --}}
                 <div class="table-responsive">
@@ -270,8 +276,8 @@
                     </table>
                 </div>
 
-                <div class="text-danger"><b>
-                    Lịch họp cố vấn vào lúc 4h 10 chiều thứ 4 tuần 3, 6, 9, 11
+                <div class="text-danger"><b id="lich_co_van">
+                    Không có lịch họp cố vấn
                 </b></div>
                 
             </div>

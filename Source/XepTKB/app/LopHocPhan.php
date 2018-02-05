@@ -34,4 +34,11 @@ class LopHocPhan extends Model
         $namhoc = \DB::select('SELECT * FROM `namhoc` WHERE 1 LIMIT 1');
         return $namhoc;
     }
+
+    // Truy xuất lịch họp cố vấn học tập.
+    public static function GetLichCoVan($malop)
+    {
+        $lich_cv = \DB::select('SELECT * FROM `lop_hoc_phan` WHERE MALOP = ?', [$malop]);
+        return $lich_cv;
+    }
 }

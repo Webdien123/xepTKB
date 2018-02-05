@@ -64,7 +64,7 @@ class NguoiDung extends Model
         try{
             // Thêm thông tin tài khoản vào hệ thống.
             \DB::insert('INSERT INTO `nguoi_dung`(`MSSV`, `HOTEN`, `EMAIL`, `MKHAU`, `MALOP`) VALUES (?, ?, ?, ?, ?)', [
-                $mssv, 
+                ucwords($mssv),
                 ucwords($name),
                 $email, 
                 bcrypt($password), 

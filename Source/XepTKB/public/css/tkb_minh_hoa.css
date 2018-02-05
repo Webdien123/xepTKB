@@ -12,3 +12,8 @@ hr.line_hocphan {
 #tb-tkb td:not(:first-child){
     width: 16%;
 }
+
+.trung_buoi_hoc {
+    color: red;
+    font-weight: bold;
+}

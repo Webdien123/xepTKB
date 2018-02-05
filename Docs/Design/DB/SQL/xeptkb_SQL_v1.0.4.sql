@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.6
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 11, 2018 at 04:55 PM
--- Server version: 10.1.24-MariaDB
--- PHP Version: 7.0.20
+-- Host: localhost
+-- Generation Time: Jan 21, 2018 at 12:16 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,6 +32,13 @@ CREATE TABLE `hocki` (
   `HOCKI` varchar(2) COLLATE utf8_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
+--
+-- Dumping data for table `hocki`
+--
+
+INSERT INTO `hocki` (`HOCKI`) VALUES
+('2');
+
 -- --------------------------------------------------------
 
 --
@@ -48,10 +55,10 @@ CREATE TABLE `lop_hoc_phan` (
   `PHONG` varchar(10) COLLATE utf8_vietnamese_ci DEFAULT NULL,
   `SISO` varchar(3) COLLATE utf8_vietnamese_ci NOT NULL,
   `TINCHI` varchar(2) COLLATE utf8_vietnamese_ci NOT NULL,
+  `MALOP` varchar(8) COLLATE utf8_vietnamese_ci NOT NULL,
   `TUANHOC` varchar(20) COLLATE utf8_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
---
 -- --------------------------------------------------------
 
 --
@@ -61,6 +68,13 @@ CREATE TABLE `lop_hoc_phan` (
 CREATE TABLE `namhoc` (
   `NAMHOC` varchar(5) COLLATE utf8_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
+
+--
+-- Dumping data for table `namhoc`
+--
+
+INSERT INTO `namhoc` (`NAMHOC`) VALUES
+('17-18');
 
 -- --------------------------------------------------------
 
@@ -72,7 +86,7 @@ CREATE TABLE `nguoi_dung` (
   `MSSV` varchar(8) COLLATE utf8_vietnamese_ci NOT NULL,
   `HOTEN` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
   `EMAIL` varchar(50) COLLATE utf8_vietnamese_ci NOT NULL,
-  `MKHAU` varchar(20) COLLATE utf8_vietnamese_ci NOT NULL,
+  `MKHAU` varchar(255) COLLATE utf8_vietnamese_ci NOT NULL,
   `MALOP` varchar(8) COLLATE utf8_vietnamese_ci NOT NULL,
   `KICHHOAT` varchar(1) COLLATE utf8_vietnamese_ci DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
@@ -132,6 +146,12 @@ ALTER TABLE `namhoc`
 --
 ALTER TABLE `nguoi_dung`
   ADD PRIMARY KEY (`MSSV`);
+
+--
+-- Unique `email` for table `nguoi_dung`
+--
+ALTER TABLE `nguoi_dung` 
+  ADD UNIQUE(`EMAIL`);
 
 --
 -- Indexes for table `tkb`

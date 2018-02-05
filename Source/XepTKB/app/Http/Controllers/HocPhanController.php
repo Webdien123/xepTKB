@@ -37,5 +37,12 @@ class HocPhanController extends Controller
     {
         $namhoc = LopHocPhan::GetNAMHOC();
         return $namhoc;
-    }    
+    }
+
+    // Hàm load lịch họp cố vấn.
+    public function LayLichCoVan(Request $R)
+    {
+        $lich_cv = LopHocPhan::GetLichCoVan($R->malop);
+        return $lich_cv;
+    }
 }
