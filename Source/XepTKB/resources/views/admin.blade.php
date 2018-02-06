@@ -125,8 +125,7 @@
                 <div class="text-center center-block">
                     <p class="txt-railway">- Hệ thống hỗ trợ xếp thời khóa biểu sinh viên CTU -</p>
                     <br />
-                    <a href="https://www.facebook.com/bootsnipp"><i class="fa fa-facebook-square fa-3x social"></i></a>
-                    <a href="https://plus.google.com/+Bootsnipp-page"><i class="fa fa-google-plus-square fa-3x social"></i></a>
+                    <a href="https://www.facebook.com/bootsnipp" target="_blank"><i class="fa fa-facebook-square fa-3x social"></i></a>
                 </div>
             <hr />
         </div>

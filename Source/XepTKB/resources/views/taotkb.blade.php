@@ -276,9 +276,7 @@
                     </table>
                 </div>
 
-                <div class="text-danger"><b id="lich_co_van">
-                    Không có lịch họp cố vấn
-                </b></div>
+                <div class="text-danger"><b id="lich_co_van"></b></div>
                 
             </div>
 
