@@ -7,6 +7,7 @@ $(document).ready(function () {
     $("#found_hp").hide(0);
     $("#error_found_hp").hide(0);
     $("#error_trung_hp").hide(0);
+    $("#error_add_hp").hide(0);
 
     // Khi ấn chọn tìm học phần.
     $("#f_tim_hp").submit(function (e) {

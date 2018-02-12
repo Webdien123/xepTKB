@@ -133,7 +133,7 @@
                                         <td id="mahp_tim"></td>
                                         <td id="tenhp_tim"></td>
                                         <td>
-                                            <button type="button" class="btn btn-success"
+                                            <button id="btn_them_hp" type="button" class="btn btn-success"
                                                 onclick="them_hp()">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                                 Thêm
@@ -154,6 +154,11 @@
                         {{--  Thông báo có lỗi trong quá trình tìm HP  --}}
                         <h4 id="error_found_hp"><b class="text-danger">
                             Máy chủ đang có vấn đề, vui lòng thử lại sau.
+                        </b></h4>
+
+                        {{--  Thông báo không được thêm HP  --}}
+                        <h4 id="error_add_hp"><b class="text-danger">
+                            Không thể thêm hp khi tkb đang trùng lịch.
                         </b></h4>
                     </div>
                     <div class="modal-footer">
@@ -250,6 +255,30 @@
                 
                 {{--  Thông báo trùng học phần  --}}
                 <div class="alert alert-danger" id="bao_trung_hp"></div>
+
+                {{--  Modal xem lịch học của HP bị trùng  --}}
+                <div class="modal fade" id="modal_xem_lich_hoc">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Lịch học</h4>
+                            </div>
+                            <div class="modal-body">
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                    Đóng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{--  Thông báo trùng lịch tất cả hp trước đó  --}}
+                <div class="alert alert-danger" id="trung_lich_hp"></div>
                 
                 {{--  Bảng chọn lớp học phần  --}}
                 <div class="table-responsive">
