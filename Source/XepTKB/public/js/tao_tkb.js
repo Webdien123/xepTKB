@@ -113,7 +113,7 @@ function them_buoi_hoc(ma_hp, thu, tiet_bd, sotiet, tenhp, phong, tuanhoc, mau_c
     }
     else{
         // Lấy màu đã tô.
-        ten_class = $("#no_tkb_" + ma_hp).closest('tr').attr('class');    
+        ten_class = $("#no_tkb_" + ma_hp).closest('tr').attr('class');
         ten_class = ten_class.split(' ');
         mau_can_to = ten_class[2];
         
@@ -121,7 +121,7 @@ function them_buoi_hoc(ma_hp, thu, tiet_bd, sotiet, tenhp, phong, tuanhoc, mau_c
             $('\
                 <tr class="tr_th tr_tuanhoc_'+ ma_hp +' '+ mau_can_to +'">\
                 <td>Tuần học</td>\
-                <td colspan="4">'+ tuanhoc +'</td>\
+                <td colspan="4" style="font-family: monospace; font-size: 130%;">'+ tuanhoc +'</td>\
                 <td class="hide">'+ siso +'</td>\
                 <td class="hide">'+ siso +'</td>\
                 </tr>'
