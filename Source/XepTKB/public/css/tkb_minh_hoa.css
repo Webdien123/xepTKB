@@ -5,6 +5,13 @@ hr.line_hocphan {
     border: 0.25px dashed black;
 }
 
+hr.ABC {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    width: 100%;
+    border: 0.25px solid red;
+}
+
 .vcenter {
     vertical-align: middle !important;
 }
