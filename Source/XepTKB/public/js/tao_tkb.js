@@ -247,8 +247,6 @@ function xoa_buoi_hoc(ma_hp) {
                     tiet_tr = tiet_tr.next("tr");
                 }
             }
-
-            
         }
     }
 
