@@ -38,6 +38,9 @@
         // Lưu trữ token.
         var token = "{{ csrf_token() }}";
 
+        // Lưu mssv của người dùng đăng nhập.
+        var mssv_login = "{{ \Session::get('mssv_login') }}";
+
         // Lưu mã lớp của người dùng đăng nhập.
         var malop_login = "{{ \Session::get('malop_login') }}";
 
@@ -170,27 +173,6 @@
                 </div>
             </div>
         </div>
-
-        {{--  Modal lưu thời khóa biểu.  --}}
-        <div class="modal fade" id="modal-luu-hp">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Lưu thời khóa biểu</h4>
-                    </div>
-                    <div class="modal-body">
-                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                            Đóng
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
         
         {{--  Modal xác nhận xóa tất cả HP.  --}}
         <div class="modal fade" id="modal-xoatc-hp">
@@ -242,7 +224,8 @@
                         Thêm HP
                     </button>
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" href='#modal-luu-hp'>
+                    {{--  Nút lưu TKB  --}}
+                    <button type="button" class="btn btn-primary" id="btn_luu_tkb">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
                         Lưu TKB
                     </button>

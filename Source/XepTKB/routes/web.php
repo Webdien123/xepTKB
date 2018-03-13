@@ -82,6 +82,10 @@ Route::post('lay_namhoc_hientai', 'HocPhanController@LayNamHocHienTai');
 // Lấy lịch họp cố vấn.
 Route::post('lay_lich_co_van', 'HocPhanController@LayLichCoVan');
 
+// Lưu TKB mới.
+Route::post('luu_tkb_moi', 'TKBController@Luu_TKB_Moi');
+
+
 // Load trang quản lý tkb cũ.
 Route::get('qly_tkb', 'TKBController@QLy_TKB');
 

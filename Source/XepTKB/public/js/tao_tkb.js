@@ -759,6 +759,27 @@ function TinhLichCoVan() {
     });
 }
 
+// Hàm lưu TKB.
+function Luu_TKB() {
+    if (ds_hp_can_luu.length != 0) {
+        $.ajax({
+            type: "POST",
+            url: "/luu_tkb_moi",
+            data: {
+                _token: token,
+                ds_hp_can_luu: ds_hp_can_luu,
+                mssv: mssv_login
+            },
+            success: function (response) {   
+                console.log(response);
+            },
+            error: function(xhr,err){
+                console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+            }
+        });
+    }    
+}
+
 // Xử lý khi trang tạo tkb vừa load xong.
 $(document).ready(function () {
 
@@ -841,4 +862,8 @@ $(document).ready(function () {
             $("#tr_no_hp").show(0);
         }
     }
+
+    $("#btn_luu_tkb").click(function (e) { 
+        Luu_TKB();        
+    });
 });

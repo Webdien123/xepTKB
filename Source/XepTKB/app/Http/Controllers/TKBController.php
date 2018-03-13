@@ -30,4 +30,10 @@ class TKBController extends Controller
             'ketqua_xuly' => ''
         ]);
     }
+
+    public function Luu_TKB_Moi(Request $R)
+    {
+        // return $R->ds_hp_can_luu[0];
+        return $R->mssv;
+    }
 }
