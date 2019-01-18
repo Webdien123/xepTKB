@@ -66,11 +66,11 @@
                 <legend><span class="glyphicon glyphicon-globe"></span>Thông tin trang web</legend>
                 <address>
                     Website xếp thời khóa biểu online được xây dựng cho sinh viên Đại học Cần thơ. 
-                    Hệ thống phục vụ cho việc xây dựng các thời khóa biểu trực quan nhầm hỗ trợ cho quá trình chuẩn bị thời khóa biểu của sinh viên được dễ dàng hơn.
+                    Hệ thống phục vụ cho việc xây dựng các thời khóa biểu trực quan nhầm hỗ trợ cho quá trình đăng ký học phần được dễ dàng hơn.
                 </address>
                 <address>
                     <strong>Email</strong><br>
-                    <a href="mailto:#">xeptkb.ctu@gmail.com</a>
+                    <a href="mailto:#">thoikhoabieu.ctu@gmail.com</a>
                 </address>
                 </form>
             </div>

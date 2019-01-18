@@ -54,18 +54,18 @@
                             </div>
                             <h4 id="email_ctu" class="text-danger">Vui lòng nhập email do trường cung cấp</h4>
                             <script>
-                                function hide_email_err() {
+                                // function hide_email_err() {
                                     
-                                    mail = $("#email").val();
-                                    if (mail != ""){
-                                        if (mail.indexOf("ctu.edu.vn") == -1){
-                                            $("#email_ctu").show(0);
-                                        }
-                                        else {
-                                            $("#email_ctu").hide(0);
-                                        }
-                                    }
-                                }
+                                //     mail = $("#email").val();
+                                //     if (mail != ""){
+                                //         if (mail.indexOf("ctu.edu.vn") == -1){
+                                //             $("#email_ctu").show(0);
+                                //         }
+                                //         else {
+                                //             $("#email_ctu").hide(0);
+                                //         }
+                                //     }
+                                // }
                             </script>
                         </div>
                     </div>

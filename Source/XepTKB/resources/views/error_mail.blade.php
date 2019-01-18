@@ -13,7 +13,7 @@
                 <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="text-center">
-                        <h2 class="text-center text-danger">Có lỗi trong quá trình gửi mail</h2>
+                        <h2 class="text-center text-danger">Có lỗi trong quá trình gửi mail xác nhận</h2>
                         <i class="fa fa-frown-o fa-5x text-danger" aria-hidden="true"></i>
                         <div class="panel-body">
 

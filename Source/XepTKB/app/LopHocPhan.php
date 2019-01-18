@@ -10,7 +10,7 @@ class LopHocPhan extends Model
     // Truy xuất lớp HP theo mã HP.
     public static function GetLopHP($ma_hp)
     {
-        $hocphan = \DB::select('SELECT * FROM `lop_hoc_phan` WHERE MAHP = ?', [$ma_hp]);
+        $hocphan = \DB::select('SELECT * FROM `lop_hoc_phan` WHERE MAHP = ? OR TENHP = ?', [$ma_hp, $ma_hp]);
         return $hocphan;
     }
 

@@ -85,8 +85,7 @@ class AccountController extends Controller
         if ($nguoidung != null) {
 
             // Nếu tài khoản người dùng đã kích hoạt.
-            if ($nguoidung[0]->KICHHOAT == "Y")
-
+            if ($nguoidung[0]->KICHHOAT == "Y"){
                 // Tính kết quả đăng nhập.
                 if (Hash::check($password, $nguoidung[0]->MKHAU)) {
 
@@ -102,8 +101,8 @@ class AccountController extends Controller
                 } else {
                     $errors = new MessageBag(['errorlogin' => 'MSSV hoặc mật khẩu không đúng.']);
                     return redirect()->back()->withInput()->withErrors($errors);
-                }                
-                
+                }  
+            }            
             else {
                 return MailController::GuiMail_KichHoat_P(
                     $nguoidung[0]->EMAIL,

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/to_mau_hp.css') }}">
 
     <?php
-        $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK2_17_18.XLS";
+        $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK2_18_19.XLS";
         $headers = @get_headers($url);
         if(strpos($headers[0],'404') === false)
         {
@@ -97,9 +97,9 @@
                         <form id="f_tim_hp" class="form-inline">
                         
                             <div class="form-group">
-                                <label for="" class="text-success">Nhập mã HP:</label>
+                                <label for="" class="text-success">Nhập mã hoặc tên học phần:</label>
                                 <input type="text" required class="form-control" 
-                                    id="mahp_input" placeholder="Mã HP"
+                                    id="mahp_input" placeholder="Mã hoặc tên HP"
                                     oninvalid="this.setCustomValidity('Chưa nhập mã HP')"
                                     oninput="setCustomValidity('')">
                             </div>
@@ -118,7 +118,7 @@
 
                         {{--  Thông báo không tìm thấy HP  --}}
                         <h4 id="not_found_hp"><b class="text-danger">
-                            Không có mã học phần này, vui lòng kiểm tra lại.
+                            Mã học phần không đúng hoặc không mở ở học kì này.
                         </b></h4>
 
                         {{--  Bảng thông tin HP đã tìm thấy  --}}

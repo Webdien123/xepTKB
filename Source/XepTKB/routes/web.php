@@ -12,9 +12,7 @@
 */
 
 // Load trang chủ website.
-Route::get('/', function() {
-    return redirect('login');
-})->name('home');
+Route::get('/', 'PageController@Login');
 
 // Load trang đăng kí tài khoản.
 Route::get('dk_taikhoan', 'PageController@Dky_TaiKhoan');
@@ -62,7 +60,7 @@ Route::get('xac_nhan_ms', 'PageController@Xac_Nhan_MS');
 Route::post('kich_hoat_account', 'AccountController@KichHoat');
 
 // Load trang báo lỗi khi gửi mail.
-// Route::get('error_mail', 'PageController@Error_Mail');
+Route::get('error_mail', 'PageController@Error_Mail');
 
 // Load trang tạo thời khóa biểu mới.
 Route::get('taotkb', 'TKBController@Tao_TKB');
@@ -84,7 +82,6 @@ Route::post('lay_lich_co_van', 'HocPhanController@LayLichCoVan');
 
 // Lưu TKB mới.
 Route::post('luu_tkb_moi', 'TKBController@Luu_TKB_Moi');
-
 
 // Load trang quản lý tkb cũ.
 Route::get('qly_tkb', 'TKBController@QLy_TKB');

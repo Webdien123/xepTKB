@@ -43,7 +43,7 @@ class MailController extends Controller
 
                 return view("error_mail", [
                     'email' => $email,
-                    '$name' => $nguoidung[0]->EMAIL,
+                    'name' => $nguoidung[0]->HOTEN,
                     'mail_type' => $mail_type
                 ]);
             }
