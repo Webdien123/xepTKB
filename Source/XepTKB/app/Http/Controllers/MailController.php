@@ -12,10 +12,10 @@ use Mail;
 class MailController extends Controller
 {
     // Xử lý gửi mail xác thực.
-    public static function GuiMail($email, $content, $mail_type = "dangky", $mssv_mail = "")
+    public static function GuiMail($email, $content, $mail_type = "dangky", $mssv_mail = "", $subject = "Xác thực email")
     {
         try{
-            Mail::to($email)->send(new OrderShipped($content));
+            Mail::to($email)->send(new OrderShipped($content, $subject));
 
             // Nếu yêu cầu gửi mail từ trang quên mật khẩu.
             if ($mail_type == "quenmk") {
@@ -25,14 +25,17 @@ class MailController extends Controller
                 return redirect('reset_pass')->withErrors($info);
             }
 
-            else {
+            if ($mail_type == "dangky") {
                 // Về trang xác nhận mã số.
                 return view('xac_nhan_maso', [
                     'email' => $email,
                     'status' => ''
                 ]);
             }
-            
+
+            if ($mail_type == "feedback") {
+                return redirect('/thongtin')->with('ketqua_xuly', 'Gửi phản hồi thành công');
+            }
         }
         catch(\Exception $e){
 
@@ -56,6 +59,13 @@ class MailController extends Controller
                 ]);
             }
 
+            if ($mail_type == "feedback") {
+                $errors = new MessageBag(['errorlogin' => 'Có lỗi khi gửi phản hồi, vui lòng thử lại.']);
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
+
+            
+
             // return $e->getMessage();
         }
     }
@@ -77,6 +87,21 @@ class MailController extends Controller
 
         // Gọi hàm xử lý gửi mail.
         return MailController::GuiMail($R->email, $content, $R->mail_type);
+    }
+
+    // Xử lý gửi mail phản hồi hệ thống.
+    public function GuiMail_Feedback(Request $R)
+    {
+        // Tạo nội dung dựa theo tên người nhận
+        $content = [
+            'noidung'=> 'Feedback '. $R->subject .
+                "<br>Người gửi: " . $R->name .
+                "<br>Email: " . $R->email .
+                "<br>Nội dung yêu cầu: <br>" . $R->message
+        ];
+
+        // Gọi hàm xử lý gửi mail.
+        return MailController::GuiMail("thoikhoabieu.ctu@gmail.com", $content, "feedback", "", "FEEDBACK");
     }
 
     // Xử lý gửi mail xác thực đăng ký (dạng tham số).

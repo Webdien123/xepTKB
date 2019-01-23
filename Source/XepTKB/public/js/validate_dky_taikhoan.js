@@ -6,17 +6,17 @@ $(document).ready(function () {
     // Kiểm tra email có phải do trường cấp hay không?
     $("#form_dki_tk").submit(function (e) { 
         
-        // mail = $("#email").val();
-        // if (mail != ""){
-        //     if (mail.indexOf("ctu.edu.vn") == -1){
-        //         $("#email_ctu").show(0);
-        //         $("#email").focus();
-        //         e.preventDefault();
-        //     }
-        //     else {
-        //         $("#email_ctu").hide(0);
-        //     }
-        // }
+        mail = $("#email").val();
+        if (mail != ""){
+            if (mail.indexOf("ctu.edu.vn") == -1){
+                $("#email_ctu").show(0);
+                $("#email").focus();
+                e.preventDefault();
+            }
+            else {
+                $("#email_ctu").hide(0);
+            }
+        }
     });
 
     // Hàm xử lý thông báo và ràng buột khi nhập dữ liệu đăng kí tài khoản.

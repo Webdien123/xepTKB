@@ -16,9 +16,10 @@ class OrderShipped extends Mailable
      *
      * @return void
      */
-    public function __construct($content)
+    public function __construct($content, $subject)
     {
         $this->content = $content;
+        $this->subject = $subject;
     }
 
     /**
@@ -30,6 +31,6 @@ class OrderShipped extends Mailable
     {
         return $this->markdown('emails')
             ->with('content',$this->content)
-            ->subject('Xác thực email');
+            ->subject($this->subject);
     }
 }

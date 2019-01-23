@@ -34,7 +34,7 @@
                         <input type="hidden" name="mssv" class="form-control" value="{{ $errors->first('mssv') }}">
                         
                         <div class="form-group">
-                            <label for="">Mã số đặt mật khẩu</label>
+                            <label for="">Mã số đặt lại mật khẩu (Kiểm tra email để xem)</label>
                             <input type="text" autofocus class="form-control" id="pass_num" name="pass_num" placeholder="Nhập mã số hiện tại">
                         </div>                    
                         

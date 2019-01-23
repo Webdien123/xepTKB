@@ -20,9 +20,6 @@ Route::get('dk_taikhoan', 'PageController@Dky_TaiKhoan');
 // Xử lý đăng kí.
 Route::post('dangki_process', 'AccountController@Dangki_Process');
 
-// // Xử lý gửi mail.
-// Route::get('gui_mail', 'MailController@GuiMail');
-
 // Load trang đăng nhập.
 Route::get('login', 'PageController@Login');
 
@@ -59,6 +56,9 @@ Route::get('xac_nhan_ms', 'PageController@Xac_Nhan_MS');
 // Xử lý mã số kích hoạt tài khoản.
 Route::post('kich_hoat_account', 'AccountController@KichHoat');
 
+// Gửi mail feedback hệ thống.
+Route::post('feedback', 'MailController@GuiMail_Feedback');
+
 // Load trang báo lỗi khi gửi mail.
 Route::get('error_mail', 'PageController@Error_Mail');
 
@@ -87,7 +87,7 @@ Route::post('luu_tkb_moi', 'TKBController@Luu_TKB_Moi');
 Route::get('qly_tkb', 'TKBController@QLy_TKB');
 
 // Load trang thông tin và liên hệ.
-Route::get('thongtin', 'PageController@ThongTin_LienHe');
+Route::get('thongtin', 'PageController@ThongTin_LienHe')->name('thongtin');
 
 // Lưu ảnh thu nhỏ thời khóa biểu lên máy chủ.
 Route::post('save_tkb_img', 'FileController@Save_TKB_Img');

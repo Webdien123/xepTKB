@@ -27,12 +27,14 @@
 
                         @if ($errors->first('errorlogin') != "")
                             <label>
+                                <span class="glyphicon glyphicon-exclamation-sign">
                                 <b class='text-danger'>{{ $errors->first('errorlogin') }}</b>
                             </label>
                         @endif
 
                         @if ($ketqua_xuly)
                             <div class="alert alert-success" id="success-alert">
+                                <span class="glyphicon glyphicon-ok"></span>
                                 <strong>{{ $ketqua_xuly }}</strong>                                
                           </div>
                         @endif

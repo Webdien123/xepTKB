@@ -21,12 +21,6 @@
                 </button>
                 <a class="navbar-brand" href="/">Xếp thời khóa biểu CTU</a>
             </div>
-            
-            <div class="collapse navbar-collapse button-menu">
-                <ul class="nav navbar-nav ">
-                    <li><a href="thongtin">THÔNG TIN, LIÊN HỆ</a></li>                    
-                </ul>                   
-            </div>
         </nav>
 
         <!-- Dẫn nội dung trang web con tương ứng -->

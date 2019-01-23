@@ -58,7 +58,9 @@ class PageController extends Controller
     // Hàm load trang thông tin và liên hệ.
     public function ThongTin_LienHe()
     {
-        return view('thongtin');
+        return view('thongtin', [
+            'ketqua_xuly' => ''
+        ]);
     }
 
     // Hàm load trang báo lỗi.

@@ -6,21 +6,38 @@
 
 {{--  Phần nội dung sẽ dẫn vào trang admin  --}}
 @section('noidung')
-    
+
     <div class="container">
         <div class="row">
 
             {{--  Phần chức năng phản hồi.  --}}
             <div class="col-md-8">
+
+                @if ($errors->first('errorlogin') != "")
+                    <label>
+                        <span class="glyphicon glyphicon-exclamation-sign">
+                        <b class='text-danger'>{{ $errors->first('errorlogin') }}</b>
+                    </label>
+                @endif
+
+                @if (session()->has('ketqua_xuly'))
+                    <div class="alert alert-success" id="success-alert">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <strong>{{ session('ketqua_xuly') }}</strong>                                
+                  </div>
+                @endif
+
+
                 <div class="well well-sm">
                     
-                    <form>                    
+                    <form action="feedback" method="POST" onsubmit="showModal();">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">                 
                     <div class="row">                        
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">
                                     Tên người phản hồi</label>
-                                <input type="text" class="form-control" id="name" placeholder="Nhập họ tên" required="required" />
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập họ tên" required="required" value="{{ \Session::get('name_login') }}"/>
                             </div>
                             <div class="form-group">
                                 <label for="email">
@@ -28,16 +45,16 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
                                     </span>
-                                    <input type="email" class="form-control" id="email" placeholder="Nhập email" required="required" /></div>
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Nhập email" required="required" value="{{ \Session::get('email_login') }}" /></div>
                             </div>
                             <div class="form-group">
                                 <label for="subject">
                                     Chủ đề</label>
                                 <select id="subject" name="subject" class="form-control" required="required">
-                                    <option value="sj_chinhsua" selected="">Góp ý</option>
-                                    <option value="sj_baoloi">Báo lỗi</option>
-                                    <option value="sj_yeucau">Thêm chức năng mới</option>
-                                    <option value="sj_khac">Khác</option>
+                                    <option value="chỉnh sửa" selected="">Góp ý</option>
+                                    <option value="váo lỗi">Báo lỗi</option>
+                                    <option value="yêu cầu chức năng">Yêu cầu chức năng mới</option>
+                                    <option value="khác">Khác</option>
                                 </select>
                             </div>
                         </div>
@@ -71,6 +88,10 @@
                 <address>
                     <strong>Email</strong><br>
                     <a href="mailto:#">thoikhoabieu.ctu@gmail.com</a>
+                </address>
+                <address>
+                    <strong>Facebook</strong><br>
+                    <a href="https://www.facebook.com/xeptkb.ctu/" target="_blank">www.facebook.com/xeptkb.ctu</a>
                 </address>
                 </form>
             </div>
