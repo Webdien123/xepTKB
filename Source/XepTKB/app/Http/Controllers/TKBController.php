@@ -11,7 +11,18 @@ class TKBController extends Controller
     public function Tao_TKB()
     {
         if (\Session::has('mssv_login')){
-            return view('taotkb');
+            // Lấy học kì hiện tại.
+            $hocki = \DB::select('select * from hocki', [1]);
+            $hocki = $hocki[0]->HOCKI;
+
+            // Lấy năm học hiện tại.
+            $namhoc = \DB::select('select * from namhoc', [1]);
+            $namhoc = $namhoc[0]->NAMHOC;
+
+            return view('taotkb', [
+                'hki_hientai' => $hocki,
+                'namhoc_hientai' => $namhoc
+            ]);
         }
         return view('login', [
             'mssv_xac_thuc' => '',
@@ -23,7 +34,18 @@ class TKBController extends Controller
     public function QLy_TKB()
     {
         if (\Session::has('mssv_login')){
-            return view('thoikhoabieu');
+            // Lấy học kì hiện tại.
+            $hocki = \DB::select('select * from hocki', [1]);
+            $hocki = $hocki[0]->HOCKI;
+
+            // Lấy năm học hiện tại.
+            $namhoc = \DB::select('select * from namhoc', [1]);
+            $namhoc = $namhoc[0]->NAMHOC;
+            
+            return view('thoikhoabieu',[
+                'hki_hientai' => $hocki,
+                'namhoc_hientai' => $namhoc
+            ]);
         }
         return view('login', [
             'mssv_xac_thuc' => '',

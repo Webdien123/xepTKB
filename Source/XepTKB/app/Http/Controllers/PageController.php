@@ -20,21 +20,55 @@ class PageController extends Controller
     }
 
     // Hàm load trang thông báo gửi mail thất bại.
-    // public function Error_Mail()
-    // {
-    //     return view('error_mail');
-    // }
+    public function Error_Mail()
+    {
+        return view('error_mail');
+    }
 
     // Hàm load trang đăng nhập.
     public function Login()
     {
-        if (\Session::has('mssv_login')){
-            return redirect('taotkb');
+        // ========================================
+        // Phần kiểm tra dữ liệu học kì mới tự động
+
+        // Lấy học kì hiện tại.
+        $hocki = \DB::select('select * from hocki', [1]);
+        $hocki = $hocki[0]->HOCKI;
+
+        // Lấy năm học hiện tại.
+        $namhoc = \DB::select('select * from namhoc', [1]);
+        $namhoc = $namhoc[0]->NAMHOC;
+        $namhoc_1 =  (int)substr($namhoc, 0, 2);
+        $namhoc_2 =  (int)substr($namhoc, 3, 2);
+
+        if (($hocki + 1) > 3) {
+            $hocki = 1;
+            $namhoc_1++;
+            $namhoc_2++;
         }
-        return view('login', [
-            'mssv_xac_thuc' => '',
-            'ketqua_xuly' => ''
-        ]);
+        else{
+            $hocki++;
+        }
+        echo "Học ki kế tiếp: " . $hocki;
+        echo "<br>Năm học kế tiếp: " . $namhoc_1 . "-" . $namhoc_2;
+
+        $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK".$hocki."_".$namhoc_1 . "-" . $namhoc_2.".XLS";
+        $headers = @get_headers($url);
+        if(strpos($headers[0],'404') === false)
+        {
+            echo "<br>Đã có lịch học";
+        }
+        else
+        {
+            // Load trang login.
+            if (\Session::has('mssv_login')){
+                return redirect('taotkb');
+            }
+            return view('login', [
+                'mssv_xac_thuc' => '',
+                'ketqua_xuly' => ''
+            ]);
+        }
     }
 
     // Hàm load trang đổi mật khẩu.

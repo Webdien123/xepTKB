@@ -67,7 +67,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="" id="img_profile_1" class="img-responsive img-rounded" style="width: 32px; display: inline;">
+                            <img src="" id="img_profile_1" class="img-responsive img-circle" style="width: 32px; display: inline;">
                             <strong>{{ \Session::get('name_login') }}</strong>
                             <span class="glyphicon glyphicon-chevron-down"></span>
                         </a>

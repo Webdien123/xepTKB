@@ -7,7 +7,7 @@
 {{--  Phần nội dung sẽ dẫn vào trang admin  --}}
 @section('noidung')
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
 
             {{--  Phần chức năng phản hồi.  --}}
@@ -27,10 +27,11 @@
                   </div>
                 @endif
 
-
+                <legend><span class="glyphicon glyphicon-globe"></span>Hộp thư góp ý</legend>
                 <div class="well well-sm">
                     
                     <form action="feedback" method="POST" onsubmit="showModal();">
+
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">                 
                     <div class="row">                        
                         <div class="col-md-6">
@@ -52,7 +53,7 @@
                                     Chủ đề</label>
                                 <select id="subject" name="subject" class="form-control" required="required">
                                     <option value="chỉnh sửa" selected="">Góp ý</option>
-                                    <option value="váo lỗi">Báo lỗi</option>
+                                    <option value="báo lỗi">Báo lỗi</option>
                                     <option value="yêu cầu chức năng">Yêu cầu chức năng mới</option>
                                     <option value="khác">Khác</option>
                                 </select>

@@ -640,42 +640,42 @@ function da_them_hp() {
     return ketqua;
 }
 
-// Hàm lấy học kì hiện tại.
-function LayHKiHienTai() {
-    $.ajax({
-        type: "POST",
-        url: "/lay_hocki_hientai",
-        data: {
-            _token: token
-        },
-        success: function (response) {
-            hki_hientai = response[0].HOCKI;
-            $("#hocki_ht").text(hki_hientai);
-        },
-        error: function(xhr,err){
-            console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-        }
-    });
-}
+// // Hàm lấy học kì hiện tại.
+// function LayHKiHienTai() {
+//     $.ajax({
+//         type: "POST",
+//         url: "/lay_hocki_hientai",
+//         data: {
+//             _token: token
+//         },
+//         success: function (response) {
+//             hki_hientai = response[0].HOCKI;
+//             $("#hocki_ht").text(hki_hientai);
+//         },
+//         error: function(xhr,err){
+//             console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+//         }
+//     });
+// }
 
-// Hàm lấy năm học hiện tại.
-function LayNamHocHienTai() {
-    $.ajax({
-        type: "POST",
-        url: "/lay_namhoc_hientai",
-        data: {
-            _token: token
-        },
-        success: function (response) {
-            namhoc_hientai = response[0].NAMHOC;
-            namhoc_array = namhoc_hientai.split('-');
-            $("#namhoc_ht").text('20' + namhoc_array[0] + '-20' + namhoc_array[1]);
-        },
-        error: function(xhr,err){
-            console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-        }
-    });
-}
+// // Hàm lấy năm học hiện tại.
+// function LayNamHocHienTai() {
+//     $.ajax({
+//         type: "POST",
+//         url: "/lay_namhoc_hientai",
+//         data: {
+//             _token: token
+//         },
+//         success: function (response) {
+//             namhoc_hientai = response[0].NAMHOC;
+//             namhoc_array = namhoc_hientai.split('-');
+//             $("#namhoc_ht").text('20' + namhoc_array[0] + '-20' + namhoc_array[1]);
+//         },
+//         error: function(xhr,err){
+//             console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+//         }
+//     });
+// }
 
 // Tính thời gian học theo số tiết.
 function Tinh_TGian_Hoc(tiet_hoc) {
@@ -783,9 +783,9 @@ function Luu_TKB() {
 // Xử lý khi trang tạo tkb vừa load xong.
 $(document).ready(function () {
 
-    // Tính học kì và năm học hiện tại, lưu trữ vào biến toàn cục.
-    LayHKiHienTai();
-    LayNamHocHienTai();
+    // // Tính học kì và năm học hiện tại, lưu trữ vào biến toàn cục.
+    // LayHKiHienTai();
+    // LayNamHocHienTai();
 
     // Tính và hiển thị lịch họp cố vấn.
     TinhLichCoVan();

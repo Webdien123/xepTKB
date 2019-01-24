@@ -20,20 +20,12 @@
     {{--  Đặt màu cho các môn học   --}}
     <link rel="stylesheet" href="{{ asset('css/to_mau_hp.css') }}">
 
-    <?php
-        $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK2_18_19.XLS";
-        $headers = @get_headers($url);
-        if(strpos($headers[0],'404') === false)
-        {
-            echo "URL Exists";
-        }
-        else
-        {
-            echo "URL Not Exists";
-        }
-    ?>
-
     {{--  Script tạo biến cục bộ js và xử lý ban đầu khi trang khởi động  --}}
+    <?php
+        $namhoc_1 =  (int)substr($namhoc_hientai, 0, 2);
+        $namhoc_2 =  (int)substr($namhoc_hientai, 3, 2);
+        $namhoc = "20" . $namhoc_1 . "-20" . $namhoc_2;
+    ?>
     <script>
         // Lưu trữ token.
         var token = "{{ csrf_token() }}";
@@ -54,10 +46,10 @@
         var ds_hp_can_luu = [];
 
         // Lưu học kì hiện tại.
-        var hki_hientai = null;
+        var hki_hientai = "{{ $hki_hientai }}";
 
         // Lưu năm học hiện tại.
-        var namhoc_hientai = null;        
+        var namhoc_hientai = "{{ $namhoc }}";
     </script>
 
     {{--  Script xử lý tìm thông tin học phần.  --}}
@@ -71,12 +63,13 @@
         
         {{--  Phần hiển thị tên trang và học kì hiện tại.  --}}
         <div class="row text-success">
-            <div class="col-xs-4">
+            <div class="col-xs-12 col-sm-4">
                 <h4><b>Tạo thời khóa biểu mới</b></h4>
             </div>
 
-            <div class="col-xs-8 text-right">
-                <h4><strong>Học kì hiện tại: Học kì <span id="hocki_ht"></span>, <span id="namhoc_ht"></span></strong></h4>
+            <div class="col-xs-12 col-sm-8">
+                <h4 class="visible-sm visible-md visible-lg text-right"><strong>Học kì hiện tại: Học kì {{ $hki_hientai }}, {{ $namhoc }}</strong></h4>
+                <h4 class="visible-xs"><strong>Học kì hiện tại: Học kì {{ $hki_hientai }}, {{ $namhoc }}</strong></h4>
             </div>
             <div class="col-xs-12">
                 <hr>

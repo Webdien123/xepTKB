@@ -24,20 +24,27 @@
             }
         }        
     </style>
+
+    <?php
+        $namhoc_1 =  (int)substr($namhoc_hientai, 0, 2);
+        $namhoc_2 =  (int)substr($namhoc_hientai, 3, 2);
+        $namhoc = "20" . $namhoc_1 . "-20" . $namhoc_2;
+    ?>
     
     <div class="container-fluid">
         {{--  Phần hiển thị tên trang và học kì hiện tại  --}}
         <div class="row text-success">
-            <div class="col-xs-4">
-                <h4><b>Các TKB đã tạo</b></h4>
+            <div class="col-xs-12 col-sm-4">
+                <h4><b>Các thời khóa biểu đã tạo</b></h4>
             </div>
 
-            <div class="col-xs-8 text-right">
-                <h4><strong>Học kì hiện tại: Học kì 2, 2017-2018</strong></h4>
+            <div class="col-xs-12 col-sm-8">
+                <h4 class="visible-sm visible-md visible-lg text-right"><strong>Học kì hiện tại: Học kì {{ $hki_hientai }}, {{ $namhoc }}</strong></h4>
+                <h4 class="visible-xs"><strong>Học kì hiện tại: Học kì {{ $hki_hientai }}, {{ $namhoc }}</strong></h4>
             </div>
             <div class="col-xs-12">
-                    <hr>
-            </div>            
+                <hr>
+            </div>
         </div>
 
         <div class="row">
