@@ -92,5 +92,8 @@ Route::get('thongtin', 'PageController@ThongTin_LienHe')->name('thongtin');
 // Lưu ảnh thu nhỏ thời khóa biểu lên máy chủ.
 Route::post('save_tkb_img', 'FileController@Save_TKB_Img');
 
+// Cập nhật ảnh đại diện.
+Route::post('/upload_avt', 'AccountController@Upload_Avt');
+
 // Load trang báo lỗi.
 Route::get('error', 'PageController@Error')->name('error');

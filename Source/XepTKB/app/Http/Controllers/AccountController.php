@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use App\NguoiDung;
 use Hash;
+use File;
 
 // Lớp xử lý các thao tác trên thông tin tài khoản.
 class AccountController extends Controller
@@ -196,5 +197,33 @@ class AccountController extends Controller
             $errors = new MessageBag(['errorlogin' => 'Mã số không đúng.']);
             return redirect()->back()->withInput()->withErrors($errors);
         }
+    }
+
+    // Cập nhật ảnh đại diện.
+    public function Upload_Avt(Request $R)
+    {
+        $this->validate($R, [
+            'img_avt' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($R->hasFile('img_avt')) {
+            try {
+                File::delete(public_path('avt/'.$R->_uname_avt.'.png'));
+                File::delete(public_path('avt/'.$R->_uname_avt.'.jpg'));
+                File::delete(public_path('avt/'.$R->_uname_avt.'.gif'));
+
+                $image = $R->file('img_avt');
+                $name = $R->_uname_avt.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('/avt');
+                $image->move($destinationPath, $name);
+
+                // WriteLogController::Write_Debug(\Session::get("uhoten")." cập nhật ảnh đại diện. ".$R->_uname." thành công.", "success");
+                // WriteLogController::Write_InFo(\Session::get("uhoten")." cập nhật ảnh đại diện. ".$R->_uname, 'success');
+            } catch (Exception $e) {
+                // WriteLogController::Write_Debug(\Session::get("uhoten")." cập nhật ảnh đại diện. ".$R->_uname." thất bại.<br>Mã lỗi: <br>".$e->getMessage(), "danger");
+                // WriteLogController::Write_InFo(\Session::get("uhoten")." cập nhật ảnh đại diện. ".$R->_uname. " thất bại", "danger");
+            }
+        }
+        return redirect('/');
     }
 }
