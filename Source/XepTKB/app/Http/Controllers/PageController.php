@@ -54,6 +54,7 @@ class PageController extends Controller
         // echo "Học ki kế tiếp: " . $hocki;
         // echo "<br>Năm học kế tiếp: " . $namhoc_1 . "-" . $namhoc_2;
         // echo "<br>".$url;
+        
         $headers = @get_headers($url);
         if(strpos($headers[0],'404') === false)
         {

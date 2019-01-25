@@ -22,7 +22,36 @@ class ExcellController extends Controller
     {
         // dd(\Session::get('mssv_login'));
         if (\Session::get('mssv_login') == "admin"){
-            return view('importExport');
+
+            // ========================================
+            // Phần kiểm tra dữ liệu học kì mới tự động
+            // Lấy học kì hiện tại.
+            $hocki = \DB::select('select * from hocki', [1]);
+            $hocki = $hocki[0]->HOCKI;
+
+            // Lấy năm học hiện tại.
+            $namhoc = \DB::select('select * from namhoc', [1]);
+            $namhoc = $namhoc[0]->NAMHOC;
+            $namhoc_1 =  (int)substr($namhoc, 0, 2);
+            $namhoc_2 =  (int)substr($namhoc, 3, 2);
+
+            if (($hocki + 1) > 3) {
+                $hocki = 1;
+                $namhoc_1++;
+                $namhoc_2++;
+            }
+            else{
+                $hocki++;
+            }
+
+            $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK".$hocki."_".$namhoc_1 . "_" . $namhoc_2.".XLS";
+            // ============================================================
+
+            return view('importExport', [
+                'link_file' => $url,
+                'hki_hientai' => $hocki,
+                'namhoc_hientai' => $namhoc
+            ]);
         }
         else{
             return redirect('/');
@@ -40,6 +69,7 @@ class ExcellController extends Controller
         })->download($type);
     }
     
+    // Xử lý import lớp học phần.
     public function importExcel(Request $request)
     {
         if($request->hasFile('import_file')){
