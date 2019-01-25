@@ -97,3 +97,8 @@ Route::post('/upload_avt', 'AccountController@Upload_Avt');
 
 // Load trang báo lỗi.
 Route::get('error', 'PageController@Error')->name('error');
+
+// Xử lý excell.
+Route::get('excell', 'ExcellController@importExport');
+Route::get('downloadExcel/{type}', 'ExcellController@downloadExcel');
+Route::post('importExcel', 'ExcellController@importExcel');

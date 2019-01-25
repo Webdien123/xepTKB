@@ -49,14 +49,17 @@ class PageController extends Controller
         else{
             $hocki++;
         }
-        echo "Học ki kế tiếp: " . $hocki;
-        echo "<br>Năm học kế tiếp: " . $namhoc_1 . "-" . $namhoc_2;
 
-        $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK".$hocki."_".$namhoc_1 . "-" . $namhoc_2.".XLS";
+        $url = "https://dkmh2.ctu.edu.vn/tracuu/DANHSACHHOCPHANMOHK".$hocki."_".$namhoc_1 . "_" . $namhoc_2.".XLS";
+
+        // echo "Học ki kế tiếp: " . $hocki;
+        // echo "<br>Năm học kế tiếp: " . $namhoc_1 . "-" . $namhoc_2;
+        // echo "<br>".$url;
+        
         $headers = @get_headers($url);
         if(strpos($headers[0],'404') === false)
         {
-            echo "<br>Đã có lịch học";
+            echo "<br>Đã có lịch mới";
         }
         else
         {
@@ -92,7 +95,13 @@ class PageController extends Controller
     // Hàm load trang thông tin và liên hệ.
     public function ThongTin_LienHe()
     {
-        return view('thongtin', [
+        if (\Session::has('mssv_login')){
+            return view('thongtin', [
+                'ketqua_xuly' => ''
+            ]);
+        }
+        return view('login', [
+            'mssv_xac_thuc' => '',
             'ketqua_xuly' => ''
         ]);
     }
