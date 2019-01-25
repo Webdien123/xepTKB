@@ -43,20 +43,30 @@ class ExcellController extends Controller
     public function importExcel(Request $request)
     {
         if($request->hasFile('import_file')){
-
+            ini_set('max_execution_time', 900);
             Excel::load($request->file('import_file')->getRealPath(), function ($reader) {
                 foreach ($reader->toArray() as $key => $row) {
-                    $data['title'] = $row['title'];
-                    $data['description'] = $row['description'];
+                    $data['MAHP'] = $row['ma_hp'];
+                    $data['TENHP'] = $row['ten_hoc_phan'];
+                    $data['KIHIEU'] = $row['ky_hieu'];
+                    $data['THU'] = $row['thu'];
+                    $data['TIETBD'] = $row['tiet_bd'];
+                    $data['SOTIET'] = $row['so_tiet'];
+                    $data['PHONG'] = $row['phong'];
+                    $data['SISO'] = $row['si_so'];                    
+                    $data['TINCHI'] = $row['tin_chi'];
+                    $data['MALOP'] = $row['lop'];
+                    $data['TUANHOC'] = $row['tuan_hoc'];
 
                     if(!empty($data)) {
-                        DB::table('post')->insert($data);
+                        \DB::table('lop_hoc_phan')->insert($data);
                     }
                 }
             });
         }
 
-        Session::put('success', 'Youe file successfully import in database!!!');
+        ini_set('max_execution_time', 30);
+        DD("IMPORT THÀNH CÔNG");
 
         return back();
     }

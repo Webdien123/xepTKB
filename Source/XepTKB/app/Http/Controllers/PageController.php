@@ -30,7 +30,6 @@ class PageController extends Controller
     {
         // ========================================
         // Phần kiểm tra dữ liệu học kì mới tự động
-
         // Lấy học kì hiện tại.
         $hocki = \DB::select('select * from hocki', [1]);
         $hocki = $hocki[0]->HOCKI;
@@ -55,7 +54,6 @@ class PageController extends Controller
         // echo "Học ki kế tiếp: " . $hocki;
         // echo "<br>Năm học kế tiếp: " . $namhoc_1 . "-" . $namhoc_2;
         // echo "<br>".$url;
-        
         $headers = @get_headers($url);
         if(strpos($headers[0],'404') === false)
         {
