@@ -27,7 +27,7 @@
                   </div>
                 @endif
 
-                <legend><span class="glyphicon glyphicon-globe"></span>Hộp thư góp ý</legend>
+                <legend><i class="fa fa-envelope" aria-hidden="true"></i>Hộp thư góp ý</legend>
                 <div class="well well-sm">
                     
                     <form action="feedback" method="POST" onsubmit="showModal();">

@@ -75,7 +75,7 @@
                             <li>
                                 <div class="navbar-login">
                                     <div class="row">
-                                        <div class="col-lg-12">    
+                                        <div class="col-sm-12">    
                                             <img src="" id="img_profile_2" class="img-responsive img-rounded" style="width: 100%; display: inline;">
                                             <p class="text-left"><strong>{{ \Session::get('name_login') }}</strong></p>
                                             <p class="text-left small">{{ \Session::get('email_login') }}</p>
@@ -93,7 +93,7 @@
                             <li>
                                 <div class="navbar-login navbar-login-session">
                                     <div class="row">
-                                        <div class="col-lg-12">
+                                        <div class="col-sm-12">
                                             <p>
                                                 <form id="f_upload_avt" method="POST" action="/upload_avt" enctype="multipart/form-data">
                                                     {!! csrf_field() !!}

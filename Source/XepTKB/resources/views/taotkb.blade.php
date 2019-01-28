@@ -88,7 +88,6 @@
                         
                         {{--  Form tìm kiếm học phần  --}}
                         <form id="f_tim_hp" class="form-inline">
-                        
                             <div class="form-group">
                                 <label for="" class="text-success">Nhập mã hoặc tên học phần:</label>
                                 <input type="text" required class="form-control" 
@@ -124,18 +123,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td id="mahp_tim"></td>
-                                        <td id="tenhp_tim"></td>
-                                        <td>
-                                            <button id="btn_them_hp" type="button" class="btn btn-success"
-                                                onclick="them_hp()">
-                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                                Thêm
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <tbody id="ds_hp_found">
                                     <tr id="error_trung_hp">
                                         <td colspan="3">
                                             <b class="text-danger">

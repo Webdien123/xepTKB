@@ -36,17 +36,15 @@ $(document).ready(function () {
 
                 //==================================================================
                 // Tính học phần và kí hiệu vừa thêm.
-                // 
+                
                 hp_vua_them = response;
 
                 // console.log(hp_vua_them);
-                // 
-                //==================================================================
-
-                // console.log(response);
 
                 // Tính số lớp học phần tìm được.
                 sl = response.length;
+
+                $(".tr_hp_found").remove();
 
                 // Nếu có lớp hp được tìm thấy.
                 if (sl != 0) {
@@ -59,8 +57,26 @@ $(document).ready(function () {
                     $("#found_hp").show(0);
 
                     // Điền mã và tên học phần lên bảng thông tin.
-                    $("#mahp_tim").text(response[0].MAHP);
-                    $("#tenhp_tim").text(response[0].TENHP);
+                    // $("#mahp_tim").text(response[0].MAHP);
+                    // $("#tenhp_tim").text(response[0].TENHP);
+
+                    for (var i = 0; i < sl; i++) {
+                        element = '<tr class="tr_hp_found">\
+                            <td>'+response[i].MAHP+'</td>\
+                            <td>'+response[i].TENHP+'</td>\
+                            <td>\
+                                <button type="button" class="btn btn-success"\
+                                    onclick="them_hp(\''+response[i].MAHP+'\')">\
+                                    <i class="fa fa-plus" aria-hidden="true"></i>\
+                                    Thêm\
+                                </button>\
+                            </td>\
+                        </tr>';
+
+                        $("#ds_hp_found").append(element);
+                    }
+
+                    
                 } 
                 // Nếu không tìm thấy.
                 else {

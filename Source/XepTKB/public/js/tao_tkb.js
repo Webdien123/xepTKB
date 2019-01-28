@@ -468,7 +468,9 @@ function dien_tkb(ma_hp, kihieu, mau_can_to) {
 }
 
 // Hàm thêm học phần mới lên bảng học phần.
-function them_hp() {
+function them_hp(ma_hp) {
+
+    alert(ma_hp)
 
     // Ẩn thông báo trùng học phần.
     $("#error_trung_hp").hide(0);
@@ -639,43 +641,6 @@ function da_them_hp() {
     }
     return ketqua;
 }
-
-// // Hàm lấy học kì hiện tại.
-// function LayHKiHienTai() {
-//     $.ajax({
-//         type: "POST",
-//         url: "/lay_hocki_hientai",
-//         data: {
-//             _token: token
-//         },
-//         success: function (response) {
-//             hki_hientai = response[0].HOCKI;
-//             $("#hocki_ht").text(hki_hientai);
-//         },
-//         error: function(xhr,err){
-//             console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-//         }
-//     });
-// }
-
-// // Hàm lấy năm học hiện tại.
-// function LayNamHocHienTai() {
-//     $.ajax({
-//         type: "POST",
-//         url: "/lay_namhoc_hientai",
-//         data: {
-//             _token: token
-//         },
-//         success: function (response) {
-//             namhoc_hientai = response[0].NAMHOC;
-//             namhoc_array = namhoc_hientai.split('-');
-//             $("#namhoc_ht").text('20' + namhoc_array[0] + '-20' + namhoc_array[1]);
-//         },
-//         error: function(xhr,err){
-//             console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-//         }
-//     });
-// }
 
 // Tính thời gian học theo số tiết.
 function Tinh_TGian_Hoc(tiet_hoc) {

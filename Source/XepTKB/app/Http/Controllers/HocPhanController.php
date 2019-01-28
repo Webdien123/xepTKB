@@ -12,6 +12,7 @@ class HocPhanController extends Controller
     public function TimHP(Request $R)
     {
         $ma_hp = $R->ma_hp;
+        // return $ma_hp;
         $hocphan = LopHocPhan::GetLopHP($ma_hp);
         return $hocphan;
     }
