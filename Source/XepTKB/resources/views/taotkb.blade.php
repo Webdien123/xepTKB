@@ -115,6 +115,9 @@
 
                         {{--  Bảng thông tin HP đã tìm thấy  --}}
                         <div class="table-responsive" id="found_hp">
+                            <div id="error_trung_hp"  class="text-danger">
+                                <h3>Học phần đã thêm trước đó.</h3>
+                            </div>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -124,13 +127,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="ds_hp_found">
-                                    <tr id="error_trung_hp">
-                                        <td colspan="3">
-                                            <b class="text-danger">
-                                                Học phần đã thêm trước đó.
-                                            </b>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
