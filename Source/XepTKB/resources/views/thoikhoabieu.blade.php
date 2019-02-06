@@ -10,13 +10,10 @@
     {{--  Đặt margin giữa các thời khóa biểu thu nhỏ  --}}
     <style>
         .top-buffer { 
-            margin-top: 5%; 
+            margin-top: 2%; 
         }
         .left-buffer { 
-            margin-left: 4%;
-        }
-        .tkb{
-            background-color: darkgray
+            margin-left: 5%;
         }
         @media only screen and (max-width: 992px) {
             .left-buffer { 
@@ -49,31 +46,31 @@
 
         <div class="row">
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
+                <div class="col-xs-12 top-buffer left-buffer">
                     <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
+                <div class="col-xs-12 top-buffer left-buffer">
                     <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
+                <div class="col-xs-12 top-buffer left-buffer">
                     <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer">
                     <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
 
             <a href="">
-                <div class="col-xs-12 col-md-5 top-buffer left-buffer tkb">
+                <div class="col-xs-12 col-md-5 top-buffer left-buffer">
                     <img src="{{ asset('/tkb_img/1_2-17-18.png') }}" class="img-responsive" alt="Image">
                 </div>
             </a>
