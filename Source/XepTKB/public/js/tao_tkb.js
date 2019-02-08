@@ -559,7 +559,7 @@ function them_hp(ma_hp) {
                                 '<br><span class="small ' + hp_vua_them[0].MAHP + '_tuanhoc">(' + hp_vua_them[0].TUANHOC +  ')</span>' + 
                                 no_tkb 
                             + '</td>\
-                            <td>' + hp_vua_them[0].SISO + '</td>\
+                            <td class="hide"></td>\
                             <td>\
                                 <select id="sl_'+ hp_vua_them[0].MAHP +'" onchange="Doi_Ki_hieu(\'' + hp_vua_them[0].MAHP + '\')">' +
                                     option_kihieu

@@ -248,7 +248,6 @@
                             <tr class="info">
                                 <th>Mã HP</th>
                                 <th>Tên HP - Tuần học</th>
-                                <th>Sỉ số</th>
                                 <th>Ký hiệu</th>
                                 <th></th>
                             </tr>
