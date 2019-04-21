@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Hocki_NamHoc;
 
 // Lớp định nghia các hàm load các trang giao diện không cần đọc data trước.
 class PageController extends Controller
@@ -59,6 +60,8 @@ class PageController extends Controller
         if(strpos($headers[0],'404') === false)
         {
             echo "<br>Đã có lịch mới";
+            Hocki_NamHoc::UpdateHocKi($hocki);
+            Hocki_NamHoc::UpdateNamHoc($namhoc_1 . "-" . $namhoc_2);
         }
         else
         {
