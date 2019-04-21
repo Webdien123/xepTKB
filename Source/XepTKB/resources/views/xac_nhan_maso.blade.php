@@ -39,6 +39,11 @@
 							<div class="form-group">
 								<a class="form-control btn btn-danger" href="login">Về trang đăng nhập</a>
 							</div>
+
+							<p style="color: blue">Nếu không nhận được email sau 1 phút<br>
+							vui lòng liên hệ quản trị viên tại địa chỉ sau:<br>
+							<a href="https://www.facebook.com/xeptkb.ctu/" target="_blank">www.facebook.com/xeptkb.ctu</a>
+							</p>
 						</form>
 						@endif
 
