@@ -63,16 +63,25 @@ class NguoiDung extends Model
 
         try{
             // Thêm thông tin tài khoản vào hệ thống.
-            \DB::insert('INSERT INTO `nguoi_dung`(`MSSV`, `HOTEN`, `EMAIL`, `MKHAU`, `MALOP`) VALUES (?, ?, ?, ?, ?)', [
+            // \DB::insert('INSERT INTO `nguoi_dung`(`MSSV`, `HOTEN`, `EMAIL`, `MKHAU`, `MALOP`) VALUES (?, ?, ?, ?, ?)', [
+            \DB::insert('INSERT INTO `nguoi_dung`(`MSSV`, `HOTEN`, `EMAIL`, `MKHAU`, `MALOP`, `KICHHOAT`) VALUES (?, ?, ?, ?, ?, ?)', [
                 ucwords($mssv),
                 ucwords($name),
                 $email, 
                 bcrypt($password), 
-                $malop
+                // $malop
+
+                $malop,
+                "Y"
+            ]);
+
+            return view('login', [
+                'mssv_xac_thuc' => $mssv,
+                'ketqua_xuly' => 'Tạo tài khoản thành công'
             ]);
 
             // Gửi mail xác thực và kích hoạt tài khoản.
-            return MailController::GuiMail_KichHoat_P($email, $name);
+            // return MailController::GuiMail_KichHoat_P($email, $name);
         }
         catch (\Exception $e){
             dd($e->getMessage());

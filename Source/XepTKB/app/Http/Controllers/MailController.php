@@ -62,9 +62,7 @@ class MailController extends Controller
             if ($mail_type == "feedback") {
                 $errors = new MessageBag(['errorlogin' => 'Có lỗi khi gửi phản hồi, vui lòng thử lại.']);
                 return redirect()->back()->withInput()->withErrors($errors);
-            }
-
-            
+            }            
 
             // return $e->getMessage();
         }
