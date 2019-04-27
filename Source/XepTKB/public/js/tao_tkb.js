@@ -554,10 +554,10 @@ function them_hp(ma_hp) {
                     data_row =
                         mau_can_to +
                             '<td>' + hp_vua_them[0].MAHP + '</td>\
-                            <td>' + 
+                            <td><span>' + 
                                 hp_vua_them[0].TENHP + 
-                                '<br><span class="small ' + hp_vua_them[0].MAHP + '_tuanhoc">(' + hp_vua_them[0].TUANHOC +  ')</span>' + 
-                                no_tkb 
+                                '</span><br><span class="small ' + hp_vua_them[0].MAHP + '_tuanhoc">' + hp_vua_them[0].TUANHOC +  '</span>' + 
+                                no_tkb
                             + '</td>\
                             <td class="hide"></td>\
                             <td>\
@@ -566,9 +566,12 @@ function them_hp(ma_hp) {
                                 + '</select>\
                             </td>\
                             <td>\
-                                <button type="button" class="btn btn-large btn-block btn-danger btn_xoa_hp">\
+                                <a style="display: inline;" class="btn btn-danger btn_xoa_hp">\
                                     <i class="fa fa-trash" aria-hidden="true"></i>\
-                                </button>\
+                                </a>\
+                                <a data-toggle="modal" href="#modal_xem_lich_hoc" style="display: inline;" class="btn btn-info btn_xemlichhoc">\
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>\
+                                </a>\
                             </td>\
                         </tr>';
 
@@ -732,7 +735,7 @@ $(document).ready(function () {
 
         // Tính vị trí và tên học phần cần xóa.
         tr_can_xoa = $(this).closest('tr');
-        tenhp_can_xoa = tr_can_xoa.find("td:nth-child(2)").text();
+        tenhp_can_xoa = tr_can_xoa.find("td:nth-child(2)").find("span:nth-child(1)").text();
 
         if(window.confirm('Xóa học phần ' + tenhp_can_xoa + '?')){
 
@@ -768,6 +771,32 @@ $(document).ready(function () {
         }
     });
 
+    // Tạo chuỗi tiết học bằng tiết bắt đầu và số tiết.
+    function taochuoitiethoc(tietbd, sotiet) {
+        ketqua = "";
+
+        tietcuoi = Number(tietbd) + Number(sotiet);
+
+        for (let index = tietbd; index <= tietcuoi; index++) {
+            ketqua += ( " " + index);
+        }
+
+        return ketqua;
+    }
+
+    // Tạo buổi học (sáng, chiều, tối) theo tiết bắt đầu.
+    function taobuoihoc(tietbd) {
+        if (tietbd <= 5){
+            return "Sáng";
+        }
+        else if(tietbd <= 10){
+            return "Chiều";
+        }
+        else{
+            return "Tối";
+        }
+    }
+
     // Xóa tất cả học phần.
     $("#btn_xoa_all_hp").click(function (e) { 
         e.preventDefault();
@@ -786,6 +815,54 @@ $(document).ready(function () {
         // Ẩn thông báo trùng học phần.
         $("#bao_trung_hp").hide();
         $("#trung_lich_hp").hide();
+    });
+
+    // Xem lịch học chi tiết của một học phần.
+    $("#tb_hp").on('click', '.btn_xemlichhoc', function () {
+
+        // Tính vị trí và tên học phần cần xóa.
+        tr_can_xoa = $(this).closest('tr');
+        ma_hp = tr_can_xoa.find("td:nth-child(1)").text();
+        tenhp_can_xoa = tr_can_xoa.find("td:nth-child(2)").find("span:nth-child(1)").text();
+
+        $.ajax({
+            type: "POST",
+            url: "/lay_tgian_hoc",
+            data: {
+                ma_hp: ma_hp,
+                _token: token,
+                kihieu: "0"
+            },                    
+            success: function (response) {
+                
+                lichhoc = "\
+                <div class='table-responsive'>\
+                <table class='table table-bordered'>\
+                <tr class='info'><th>Nhóm</th><th>Buổi</th><th>Thứ</th><th>Tiết học</th></tr>";
+
+                size_list = response.length;
+                for (let index = 0; index < size_list; index++) {
+
+                    chuoitiethoc = taochuoitiethoc(response[index]["TIETBD"], response[index]["SOTIET"]);
+                    buoihoc = taobuoihoc(response[index]["TIETBD"]);
+
+                    lichhoc += "<tr><td>" + response[index]["KIHIEU"] + 
+                    "</td><td>" + buoihoc + 
+                    "</td><td>" + response[index]["THU"] + 
+                    "</td><td>" +  chuoitiethoc
+                    "</td></tr>";
+                }
+
+                lichhoc += "</table>";
+
+                $("#modal_xem_lich_hoc").find('.modal-title').text("Lịch học " + tenhp_can_xoa);
+                $("#modal_xem_lich_hoc").find('.modal-body').html(lichhoc);
+            },
+            error: function(xhr,err){
+                alert("LOI");
+                console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+            }
+        });
     });
 
     // Hàm kiểm tra số lượng học phần còn lại và
