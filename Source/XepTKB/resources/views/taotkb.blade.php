@@ -247,7 +247,7 @@
                         <thead>
                             <tr class="info">
                                 <th>Mã HP</th>
-                                <th>Tên HP - Tuần học</th>
+                                <th width="45%">Tên HP - Tuần học</th>
                                 <th>Ký hiệu</th>
                                 <th></th>
                             </tr>

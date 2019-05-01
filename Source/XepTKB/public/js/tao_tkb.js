@@ -555,8 +555,8 @@ function them_hp(ma_hp) {
                         mau_can_to +
                             '<td>' + hp_vua_them[0].MAHP + '</td>\
                             <td><span>' + 
-                                hp_vua_them[0].TENHP + 
-                                '</span><br><span class="small ' + hp_vua_them[0].MAHP + '_tuanhoc">' + hp_vua_them[0].TUANHOC +  '</span>' + 
+                                hp_vua_them[0].TENHP + "</span><hr style='margin-top: 2px; margin-bottom: 2px;'>" +
+                                '<span class="small ' + hp_vua_them[0].MAHP + '_tuanhoc">' + hp_vua_them[0].TUANHOC +  '</span>' + 
                                 no_tkb
                             + '</td>\
                             <td class="hide"></td>\
@@ -566,10 +566,10 @@ function them_hp(ma_hp) {
                                 + '</select>\
                             </td>\
                             <td>\
-                                <a style="display: inline;" class="btn btn-danger btn_xoa_hp">\
+                                <a title="xóa học phần" style="display: inline;" class="btn btn-danger btn_xoa_hp">\
                                     <i class="fa fa-trash" aria-hidden="true"></i>\
                                 </a>\
-                                <a data-toggle="modal" href="#modal_xem_lich_hoc" style="display: inline;" class="btn btn-info btn_xemlichhoc">\
+                                <a title="xem lịch học" data-toggle="modal" href="#modal_xem_lich_hoc" style="display: inline;" class="btn btn-info btn_xemlichhoc">\
                                     <i class="fa fa-calendar" aria-hidden="true"></i>\
                                 </a>\
                             </td>\
@@ -595,7 +595,7 @@ function them_hp(ma_hp) {
             else {
                 // Hiện thông báo trùng môn.
                 $("#error_trung_hp").show(0);
-                $("#error_trung_hp").hide(3000);
+                $("#error_trung_hp").hide(5000);
             }
         },
         error: function(xhr,err){
@@ -775,7 +775,7 @@ $(document).ready(function () {
     function taochuoitiethoc(tietbd, sotiet) {
         ketqua = "";
 
-        tietcuoi = Number(tietbd) + Number(sotiet);
+        tietcuoi = Number(tietbd) + Number(sotiet) - 1;
 
         for (let index = tietbd; index <= tietcuoi; index++) {
             ketqua += ( " " + index);
@@ -787,13 +787,13 @@ $(document).ready(function () {
     // Tạo buổi học (sáng, chiều, tối) theo tiết bắt đầu.
     function taobuoihoc(tietbd) {
         if (tietbd <= 5){
-            return "Sáng";
+            return "<img width='20%' style='display: inline;' src='../image/morning.png' class='img-responsive' alt='Image'>Sáng";
         }
         else if(tietbd <= 10){
-            return "Chiều";
+            return "<img width='20%' style='display: inline;' src='../image/noon.png' class='img-responsive' alt='Image'>Chiều";
         }
         else{
-            return "Tối";
+            return "<img width='20%' style='display: inline;' src='../image/night.png' class='img-responsive' alt='Image'>Tối";
         }
     }
 
@@ -841,16 +841,58 @@ $(document).ready(function () {
                 <tr class='info'><th>Nhóm</th><th>Buổi</th><th>Thứ</th><th>Tiết học</th></tr>";
 
                 size_list = response.length;
-                for (let index = 0; index < size_list; index++) {
 
-                    chuoitiethoc = taochuoitiethoc(response[index]["TIETBD"], response[index]["SOTIET"]);
-                    buoihoc = taobuoihoc(response[index]["TIETBD"]);
+                // Lưu tiết đầu của mỗi nhóm kí hiệu.
+                lichhoc_first = "";
 
-                    lichhoc += "<tr><td>" + response[index]["KIHIEU"] + 
-                    "</td><td>" + buoihoc + 
-                    "</td><td>" + response[index]["THU"] + 
-                    "</td><td>" +  chuoitiethoc
-                    "</td></tr>";
+                // Lưu các tiết tiếp theo của mỗi nhóm kí hiệu.
+                lichhoc_next = "";
+
+                count = 1;
+                for (let index = 1; index < size_list; index++) {
+
+                    if (response[index]["KIHIEU"] != response[index-1]["KIHIEU"]) {
+
+                        chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
+                        buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
+
+                        lichhoc_first = "<tr><td rowspan='" + count + "' id='nhomhp_" + response[index-count]["KIHIEU"] + "'>" + response[index-count]["KIHIEU"] + 
+                        "</td><td>" + buoihoc + 
+                        "</td><td>" + response[index-count]["THU"] + 
+                        "</td><td>" +  chuoitiethoc
+                        "</td>></tr>";
+
+                        lichhoc += lichhoc_first + lichhoc_next;
+
+                        lichhoc_next = "";
+                        count = 1;
+                    }
+                    else {
+
+                        chuoitiethoc = taochuoitiethoc(response[index]["TIETBD"], response[index]["SOTIET"]);
+                        buoihoc = taobuoihoc(response[index]["TIETBD"]);
+
+                        lichhoc_next += "<tr><td>" + buoihoc + 
+                        "</td><td>" + response[index]["THU"] + 
+                        "</td><td>" +  chuoitiethoc
+                        "</td></tr>";
+
+                        count++;
+
+                        if (count == size_list) {
+                            count--;
+                            chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
+                            buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
+
+                            lichhoc_first = "<tr><td rowspan='" + (count+1) + "' id='nhomhp_" + response[index-count]["KIHIEU"] + "'>" + response[index-count]["KIHIEU"] + 
+                            "</td><td>" + buoihoc + 
+                            "</td><td>" + response[index-count]["THU"] + 
+                            "</td><td>" +  chuoitiethoc
+                            "</td>></tr>";
+
+                            lichhoc += lichhoc_first + lichhoc_next;
+                        }
+                    }                    
                 }
 
                 lichhoc += "</table>";
