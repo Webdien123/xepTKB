@@ -305,13 +305,18 @@ function Lay_Ki_Hieu_Cu(ma_hp) {
 }
 
 // Thay cập nhật thời gian học của một HP khi chọn kí hiệu khác.
-function Doi_Ki_hieu(ma_hp) {
+function Doi_Ki_hieu(ma_hp, kihieu = "") {
 
     // Bỏ màu cho các buổi học bị trùng trước đó.
     $(".trung_buoi_hoc").removeClass("trung_buoi_hoc");
 
+    if (kihieu == "") {
     // Lấy kí hiệu nhóm HP đã chọn của HP vừa thêm.
     kihieu_nhom_hp = $('#sl_' + ma_hp).children(":selected").text();
+    } else {
+        kihieu_nhom_hp = kihieu;
+        $('#sl_' + ma_hp).val(kihieu);
+    }
 
     // Nếu kí hiệu vừa chọn trùng lịch với các học phần trước đó.
     mon_bi_trung = Kiem_Tra_Nhom_Bi_Trung(ma_hp, kihieu_nhom_hp);
@@ -727,6 +732,90 @@ $(document).ready(function () {
     // Tính và hiển thị lịch họp cố vấn.
     TinhLichCoVan();
 
+    // Xem chi tiết lịch học của một học phần.
+    function XemLichHoc(ma_hp) {
+        $.ajax({
+            type: "POST",
+            url: "/lay_tgian_hoc",
+            data: {
+                ma_hp: ma_hp,
+                _token: token,
+                kihieu: "0"
+            },                    
+            success: function (response) {
+                
+                lichhoc = "\
+                <div class='table-responsive'>\
+                <table class='table table-bordered'>\
+                <tr class='info'><th>Nhóm</th><th>Buổi</th><th>Thứ</th><th>Tiết học</th></tr>";
+
+                size_list = response.length;
+
+                // Lưu tiết đầu của mỗi nhóm kí hiệu.
+                lichhoc_first = "";
+
+                // Lưu các tiết tiếp theo của mỗi nhóm kí hiệu.
+                lichhoc_next = "";
+
+                count = 1;
+                for (let index = 1; index < size_list; index++) {
+
+                    if (response[index]["KIHIEU"] != response[index-1]["KIHIEU"]) {
+
+                        chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
+                        buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
+
+                        lichhoc_first = "<tr><td onclick='Doi_Ki_hieu(\"" + ma_hp + "\",\""+ response[index-count]["KIHIEU"] +"\")' title='Chọn nhóm này' style='text-align: center;vertical-align: middle;font-weight: bold;font-size:150%; cursor: pointer;' rowspan='" + count + "'>" + response[index-count]["KIHIEU"] + 
+                        "</td><td>" + buoihoc + 
+                        "</td><td>" + response[index-count]["THU"] + 
+                        "</td><td>" +  chuoitiethoc
+                        "</td></tr>";
+
+                        lichhoc += lichhoc_first + lichhoc_next;
+
+                        lichhoc_next = "";
+                        count = 1;
+                    }
+                    else {
+
+                        chuoitiethoc = taochuoitiethoc(response[index]["TIETBD"], response[index]["SOTIET"]);
+                        buoihoc = taobuoihoc(response[index]["TIETBD"]);
+
+                        lichhoc_next += "<tr><td>" + buoihoc + 
+                        "</td><td>" + response[index]["THU"] + 
+                        "</td><td>" +  chuoitiethoc
+                        "</td></tr>";
+
+                        count++;
+
+                        if (count == size_list) {
+                            count--;
+                            chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
+                            buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
+
+                            lichhoc_first = "<tr><td onclick='Doi_Ki_hieu(\"" + ma_hp + "\",\""+ response[index-count]["KIHIEU"] +"\")' title='Chọn nhóm này' style='text-align: center;vertical-align: middle;font-weight: bold;font-size:150%' rowspan='" + (count + 1) + "'>" + response[index-count]["KIHIEU"] + 
+                            "</td><td>" + buoihoc + 
+                            "</td><td>" + response[index-count]["THU"] + 
+                            "</td><td>" +  chuoitiethoc
+                            "</td></tr>";
+
+                            lichhoc += lichhoc_first + lichhoc_next;
+                        }
+                    }                    
+                }
+
+                lichhoc += "</table>";
+
+                $("#modal_xem_lich_hoc").find('.modal-title').text("Lịch học " + tenhp_can_xoa);
+                $("#modal_xem_lich_hoc").find('.modal-body').html("<span class='text-success' style='font-weight: bold;font-size:18;'>Click vào số nhóm để đổi nhóm.</span>" + lichhoc);
+            },
+            error: function(xhr,err){
+                alert("LOI");
+                console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+            }
+        });
+    }
+
     $("#bao_trung_hp").hide();
     $("#trung_lich_hp").hide();
 
@@ -825,86 +914,8 @@ $(document).ready(function () {
         ma_hp = tr_can_xoa.find("td:nth-child(1)").text();
         tenhp_can_xoa = tr_can_xoa.find("td:nth-child(2)").find("span:nth-child(1)").text();
 
-        $.ajax({
-            type: "POST",
-            url: "/lay_tgian_hoc",
-            data: {
-                ma_hp: ma_hp,
-                _token: token,
-                kihieu: "0"
-            },                    
-            success: function (response) {
-                
-                lichhoc = "\
-                <div class='table-responsive'>\
-                <table class='table table-bordered'>\
-                <tr class='info'><th>Nhóm</th><th>Buổi</th><th>Thứ</th><th>Tiết học</th></tr>";
-
-                size_list = response.length;
-
-                // Lưu tiết đầu của mỗi nhóm kí hiệu.
-                lichhoc_first = "";
-
-                // Lưu các tiết tiếp theo của mỗi nhóm kí hiệu.
-                lichhoc_next = "";
-
-                count = 1;
-                for (let index = 1; index < size_list; index++) {
-
-                    if (response[index]["KIHIEU"] != response[index-1]["KIHIEU"]) {
-
-                        chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
-                        buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
-
-                        lichhoc_first = "<tr><td rowspan='" + count + "' id='nhomhp_" + response[index-count]["KIHIEU"] + "'>" + response[index-count]["KIHIEU"] + 
-                        "</td><td>" + buoihoc + 
-                        "</td><td>" + response[index-count]["THU"] + 
-                        "</td><td>" +  chuoitiethoc
-                        "</td>></tr>";
-
-                        lichhoc += lichhoc_first + lichhoc_next;
-
-                        lichhoc_next = "";
-                        count = 1;
-                    }
-                    else {
-
-                        chuoitiethoc = taochuoitiethoc(response[index]["TIETBD"], response[index]["SOTIET"]);
-                        buoihoc = taobuoihoc(response[index]["TIETBD"]);
-
-                        lichhoc_next += "<tr><td>" + buoihoc + 
-                        "</td><td>" + response[index]["THU"] + 
-                        "</td><td>" +  chuoitiethoc
-                        "</td></tr>";
-
-                        count++;
-
-                        if (count == size_list) {
-                            count--;
-                            chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
-                            buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
-
-                            lichhoc_first = "<tr><td rowspan='" + (count+1) + "' id='nhomhp_" + response[index-count]["KIHIEU"] + "'>" + response[index-count]["KIHIEU"] + 
-                            "</td><td>" + buoihoc + 
-                            "</td><td>" + response[index-count]["THU"] + 
-                            "</td><td>" +  chuoitiethoc
-                            "</td>></tr>";
-
-                            lichhoc += lichhoc_first + lichhoc_next;
-                        }
-                    }                    
-                }
-
-                lichhoc += "</table>";
-
-                $("#modal_xem_lich_hoc").find('.modal-title').text("Lịch học " + tenhp_can_xoa);
-                $("#modal_xem_lich_hoc").find('.modal-body').html(lichhoc);
-            },
-            error: function(xhr,err){
-                alert("LOI");
-                console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-            }
-        });
+        // Thêm thông tin lịch học vào modal và hiển thị lên màn hình.
+        XemLichHoc(ma_hp);
     });
 
     // Hàm kiểm tra số lượng học phần còn lại và
