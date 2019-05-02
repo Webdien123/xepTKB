@@ -197,7 +197,7 @@
 
                 {{--  Nhóm button thao tác menu học phần  --}}
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success" data-toggle="modal" href='#modal-them-hp'>
+                    <button type="button" class="btn btn-success" id="btn_them_hp" data-toggle="modal" href='#modal-them-hp'>
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         Thêm HP
                     </button>

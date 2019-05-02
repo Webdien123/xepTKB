@@ -1,3 +1,113 @@
+// Xem chi tiết lịch học của một học phần.
+function XemLichHoc(ma_hp, tenhp) {
+    $.ajax({
+        type: "POST",
+        url: "/lay_tgian_hoc",
+        data: {
+            ma_hp: ma_hp,
+            _token: token,
+            kihieu: "0"
+        },                    
+        success: function (response) {
+            
+            lichhoc = "\
+            <div class='table-responsive'>\
+            <table class='table table-bordered'>\
+            <tr class='info'><th>Nhóm</th><th>Buổi</th><th>Thứ</th><th>Tiết học</th></tr>";
+
+            size_list = response.length;
+
+            // Lưu tiết đầu của mỗi nhóm kí hiệu.
+            lichhoc_first = "";
+
+            // Lưu các tiết tiếp theo của mỗi nhóm kí hiệu.
+            lichhoc_next = "";
+
+            count = 1;
+            for (let index = 1; index < size_list; index++) {
+
+                if (response[index]["KIHIEU"] != response[index-1]["KIHIEU"]) {
+
+                    chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
+                    buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
+
+                    lichhoc_first = "<tr><td onclick='Doi_Ki_hieu(\"" + ma_hp + "\",\""+ response[index-count]["KIHIEU"] +"\")' title='Chọn nhóm này' style='text-align: center;vertical-align: middle;font-weight: bold;font-size:150%; cursor: pointer;' rowspan='" + count + "'>" + response[index-count]["KIHIEU"] + 
+                    "</td><td>" + buoihoc + 
+                    "</td><td>" + response[index-count]["THU"] + 
+                    "</td><td>" +  chuoitiethoc
+                    "</td></tr>";
+
+                    lichhoc += lichhoc_first + lichhoc_next;
+
+                    lichhoc_next = "";
+                    count = 1;
+                }
+                else {
+
+                    chuoitiethoc = taochuoitiethoc(response[index]["TIETBD"], response[index]["SOTIET"]);
+                    buoihoc = taobuoihoc(response[index]["TIETBD"]);
+
+                    lichhoc_next += "<tr><td>" + buoihoc + 
+                    "</td><td>" + response[index]["THU"] + 
+                    "</td><td>" +  chuoitiethoc
+                    "</td></tr>";
+
+                    count++;
+
+                    if (count == size_list) {
+                        count--;
+                        chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
+                        buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
+
+                        lichhoc_first = "<tr><td onclick='Doi_Ki_hieu(\"" + ma_hp + "\",\""+ response[index-count]["KIHIEU"] +"\")' title='Chọn nhóm này' style='text-align: center;vertical-align: middle;font-weight: bold;font-size:150%' rowspan='" + (count + 1) + "'>" + response[index-count]["KIHIEU"] + 
+                        "</td><td>" + buoihoc + 
+                        "</td><td>" + response[index-count]["THU"] + 
+                        "</td><td>" +  chuoitiethoc
+                        "</td></tr>";
+
+                        lichhoc += lichhoc_first + lichhoc_next;
+                    }
+                }                    
+            }
+
+            lichhoc += "</table>";
+
+            $("#modal_xem_lich_hoc").find('.modal-title').text("Lịch học " + tenhp);
+            $("#modal_xem_lich_hoc").find('.modal-body').html("<span class='text-success' style='font-weight: bold;font-size:18;'>Click vào số nhóm để đổi nhóm.</span>" + lichhoc);
+        },
+        error: function(xhr,err){
+            alert("LOI");
+            console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+        }
+    });
+}
+
+// Tạo chuỗi tiết học bằng tiết bắt đầu và số tiết.
+function taochuoitiethoc(tietbd, sotiet) {
+    ketqua = "";
+
+    tietcuoi = Number(tietbd) + Number(sotiet) - 1;
+
+    for (let index = tietbd; index <= tietcuoi; index++) {
+        ketqua += ( " " + index);
+    }
+
+    return ketqua;
+}
+
+// Tạo buổi học (sáng, chiều, tối) theo tiết bắt đầu.
+function taobuoihoc(tietbd) {
+    if (tietbd <= 5){
+        return "<img width='20%' style='display: inline;' src='../image/morning.png' class='img-responsive' alt='Image'>Sáng";
+    }
+    else if(tietbd <= 10){
+        return "<img width='20%' style='display: inline;' src='../image/noon.png' class='img-responsive' alt='Image'>Chiều";
+    }
+    else{
+        return "<img width='20%' style='display: inline;' src='../image/night.png' class='img-responsive' alt='Image'>Tối";
+    }
+}
+
 // Hàm sắp xếp bảng dữ liệu học phần theo sỉ số (cột thứ 3)
 function sortTable(){
 
@@ -311,8 +421,8 @@ function Doi_Ki_hieu(ma_hp, kihieu = "") {
     $(".trung_buoi_hoc").removeClass("trung_buoi_hoc");
 
     if (kihieu == "") {
-    // Lấy kí hiệu nhóm HP đã chọn của HP vừa thêm.
-    kihieu_nhom_hp = $('#sl_' + ma_hp).children(":selected").text();
+        // Lấy kí hiệu nhóm HP đã chọn của HP vừa thêm.
+        kihieu_nhom_hp = $('#sl_' + ma_hp).children(":selected").text();
     } else {
         kihieu_nhom_hp = kihieu;
         $('#sl_' + ma_hp).val(kihieu);
@@ -322,6 +432,9 @@ function Doi_Ki_hieu(ma_hp, kihieu = "") {
     mon_bi_trung = Kiem_Tra_Nhom_Bi_Trung(ma_hp, kihieu_nhom_hp);
 
     if (mon_bi_trung != '') {
+
+        ki_hieu_cu = Lay_Ki_Hieu_Cu(ma_hp);
+        $("#sl_" + ma_hp).val(ki_hieu_cu);
 
         // Hiện thông báo trùng học phần và thông báo cho người dùng.
         $("#bao_trung_hp").show();
@@ -511,34 +624,34 @@ function them_hp(ma_hp) {
                     // Ẩn model thêm HP mới.
                     $('#modal-them-hp').modal('toggle');
 
-                    lich_hoc = "";
-                    // Tính lịch các buổi học.
-                    for (let i = 0; i < hp_vua_them.length; i++) {
+                    // lich_hoc = "";
+                    // // Tính lịch các buổi học.
+                    // for (let i = 0; i < hp_vua_them.length; i++) {
 
-                        if (i == 0) {
-                            lich_hoc += "\
-                            <div class='table-responsive'>\
-                            <table class='table table-bordered'>\
-                            <tr class='info'><th>Kí hiệu</th><th>Thứ</th><th>Tiết bắt đầu</th><th>Số tiết</th></tr>\
-                            ";
-                        }
+                    //     if (i == 0) {
+                    //         lich_hoc += "\
+                    //         <div class='table-responsive'>\
+                    //         <table class='table table-bordered'>\
+                    //         <tr class='info'><th>Kí hiệu</th><th>Thứ</th><th>Tiết bắt đầu</th><th>Số tiết</th></tr>\
+                    //         ";
+                    //     }
 
-                        lich_hoc += ("<tr><td>" + hp_vua_them[i].KIHIEU + "</td><td>" + hp_vua_them[i].THU + "</td><td>" + hp_vua_them[i].TIETBD + "</td><td>" + hp_vua_them[i].SOTIET + "</td></tr>");
+                    //     lich_hoc += ("<tr><td>" + hp_vua_them[i].KIHIEU + "</td><td>" + hp_vua_them[i].THU + "</td><td>" + hp_vua_them[i].TIETBD + "</td><td>" + hp_vua_them[i].SOTIET + "</td></tr>");
 
-                        if (i == (hp_vua_them.length - 1)) {
-                            lich_hoc += "</table></div>";
-                        }
-                    }
+                    //     if (i == (hp_vua_them.length - 1)) {
+                    //         lich_hoc += "</table></div>";
+                    //     }
+                    // }
 
                     // Báo đụng lịch các môn đã có.
                     $("#trung_lich_hp").show();
                     $("#trung_lich_hp").html("Không thể thêm HP " + hp_vua_them[0].MAHP + 
-                        ". xem <a data-toggle='modal' href='#modal_xem_lich_hoc'>lịch học</a>"
+                        ". <button onclick='XemLichHoc(\"" + hp_vua_them[0].MAHP + "\", \"" + hp_vua_them[0].TENHP + "\")' class='btn btn-link' id='btn_xemlich_trung' data-toggle='modal' href='#modal_xem_lich_hoc'>xem lịch học</button>"
                     );
 
                     // Hiển thị lịch học và tên môn lên model.
-                    $("#modal_xem_lich_hoc").find('.modal-title').html("Lịch học " + hp_vua_them[0].MAHP + " - " + hp_vua_them[0].TENHP);
-                    $("#modal_xem_lich_hoc").find('.modal-body').html(lich_hoc);
+                    // $("#modal_xem_lich_hoc").find('.modal-title').html("Lịch học " + hp_vua_them[0].MAHP + " - " + hp_vua_them[0].TENHP);
+                    // $("#modal_xem_lich_hoc").find('.modal-body').html(lich_hoc);
                 }
                 else{
                     $("#trung_lich_hp").hide();
@@ -566,18 +679,18 @@ function them_hp(ma_hp) {
                             + '</td>\
                             <td class="hide"></td>\
                             <td>\
-                                <select id="sl_'+ hp_vua_them[0].MAHP +'" onchange="Doi_Ki_hieu(\'' + hp_vua_them[0].MAHP + '\')">' +
+                                <select class="form-control" id="sl_'+ hp_vua_them[0].MAHP +'" onchange="Doi_Ki_hieu(\'' + hp_vua_them[0].MAHP + '\')">' +
                                     option_kihieu
                                 + '</select>\
                             </td>\
-                            <td>\
-                                <a title="xóa học phần" style="display: inline;" class="btn btn-danger btn_xoa_hp">\
+                            <td><div class="btn-group">\
+                                <a title="xóa học phần" style="margin-right: 2px" class="btn btn-danger btn_xoa_hp">\
                                     <i class="fa fa-trash" aria-hidden="true"></i>\
                                 </a>\
-                                <a title="xem lịch học" data-toggle="modal" href="#modal_xem_lich_hoc" style="display: inline;" class="btn btn-info btn_xemlichhoc">\
+                                <a title="xem lịch học" data-toggle="modal" href="#modal_xem_lich_hoc" style="margin-left: 2px;" class="btn btn-info btn_xemlichhoc">\
                                     <i class="fa fa-calendar" aria-hidden="true"></i>\
                                 </a>\
-                            </td>\
+                            </div></td>\
                         </tr>';
 
                     // Thêm thông tin lên trang tạo tkb.
@@ -732,90 +845,6 @@ $(document).ready(function () {
     // Tính và hiển thị lịch họp cố vấn.
     TinhLichCoVan();
 
-    // Xem chi tiết lịch học của một học phần.
-    function XemLichHoc(ma_hp) {
-        $.ajax({
-            type: "POST",
-            url: "/lay_tgian_hoc",
-            data: {
-                ma_hp: ma_hp,
-                _token: token,
-                kihieu: "0"
-            },                    
-            success: function (response) {
-                
-                lichhoc = "\
-                <div class='table-responsive'>\
-                <table class='table table-bordered'>\
-                <tr class='info'><th>Nhóm</th><th>Buổi</th><th>Thứ</th><th>Tiết học</th></tr>";
-
-                size_list = response.length;
-
-                // Lưu tiết đầu của mỗi nhóm kí hiệu.
-                lichhoc_first = "";
-
-                // Lưu các tiết tiếp theo của mỗi nhóm kí hiệu.
-                lichhoc_next = "";
-
-                count = 1;
-                for (let index = 1; index < size_list; index++) {
-
-                    if (response[index]["KIHIEU"] != response[index-1]["KIHIEU"]) {
-
-                        chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
-                        buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
-
-                        lichhoc_first = "<tr><td onclick='Doi_Ki_hieu(\"" + ma_hp + "\",\""+ response[index-count]["KIHIEU"] +"\")' title='Chọn nhóm này' style='text-align: center;vertical-align: middle;font-weight: bold;font-size:150%; cursor: pointer;' rowspan='" + count + "'>" + response[index-count]["KIHIEU"] + 
-                        "</td><td>" + buoihoc + 
-                        "</td><td>" + response[index-count]["THU"] + 
-                        "</td><td>" +  chuoitiethoc
-                        "</td></tr>";
-
-                        lichhoc += lichhoc_first + lichhoc_next;
-
-                        lichhoc_next = "";
-                        count = 1;
-                    }
-                    else {
-
-                        chuoitiethoc = taochuoitiethoc(response[index]["TIETBD"], response[index]["SOTIET"]);
-                        buoihoc = taobuoihoc(response[index]["TIETBD"]);
-
-                        lichhoc_next += "<tr><td>" + buoihoc + 
-                        "</td><td>" + response[index]["THU"] + 
-                        "</td><td>" +  chuoitiethoc
-                        "</td></tr>";
-
-                        count++;
-
-                        if (count == size_list) {
-                            count--;
-                            chuoitiethoc = taochuoitiethoc(response[index-count]["TIETBD"], response[index-count]["SOTIET"]);
-                            buoihoc = taobuoihoc(response[index-count]["TIETBD"]);
-
-                            lichhoc_first = "<tr><td onclick='Doi_Ki_hieu(\"" + ma_hp + "\",\""+ response[index-count]["KIHIEU"] +"\")' title='Chọn nhóm này' style='text-align: center;vertical-align: middle;font-weight: bold;font-size:150%' rowspan='" + (count + 1) + "'>" + response[index-count]["KIHIEU"] + 
-                            "</td><td>" + buoihoc + 
-                            "</td><td>" + response[index-count]["THU"] + 
-                            "</td><td>" +  chuoitiethoc
-                            "</td></tr>";
-
-                            lichhoc += lichhoc_first + lichhoc_next;
-                        }
-                    }                    
-                }
-
-                lichhoc += "</table>";
-
-                $("#modal_xem_lich_hoc").find('.modal-title').text("Lịch học " + tenhp_can_xoa);
-                $("#modal_xem_lich_hoc").find('.modal-body').html("<span class='text-success' style='font-weight: bold;font-size:18;'>Click vào số nhóm để đổi nhóm.</span>" + lichhoc);
-            },
-            error: function(xhr,err){
-                alert("LOI");
-                console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
-            }
-        });
-    }
-
     $("#bao_trung_hp").hide();
     $("#trung_lich_hp").hide();
 
@@ -860,32 +889,6 @@ $(document).ready(function () {
         }
     });
 
-    // Tạo chuỗi tiết học bằng tiết bắt đầu và số tiết.
-    function taochuoitiethoc(tietbd, sotiet) {
-        ketqua = "";
-
-        tietcuoi = Number(tietbd) + Number(sotiet) - 1;
-
-        for (let index = tietbd; index <= tietcuoi; index++) {
-            ketqua += ( " " + index);
-        }
-
-        return ketqua;
-    }
-
-    // Tạo buổi học (sáng, chiều, tối) theo tiết bắt đầu.
-    function taobuoihoc(tietbd) {
-        if (tietbd <= 5){
-            return "<img width='20%' style='display: inline;' src='../image/morning.png' class='img-responsive' alt='Image'>Sáng";
-        }
-        else if(tietbd <= 10){
-            return "<img width='20%' style='display: inline;' src='../image/noon.png' class='img-responsive' alt='Image'>Chiều";
-        }
-        else{
-            return "<img width='20%' style='display: inline;' src='../image/night.png' class='img-responsive' alt='Image'>Tối";
-        }
-    }
-
     // Xóa tất cả học phần.
     $("#btn_xoa_all_hp").click(function (e) { 
         e.preventDefault();
@@ -912,10 +915,10 @@ $(document).ready(function () {
         // Tính vị trí và tên học phần cần xóa.
         tr_can_xoa = $(this).closest('tr');
         ma_hp = tr_can_xoa.find("td:nth-child(1)").text();
-        tenhp_can_xoa = tr_can_xoa.find("td:nth-child(2)").find("span:nth-child(1)").text();
+        tenhp = tr_can_xoa.find("td:nth-child(2)").find("span:nth-child(1)").text();
 
         // Thêm thông tin lịch học vào modal và hiển thị lên màn hình.
-        XemLichHoc(ma_hp);
+        XemLichHoc(ma_hp, tenhp);
     });
 
     // Hàm kiểm tra số lượng học phần còn lại và
@@ -928,6 +931,6 @@ $(document).ready(function () {
     }
 
     $("#btn_luu_tkb").click(function (e) { 
-        Luu_TKB();        
+        // Luu_TKB();        
     });
 });
