@@ -624,34 +624,11 @@ function them_hp(ma_hp) {
                     // Ẩn model thêm HP mới.
                     $('#modal-them-hp').modal('toggle');
 
-                    // lich_hoc = "";
-                    // // Tính lịch các buổi học.
-                    // for (let i = 0; i < hp_vua_them.length; i++) {
-
-                    //     if (i == 0) {
-                    //         lich_hoc += "\
-                    //         <div class='table-responsive'>\
-                    //         <table class='table table-bordered'>\
-                    //         <tr class='info'><th>Kí hiệu</th><th>Thứ</th><th>Tiết bắt đầu</th><th>Số tiết</th></tr>\
-                    //         ";
-                    //     }
-
-                    //     lich_hoc += ("<tr><td>" + hp_vua_them[i].KIHIEU + "</td><td>" + hp_vua_them[i].THU + "</td><td>" + hp_vua_them[i].TIETBD + "</td><td>" + hp_vua_them[i].SOTIET + "</td></tr>");
-
-                    //     if (i == (hp_vua_them.length - 1)) {
-                    //         lich_hoc += "</table></div>";
-                    //     }
-                    // }
-
                     // Báo đụng lịch các môn đã có.
                     $("#trung_lich_hp").show();
                     $("#trung_lich_hp").html("Không thể thêm HP " + hp_vua_them[0].MAHP + 
                         ". <button onclick='XemLichHoc(\"" + hp_vua_them[0].MAHP + "\", \"" + hp_vua_them[0].TENHP + "\")' class='btn btn-link' id='btn_xemlich_trung' data-toggle='modal' href='#modal_xem_lich_hoc'>xem lịch học</button>"
                     );
-
-                    // Hiển thị lịch học và tên môn lên model.
-                    // $("#modal_xem_lich_hoc").find('.modal-title').html("Lịch học " + hp_vua_them[0].MAHP + " - " + hp_vua_them[0].TENHP);
-                    // $("#modal_xem_lich_hoc").find('.modal-body').html(lich_hoc);
                 }
                 else{
                     $("#trung_lich_hp").hide();
@@ -821,6 +798,7 @@ function TinhLichCoVan() {
 // Hàm lưu TKB.
 function Luu_TKB() {
     if (ds_hp_can_luu.length != 0) {
+
         $.ajax({
             type: "POST",
             url: "/luu_tkb_moi",
@@ -836,7 +814,10 @@ function Luu_TKB() {
                 console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
             }
         });
-    }    
+    }
+    else{
+        alert("Chưa có thời khóa biểu để lưu");
+    }
 }
 
 // Xử lý khi trang tạo tkb vừa load xong.
@@ -931,6 +912,6 @@ $(document).ready(function () {
     }
 
     $("#btn_luu_tkb").click(function (e) { 
-        // Luu_TKB();        
+        Luu_TKB();
     });
 });
