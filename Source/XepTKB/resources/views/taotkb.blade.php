@@ -60,6 +60,21 @@
 
     {{--  Nội dung trang tạo tkb.  --}}
     <div class="container-fluid">
+
+        {{--  Modal thông báo kết quả.  --}}
+        <div class="modal fade" id="success-alert" style="margin-top: 20%; text-align: center; z-index: 9999">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <div class="modal-body">
+                        <strong id="alert-text"></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Debug -->
+        <!-- <div id="result"></div> -->
         
         {{--  Phần hiển thị tên trang và học kì hiện tại.  --}}
         <div class="row text-success">

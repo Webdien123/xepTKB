@@ -1,3 +1,22 @@
+// Thông báo kết quả xử lý cho người dùng.
+function thongBaoKetQua(result, text_content = null) {
+    if (result == "ok") {
+        $('#success-alert').modal('toggle');
+        $("#alert-text").removeClass('text-danger').addClass('text-success');
+        $("#alert-text").html('<i style="font-size: 10em;"  class="fa fa-check-circle-o" aria-hidden="true"></i><br>' + text_content);
+        setTimeout(function() {$('#success-alert').modal('hide');}, 1500);
+    }
+    if (result == "fail") {
+        $('#success-alert').modal('toggle');
+        $("#alert-text").removeClass('text-success').addClass('text-danger');
+        if (text_content == null) {
+            $("#alert-text").html('<i style="font-size: 10em;" class="fa fa-frown-o" aria-hidden="true"></i><br>Có lỗi! vui lòng thử lại sau.');
+        }
+        
+        setTimeout(function() {$('#success-alert').modal('hide');}, 1500);
+    }
+}
+
 // Xem chi tiết lịch học của một học phần.
 function XemLichHoc(ma_hp, tenhp) {
     $.ajax({
@@ -808,10 +827,14 @@ function Luu_TKB() {
                 mssv: mssv_login
             },
             success: function (response) {   
-                console.log(response);
+                thongBaoKetQua(response, "Đã lưu");
             },
-            error: function(xhr,err){
-                console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+            error: function(jqXHR, textStatus, errorThrown) {
+
+                thongBaoKetQua("fail");
+
+                // console.log(jqXHR.responseText);
+                // $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
             }
         });
     }

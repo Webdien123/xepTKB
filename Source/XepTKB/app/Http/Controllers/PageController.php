@@ -57,7 +57,7 @@ class PageController extends Controller
         // echo "<br>".$url;
         
         $headers = @get_headers($url);
-        if(strpos($headers[0],'404') === false)
+        if(strpos($headers[0],'404') === true)
         {
             echo "<br>Đã có lịch mới";
             Hocki_NamHoc::UpdateHocKi($hocki);

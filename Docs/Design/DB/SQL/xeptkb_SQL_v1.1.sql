@@ -2,10 +2,10 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 03, 2019 lúc 10:04 AM
--- Phiên bản máy phục vụ: 10.1.38-MariaDB
--- Phiên bản PHP: 7.1.28
+-- Host: 127.0.0.1
+-- Generation Time: Apr 21, 2019 at 10:36 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.1.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `xeptkb`
+-- Database: `xeptkb`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `hocki`
+-- Table structure for table `hocki`
 --
 
 CREATE TABLE `hocki` (
@@ -33,7 +33,7 @@ CREATE TABLE `hocki` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `hocki`
+-- Dumping data for table `hocki`
 --
 
 INSERT INTO `hocki` (`HOCKI`) VALUES
@@ -42,7 +42,7 @@ INSERT INTO `hocki` (`HOCKI`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `lop_hoc_phan`
+-- Table structure for table `lop_hoc_phan`
 --
 
 CREATE TABLE `lop_hoc_phan` (
@@ -60,7 +60,7 @@ CREATE TABLE `lop_hoc_phan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `lop_hoc_phan`
+-- Dumping data for table `lop_hoc_phan`
 --
 
 INSERT INTO `lop_hoc_phan` (`MAHP`, `TENHP`, `KIHIEU`, `THU`, `TIETBD`, `SOTIET`, `PHONG`, `SISO`, `TINCHI`, `MALOP`, `TUANHOC`) VALUES
@@ -1674,7 +1674,7 @@ INSERT INTO `lop_hoc_phan` (`MAHP`, `TENHP`, `KIHIEU`, `THU`, `TIETBD`, `SOTIET`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `namhoc`
+-- Table structure for table `namhoc`
 --
 
 CREATE TABLE `namhoc` (
@@ -1682,7 +1682,7 @@ CREATE TABLE `namhoc` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `namhoc`
+-- Dumping data for table `namhoc`
 --
 
 INSERT INTO `namhoc` (`NAMHOC`) VALUES
@@ -1691,7 +1691,7 @@ INSERT INTO `namhoc` (`NAMHOC`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `nguoi_dung`
+-- Table structure for table `nguoi_dung`
 --
 
 CREATE TABLE `nguoi_dung` (
@@ -1704,82 +1704,80 @@ CREATE TABLE `nguoi_dung` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `nguoi_dung`
+-- Dumping data for table `nguoi_dung`
 --
 
 INSERT INTO `nguoi_dung` (`MSSV`, `HOTEN`, `EMAIL`, `MKHAU`, `MALOP`, `KICHHOAT`) VALUES
-('123456', 'Họ Văn Tên', 'khanhb1705976@student.ctu.edu.vn', '$2y$10$Q.YupZu6cEa.wRV1dqZ4M.wXcMs6/u0LzokR24CUV4E1El.vyLCIe', '123456', 'Y'),
-('admin', 'admin', 'lyvamax2018@gmail.com', '$2y$10$R.O80WHgcI2b1IjA2NEJUujRMqmBbSCqzN47AHFOAk6tWJsYzPhSO', 'DI17V7A2', 'Y');
+('admin', 'admin', 'lyvamax2018@gmail.com', '$2b$10$ERvRI/p.xf4Y3YLZTC3P5udDLG7M2aGBV.i2IBDGrdPdyh8BJaB1S', 'DI17V7A2', 'Y'),
+('B1705976', 'Trần Lý Khánh', 'khanhb1705976@student.ctu.edu.vn', '$2y$10$UvJ.V0mLmJcjgwX5ItOgDeSSHFy.k0XK.PLkK2P3WCMqmmlrn.d0G', 'FL17V1A1', 'N');
 
 -- --------------------------------------------------------
 
+
 --
--- Cấu trúc bảng cho bảng `xep_tkb`
+-- Table structure for table `xep_tkb`
 --
 
 CREATE TABLE `xep_tkb` (
-  `ID` smallint(6) NOT NULL,
   `MSSV` varchar(8) COLLATE utf8_vietnamese_ci NOT NULL,
   `MAHP` varchar(10) COLLATE utf8_vietnamese_ci NOT NULL,
   `KIHIEU` varchar(5) COLLATE utf8_vietnamese_ci NOT NULL,
-  `THU` varchar(1) COLLATE utf8_vietnamese_ci NOT NULL,
-  `TIETBD` varchar(2) COLLATE utf8_vietnamese_ci NOT NULL,
   `NAMHOC` varchar(5) COLLATE utf8_vietnamese_ci NOT NULL,
   `HOCKI` varchar(2) COLLATE utf8_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `hocki`
+-- Indexes for table `hocki`
 --
 ALTER TABLE `hocki`
   ADD PRIMARY KEY (`HOCKI`);
 
 --
--- Chỉ mục cho bảng `lop_hoc_phan`
+-- Indexes for table `lop_hoc_phan`
 --
 ALTER TABLE `lop_hoc_phan`
   ADD PRIMARY KEY (`MAHP`,`KIHIEU`,`THU`,`TIETBD`);
 
 --
--- Chỉ mục cho bảng `namhoc`
+-- Indexes for table `namhoc`
 --
 ALTER TABLE `namhoc`
   ADD PRIMARY KEY (`NAMHOC`);
 
 --
--- Chỉ mục cho bảng `nguoi_dung`
+-- Indexes for table `nguoi_dung`
 --
 ALTER TABLE `nguoi_dung`
   ADD PRIMARY KEY (`MSSV`),
   ADD UNIQUE KEY `EMAIL` (`EMAIL`);
 
+
 --
--- Chỉ mục cho bảng `xep_tkb`
+-- Indexes for table `xep_tkb`
 --
 ALTER TABLE `xep_tkb`
-  ADD PRIMARY KEY (`ID`,`MSSV`,`MAHP`,`KIHIEU`,`THU`,`TIETBD`,`NAMHOC`,`HOCKI`),
+  ADD PRIMARY KEY (`MSSV`,`MAHP`,`KIHIEU`,`NAMHOC`,`HOCKI`),
   ADD KEY `FK_HOCKI_XEPTKB` (`HOCKI`),
-  ADD KEY `FK_LOPHP_XEPTKB` (`MAHP`,`KIHIEU`,`THU`,`TIETBD`),
+  ADD KEY `FK_LOPHP_XEPTKB` (`MAHP`,`KIHIEU`),
   ADD KEY `FK_NAMHOC_XEPTKB` (`NAMHOC`),
   ADD KEY `FK_NGUOI_XEPTKB` (`MSSV`);
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `xep_tkb`
+-- Constraints for table `xep_tkb`
 --
 ALTER TABLE `xep_tkb`
   ADD CONSTRAINT `FK_HOCKI_XEPTKB` FOREIGN KEY (`HOCKI`) REFERENCES `hocki` (`HOCKI`),
-  ADD CONSTRAINT `FK_LOPHP_XEPTKB` FOREIGN KEY (`MAHP`,`KIHIEU`,`THU`,`TIETBD`) REFERENCES `lop_hoc_phan` (`MAHP`, `KIHIEU`, `THU`, `TIETBD`),
+  ADD CONSTRAINT `FK_LOPHP_XEPTKB` FOREIGN KEY (`MAHP`,`KIHIEU`) REFERENCES `lop_hoc_phan` (`MAHP`, `KIHIEU`),
   ADD CONSTRAINT `FK_NAMHOC_XEPTKB` FOREIGN KEY (`NAMHOC`) REFERENCES `namhoc` (`NAMHOC`),
-  ADD CONSTRAINT `FK_NGUOI_XEPTKB` FOREIGN KEY (`MSSV`) REFERENCES `nguoi_dung` (`MSSV`),
-  ADD CONSTRAINT `FK_TKB_XEPTKB` FOREIGN KEY (`ID`) REFERENCES `tkb` (`ID`);
+  ADD CONSTRAINT `FK_NGUOI_XEPTKB` FOREIGN KEY (`MSSV`) REFERENCES `nguoi_dung` (`MSSV`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
