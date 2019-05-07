@@ -12,7 +12,9 @@ function thongBaoKetQua(result, text_content = null) {
         if (text_content == null) {
             $("#alert-text").html('<i style="font-size: 10em;" class="fa fa-frown-o" aria-hidden="true"></i><br>Có lỗi! vui lòng thử lại sau.');
         }
-        
+        else{
+            $("#alert-text").html('<i style="font-size: 10em;" class="text-warning fa fa-info-circle" aria-hidden="true"></i><br><span class="text-warning">' + text_content + '</span>');
+        }
         setTimeout(function() {$('#success-alert').modal('hide');}, 1500);
     }
 }
@@ -709,7 +711,7 @@ function them_hp(ma_hp) {
             else {
                 // Hiện thông báo trùng môn.
                 $("#error_trung_hp").show(0);
-                $("#error_trung_hp").hide(5000);
+                $("#error_trung_hp").hide(3000);
             }
         },
         error: function(xhr,err){
@@ -831,9 +833,18 @@ function Luu_TKB() {
             },
             error: function(jqXHR, textStatus, errorThrown) {
 
-                thongBaoKetQua("fail");
+                var dom_nodes = $($.parseHTML(jqXHR.responseText));
+                var message = dom_nodes.find("p.trace-message").eq(0).text();
 
-                // console.log(jqXHR.responseText);
+                console.log(message);                
+
+                if (message.indexOf("SQLSTATE[23000]") >= 0) {
+                    thongBaoKetQua("fail", "Thời khóa biểu đã lưu trước đó.");
+                }
+                else{
+                    thongBaoKetQua("fail");
+                }
+
                 // $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
             }
         });
