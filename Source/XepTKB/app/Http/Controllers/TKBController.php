@@ -20,9 +20,14 @@ class TKBController extends Controller
             $namhoc = \DB::select('select * from namhoc', [1]);
             $namhoc = $namhoc[0]->NAMHOC;
 
+            // Tính stt của tkb cần tạo.
+            $so_luong = XepTKB::GetSoTkb(\Session::get('mssv_login'));
+            $stt = $so_luong + 1;            
+
             return view('taotkb', [
                 'hki_hientai' => $hocki,
-                'namhoc_hientai' => $namhoc
+                'namhoc_hientai' => $namhoc,
+                'stt_tkb' => $stt
             ]);
         }
         return view('login', [
@@ -68,7 +73,8 @@ class TKBController extends Controller
             $hocki = \DB::select('select * from hocki', [1]);
             $hocki = $hocki[0]->HOCKI;
 
-            // $array = json_decode($R->ds_hp_can_luu, TRUE);
+            // Lấy stt cần lưu.
+            $stt = $R->stt;
 
             $array = (array) $R->ds_hp_can_luu;
 
@@ -79,7 +85,7 @@ class TKBController extends Controller
                 $kihieu = $array[$i]["KIHIEU"];
 
                 if ($i == 0 || ($i > 0 && $array[$i]["MAHP"] != $array[$i-1]["MAHP"]) ) {
-                    XepTKB::InsertXepTKB($mssv, $mahp, $kihieu, $namhoc, $hocki);
+                    XepTKB::InsertXepTKB($mssv, $mahp, $kihieu, $namhoc, $hocki, $stt);
                 }
             }
 
@@ -88,5 +94,12 @@ class TKBController extends Controller
             // return $e->getMessage();
             return "fail";
         }
+    }
+
+    public function GetSoLuongTKB(Request $R)
+    {
+        $so_luong = XepTKB::GetSoTkb($R->mssv);
+        $stt = $so_luong + 1;
+        return $stt;
     }
 }

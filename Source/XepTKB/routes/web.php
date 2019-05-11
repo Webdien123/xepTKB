@@ -80,6 +80,9 @@ Route::post('lay_namhoc_hientai', 'HocPhanController@LayNamHocHienTai');
 // Lấy lịch họp cố vấn.
 Route::post('lay_lich_co_van', 'HocPhanController@LayLichCoVan');
 
+// Tính số thứ tự tkb sẽ tạo. (bằng số lượng tkb hiện tại cộng thêm 1)
+Route::post('get_so_luong_tkb', 'TKBController@GetSoLuongTKB');
+
 // Lưu TKB mới.
 Route::post('luu_tkb_moi', 'TKBController@Luu_TKB_Moi');
 
@@ -93,7 +96,7 @@ Route::get('thongtin', 'PageController@ThongTin_LienHe')->name('thongtin');
 Route::post('save_tkb_img', 'FileController@Save_TKB_Img');
 
 // Cập nhật ảnh đại diện.
-Route::post('/upload_avt', 'AccountController@Upload_Avt');
+Route::post('upload_avt', 'AccountController@Upload_Avt');
 
 // Load trang báo lỗi.
 Route::get('error', 'PageController@Error')->name('error');

@@ -826,20 +826,46 @@ function Luu_TKB() {
             data: {
                 _token: token,
                 ds_hp_can_luu: ds_hp_can_luu,
-                mssv: mssv_login
+                mssv: mssv_login,
+                stt: stt
             },
-            success: function (response) {   
-                thongBaoKetQua(response, "Đã lưu");
+            success: function (response) {
+
+                var node = document.getElementById('tb-tkb');
+ 
+                htmlToImage.toPng(node, { quality: 1 }).then(function (dataUrl) {
+
+                    $("#tkb_img_url").val(dataUrl);
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "save_tkb_img",
+                        data: $("#form_upload_tkb").serialize(),
+                        dataType: "JSON",
+                        success: function (response) {
+                            thongBaoKetQua(response, "Đã lưu");
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            if (jqXHR.status == 200) {
+                                thongBaoKetQua("ok", "Đã lưu");
+                            }
+                            else{
+                                thongBaoKetQua("fail");
+                            }
+                            // var dom_nodes = $($.parseHTML(jqXHR.responseText));
+                            // var message = dom_nodes.find("p.trace-message").eq(0).text();
+                            // $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
+                        }
+                    });
+                });
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {             
 
                 var dom_nodes = $($.parseHTML(jqXHR.responseText));
                 var message = dom_nodes.find("p.trace-message").eq(0).text();
 
-                console.log(message);                
-
                 if (message.indexOf("SQLSTATE[23000]") >= 0) {
-                    thongBaoKetQua("fail", "Thời khóa biểu đã lưu trước đó.");
+                    thongBaoKetQua("ok", "Thời khóa biểu đã lưu trước đó.");
                 }
                 else{
                     thongBaoKetQua("fail");

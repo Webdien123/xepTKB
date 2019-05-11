@@ -9,17 +9,18 @@ class FileController extends Controller
     public function Save_TKB_Img(Request $R)
     {
         if (\Session::has('mssv_login')){
-            $imagedata = base64_decode($R->imgdata);
-            $filename = $R->id_tkb."_".$R->hocki."-".$R->namhoc;
 
-            // require_once $_SERVER['DOCUMENT_ROOT'] . 'tkb_img/';
+            try {
+                $imagedata = $R->tkb_img_url;
+                $filename = \Session::get("mssv_login")."_".$R->hocki."_".$R->namhoc;
 
-            //path where you want to upload image
-            $file = $_SERVER['DOCUMENT_ROOT'] . 'tkb_img/'.$filename.'.png';
-            // $imageurl  = 'http://example.com/uploads/'.$filename.'.png';
-            file_put_contents($file, $imagedata);
-            // echo $imageurl;
-            return $file;
+                //path where you want to upload image
+                $file = $_SERVER['DOCUMENT_ROOT'].'/tkb_img/'.\Session::get("mssv_login").'/'.$filename.'.png';
+                copy($imagedata, $file);
+                return "ok";
+            } catch (Exception $e) {
+                return "fail";
+            }
         }
         return view('login', [
             'mssv_xac_thuc' => '',

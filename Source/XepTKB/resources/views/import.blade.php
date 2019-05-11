@@ -8,7 +8,7 @@
         <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 
         <!-- Bootstrap JavaScript -->
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <!-- <script src="{{ asset('js/bootstrap.min.js') }}"></script> -->
 
         <!-- Loading modal js -->
         <script src="{{ asset('js/jquery.loadingModal.min.js') }}"></script>
@@ -18,6 +18,12 @@
 
         <!-- Icon website -->
         <link rel="icon" href="http://c2.cdn.truelife.vn/webtube/201405/2420219/logo_tkb.png?f=mVb|9h5fLD2FKo/li54snA==">
+
+        <!-- Tạo mã token global -->
+	    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <!-- Include app.js -->
+        <script src="{{ asset('js/app.js') }}"></script>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

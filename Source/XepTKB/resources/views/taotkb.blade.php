@@ -50,6 +50,9 @@
 
         // Lưu năm học hiện tại.
         var namhoc_hientai = "{{ $namhoc }}";
+
+        // Số thứ tự tkb sẽ lưu.
+        var stt = "{{ $stt_tkb }}";
     </script>
 
     {{--  Script xử lý tìm thông tin học phần.  --}}
@@ -71,10 +74,18 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
 
         <!-- Debug -->
-        <!-- <div id="result"></div> -->
+        <div id="result"></div>
+
+        <!-- Form Upload ảnh thu nhỏ tkb lên server -->
+        <form id="form_upload_tkb" style="display: none;">
+            <input type="url" name="tkb_img_url" id="tkb_img_url">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="hocki" value="{{ $hki_hientai }}">
+            <input type="hidden" name="namhoc" value="{!! str_replace('20', '', $namhoc); !!}">
+        </form>
         
         {{--  Phần hiển thị tên trang và học kì hiện tại.  --}}
         <div class="row text-success">

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\MessageBag;
 use App\Http\Controllers\MailController;
+use File;
 
 // Lớp định nghĩa các hàm tham tác trên dữ liệu bảng 'nguoidung'.
 class NguoiDung extends Model
@@ -74,6 +75,9 @@ class NguoiDung extends Model
                 $malop,
                 "Y"
             ]);
+
+            $path = $_SERVER['DOCUMENT_ROOT'].'/tkb_img/'.$mssv;
+		    File::makeDirectory($path, $mode = 0777, true, true);
 
             return view('login', [
                 'mssv_xac_thuc' => $mssv,
