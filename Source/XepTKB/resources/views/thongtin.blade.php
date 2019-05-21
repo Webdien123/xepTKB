@@ -88,7 +88,7 @@
                     <footer>Admin</footer>
                 </blockquote>
                 <address>
-                    <strong>Phiên bản<br>1.0</strong>
+                    <strong>Phiên bản<br>Alpha 1.0</strong>
                 </address>
                 <address>
                     <strong>Email</strong><br>

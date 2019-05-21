@@ -47,10 +47,14 @@ class TKBController extends Controller
             // Lấy năm học hiện tại.
             $namhoc = \DB::select('select * from namhoc', [1]);
             $namhoc = $namhoc[0]->NAMHOC;
+
+            // Tính số tkb đã có.
+            $so_luong = XepTKB::GetSoTkb(\Session::get('mssv_login'));
             
             return view('thoikhoabieu',[
                 'hki_hientai' => $hocki,
-                'namhoc_hientai' => $namhoc
+                'namhoc_hientai' => $namhoc,
+                'so_luong_tkb' => $so_luong
             ]);
         }
         return view('login', [

@@ -2,7 +2,7 @@ hr.line_hocphan {
     margin-top: 4px;
     margin-bottom: 4px;
     width: 100%;
-    border: 0.25px dashed black;
+    border: 0.2px dashed black;
 }
 /*
 hr.ABC {
@@ -18,12 +18,16 @@ hr.ABC {
 
 #tb-tkb td:not(:first-child){
     width: 16%;
-    border: 0.5px solid gray;
+    border: 0.2px solid gray;
 }
 
 #tb-tkb, #tb-tkb tr td, #tb-tkb tr th{
-    border: 0.25px solid gray;
+    border: 0.2px solid gray;
 }
+
+/* #tb_hp, #tb_hp tr td, #tb_hp tr th{
+    border: 0.1px solid gray;
+} */
 
 .trung_buoi_hoc {
     color: red;

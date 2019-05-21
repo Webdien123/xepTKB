@@ -9,14 +9,10 @@ class XepTKB extends Model
     // Lấy số tkb người dùng đăng nhập đã tậo.
     public static function GetSoTkb($mssv)
     {
-        $count_user_tkb = \DB::select("SELECT `MSSV`, COUNT(MSSV) AS `SOLUONG` FROM `xep_tkb` WHERE MSSV = ?  GROUP BY MSSV",[$mssv]);
+        $count_user_tkb = \DB::select("SELECT DISTINCT `MSSV`, `STT` FROM `xep_tkb` WHERE MSSV = ?",[$mssv]);
+        $count = sizeof($count_user_tkb);
 
-        if ($count_user_tkb) {
-            return $count_user_tkb[0]->SOLUONG;
-        }
-        else {
-            return 0;
-        }
+        return $count;
     }
 
     // Lấy thông tin đăng ký học phần.

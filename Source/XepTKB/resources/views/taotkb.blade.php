@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/tkb_minh_hoa.css') }}">
 
     {{--  Đặt màu cho các môn học   --}}
-    <link rel="stylesheet" href="{{ asset('css/to_mau_hp.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/to_mau_hp.css') }}"> -->
 
     {{--  Script tạo biến cục bộ js và xử lý ban đầu khi trang khởi động  --}}
     <?php
@@ -85,6 +85,7 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="hocki" value="{{ $hki_hientai }}">
             <input type="hidden" name="namhoc" value="{!! str_replace('20', '', $namhoc); !!}">
+            <input type="hidden" name="stt" value="{{ $stt_tkb }}">
         </form>
         
         {{--  Phần hiển thị tên trang và học kì hiện tại.  --}}
@@ -215,14 +216,14 @@
         </div>
 
         {{--  Phần thêm học phần và tkb minh họa.  --}}
-        <div class="row">
+        <div class="row" id="chup_hinh">
 
             {{--  Nhóm nút chọn lớp học phần và bảng học phần  --}}
-            <div class="col-xs-12 col-lg-4 col-lg-push-8">
+            <div class="col-xs-12 col-lg-4 col-lg-push-8" id="col_hp">
                 <h3>Học phần</h3>
 
                 {{--  Nhóm button thao tác menu học phần  --}}
-                <div class="btn-group">
+                <div class="btn-group hide_to_snip">
                     <button type="button" class="btn btn-success" id="btn_them_hp" data-toggle="modal" href='#modal-them-hp'>
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         Thêm HP
@@ -268,14 +269,14 @@
                 <div class="alert alert-danger" id="trung_lich_hp"></div>
                 
                 {{--  Bảng chọn lớp học phần  --}}
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="tb_hp">
+                <div>
+                    <table id="tb_hp" style="padding-bottom: 30px" class="table table-bordered table-condensed">
                         <thead>
                             <tr class="info">
                                 <th>Mã HP</th>
                                 <th width="45%">Tên HP - Tuần học</th>
                                 <th>Nhóm</th>
-                                <th></th>
+                                <th class="hide_to_snip"></th>
                             </tr>
                         </thead>
 
@@ -291,19 +292,19 @@
                     </table>
                 </div>
 
-                <div class="text-danger"><b id="lich_co_van"></b></div>
+                <div class="text-danger" style="margin-top: 20px"><b id="lich_co_van"></b></div>
                 
             </div>
 
             {{--  Phần minh họa thời khóa biểu khi thêm lớp học phần  --}}
-            <div class="col-xs-12 col-lg-8 col-lg-pull-4">
+            <div class="col-xs-12 col-lg-8 col-lg-pull-4" id="col_tkb">
                 <h3>
-                    Thời khóa biểu minh họa
+                    Thời khóa biểu
                 </h3>
 
                 {{--  Bảng thể hiện thời khóa biểu  --}}
-                <div class="table-responsive">
-                    <table id="tb-tkb" class="table table-bordered table-condensed">
+                <div>
+                    <table id="tb-tkb" style="padding-bottom: 30px" class="table table-bordered table-condensed">
                         <thead>
                             <tr class="info">
                                 <th></th>
@@ -435,7 +436,6 @@
                 </div>
             </div>
         </div>
-        
         
     </div>   
 @endsection

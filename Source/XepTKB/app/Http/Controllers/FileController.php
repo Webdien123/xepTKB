@@ -12,7 +12,7 @@ class FileController extends Controller
 
             try {
                 $imagedata = $R->tkb_img_url;
-                $filename = \Session::get("mssv_login")."_".$R->hocki."_".$R->namhoc;
+                $filename = $R->stt."_".$R->hocki."_".$R->namhoc;
 
                 //path where you want to upload image
                 $file = $_SERVER['DOCUMENT_ROOT'].'/tkb_img/'.\Session::get("mssv_login").'/'.$filename.'.png';

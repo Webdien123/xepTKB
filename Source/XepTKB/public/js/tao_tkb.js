@@ -436,7 +436,7 @@ function Lay_Ki_Hieu_Cu(ma_hp) {
 }
 
 // Thay cập nhật thời gian học của một HP khi chọn kí hiệu khác.
-function Doi_Ki_hieu(ma_hp, kihieu = "") {
+function Doi_Ki_hieu(ma_hp, kihieu = "") {    
 
     // Bỏ màu cho các buổi học bị trùng trước đó.
     $(".trung_buoi_hoc").removeClass("trung_buoi_hoc");
@@ -444,9 +444,11 @@ function Doi_Ki_hieu(ma_hp, kihieu = "") {
     if (kihieu == "") {
         // Lấy kí hiệu nhóm HP đã chọn của HP vừa thêm.
         kihieu_nhom_hp = $('#sl_' + ma_hp).children(":selected").text();
+        $("#kihieu_"+ hp_vua_them[0].MAHP).text(kihieu_nhom_hp);
     } else {
         kihieu_nhom_hp = kihieu;
         $('#sl_' + ma_hp).val(kihieu);
+        $("#kihieu_"+ hp_vua_them[0].MAHP).text(kihieu_nhom_hp);
     }
 
     // Nếu kí hiệu vừa chọn trùng lịch với các học phần trước đó.
@@ -483,13 +485,6 @@ function Doi_Ki_hieu(ma_hp, kihieu = "") {
                 break;
             }
         }
-
-        // Tính và trả lại kí hiệu đã chọn trước đó.
-        // ki_hieu_cu = Lay_Ki_Hieu_Cu(ma_hp);
-
-        // $("#sl_" + ma_hp + " option[text=" + ki_hieu_cu + "]").attr('selected', true);
-
-        // $("#sl_" + ma_hp).val(ki_hieu_cu);
     }
     else{
         // Ẩn thông báo trùng học phần.
@@ -664,24 +659,25 @@ function them_hp(ma_hp) {
                         no_tkb = '</br><span id="no_tkb_' + hp_vua_them[0].MAHP + '" class="text-danger">(Liên hệ GV để xếp lịch)</span>'
                     } else {
                         no_tkb = '</br><span id="no_tkb_' + hp_vua_them[0].MAHP + '" class="text-danger"></span>'
-                    }
+                    }                    
 
                     // Tính html cho dòng học phần cần thêm.
                     data_row =
                         mau_can_to +
-                            '<td>' + hp_vua_them[0].MAHP + '</td>\
+                            '<td class="text-center">' + hp_vua_them[0].MAHP + '</td>\
                             <td><span>' + 
                                 hp_vua_them[0].TENHP + "</span><hr style='margin-top: 2px; margin-bottom: 2px;'>" +
                                 '<span class="small ' + hp_vua_them[0].MAHP + '_tuanhoc">' + hp_vua_them[0].TUANHOC +  '</span>' + 
                                 no_tkb
                             + '</td>\
                             <td class="hide"></td>\
-                            <td>\
+                            <td class="hide td_ki_hieu text-center" id="kihieu_'+ hp_vua_them[0].MAHP +'"></td>\
+                            <td class="td_select_hp">\
                                 <select class="form-control" id="sl_'+ hp_vua_them[0].MAHP +'" onchange="Doi_Ki_hieu(\'' + hp_vua_them[0].MAHP + '\')">' +
                                     option_kihieu
                                 + '</select>\
                             </td>\
-                            <td><div class="btn-group">\
+                            <td class="hide_to_snip"><div class="btn-group">\
                                 <a title="xóa học phần" style="margin-right: 2px" class="btn btn-danger btn_xoa_hp">\
                                     <i class="fa fa-trash" aria-hidden="true"></i>\
                                 </a>\
@@ -692,7 +688,11 @@ function them_hp(ma_hp) {
                         </tr>';
 
                     // Thêm thông tin lên trang tạo tkb.
-                    $('#tb_hp tbody').append(data_row);        
+                    $('#tb_hp tbody').append(data_row); 
+                    
+                    // Gán giá trị nhóm cho cột kí hiệu hiển thị khi chụp ảnh.
+                    khieu = $("#sl_" + hp_vua_them[0].MAHP).val();
+                    $("#kihieu_"+ hp_vua_them[0].MAHP).text(khieu);
 
                     // Thêm thông tin hp vào mảng toàn cục.
                     ds_hp.push(hp_vua_them);            
@@ -831,9 +831,18 @@ function Luu_TKB() {
             },
             success: function (response) {
 
-                var node = document.getElementById('tb-tkb');
+                // Chọn phần tử chụp ảnh.
+                var node = document.getElementById('chup_hinh');
+
+                // Điều chỉnh hiển thị tkb trước khi chụp.
+                $(".hide_to_snip").hide(0);
+                $(".td_select_hp").hide(0);
+                $(".td_ki_hieu").removeClass("hide");
+                $("#col_hp").removeClass().addClass("col-xs-6");
+                $("#col_tkb").removeClass().addClass("col-xs-12");
+                $("#tb_hp, #tb_hp tr td, #tb_hp tr th").css("border", "0.1px solid gray");
  
-                htmlToImage.toPng(node, { quality: 1 }).then(function (dataUrl) {
+                htmlToImage.toPng(node, {quality: 1}).then(function (dataUrl) {
 
                     $("#tkb_img_url").val(dataUrl);
                     
@@ -886,6 +895,7 @@ $(document).ready(function () {
     // Tính và hiển thị lịch họp cố vấn.
     TinhLichCoVan();
 
+    // Ẩn các thông báo.
     $("#bao_trung_hp").hide();
     $("#trung_lich_hp").hide();
 
