@@ -50,6 +50,11 @@ class TKBController extends Controller
 
             // Tính số tkb đã có.
             $so_luong = XepTKB::GetSoTkb(\Session::get('mssv_login'));
+
+            // Xóa cache trình duyệt để cập nhật hình ảnh mới nhất.
+            header('Cache-Control: no-cache, no-store, must-revalidate');
+            header('Pragma: no-cache');
+            header('Expires: 0');
             
             return view('thoikhoabieu',[
                 'hki_hientai' => $hocki,
