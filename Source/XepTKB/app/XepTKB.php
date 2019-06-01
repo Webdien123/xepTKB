@@ -16,7 +16,7 @@ class XepTKB extends Model
     }
 
     // Lấy thông tin đăng ký học phần.
-    public static function GetXepTKB($mssv, $namhoc, $hocki)
+    public static function GetXepTKB($mssv, $stt)
     {
         
     }
@@ -29,5 +29,16 @@ class XepTKB extends Model
         \DB::insert('insert into xep_tkb (`MSSV`, `MAHP`, `KIHIEU`, `NAMHOC`, `HOCKI`, `STT`) VALUES (?, ?, ?, ?, ?, ?) ', [
             $mssv, $mahp, $kihieu, $namhoc, $hocki, $stt
         ]);
+    }
+
+    // Xóa thời khóa biểu.
+    public static function Delete_XepTKB($mssv, $stt)
+    {
+        \DB::delete('DELETE FROM `xep_tkb` WHERE MSSV = ? AND STT = ?', [
+            $mssv,
+            $stt
+        ]);
+
+        \DB::update('UPDATE `xep_tkb` SET `STT` = STT - 1 WHERE STT > ?', [$stt]);
     }
 }

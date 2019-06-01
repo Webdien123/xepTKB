@@ -224,6 +224,12 @@ class AccountController extends Controller
                 // WriteLogController::Write_InFo(\Session::get("uhoten")." cập nhật ảnh đại diện. ".$R->_uname. " thất bại", "danger");
             }
         }
+
+        // Xóa cache trình duyệt để cập nhật hình ảnh mới nhất.
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+
         return redirect('/');
     }
 }

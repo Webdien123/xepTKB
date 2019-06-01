@@ -89,6 +89,12 @@ Route::post('luu_tkb_moi', 'TKBController@Luu_TKB_Moi');
 // Load trang quản lý tkb cũ.
 Route::get('qly_tkb', 'TKBController@QLy_TKB');
 
+// Cập nhật tkb cũ.
+Route::get('edit_tkb/{stt}','TKBController@Edit_TKB');
+
+// Xóa thời khóa biểu.
+Route::post('delete_tkb', 'TKBController@Delete_TKB');
+
 // Load trang thông tin và liên hệ.
 Route::get('thongtin', 'PageController@ThongTin_LienHe')->name('thongtin');
 

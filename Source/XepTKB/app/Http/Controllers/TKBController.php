@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\XepTKB;
+use File;
 
 // Lớp định nghĩa các hàm xử lý thời khóa biểu.
 class TKBController extends Controller
@@ -68,6 +69,31 @@ class TKBController extends Controller
         ]);
     }
 
+    // Cập nhật TKB cũ.
+    public function Edit_TKB($stt)
+    {
+        if (\Session::has('mssv_login')){
+            // Lấy học kì hiện tại.
+            $hocki = \DB::select('select * from hocki', [1]);
+            $hocki = $hocki[0]->HOCKI;
+
+            // Lấy năm học hiện tại.
+            $namhoc = \DB::select('select * from namhoc', [1]);
+            $namhoc = $namhoc[0]->NAMHOC;          
+
+            return view('edit_tkb', [
+                'hki_hientai' => $hocki,
+                'namhoc_hientai' => $namhoc,
+                'stt_tkb' => $stt
+            ]);
+        }
+        return view('login', [
+            'mssv_xac_thuc' => '',
+            'ketqua_xuly' => ''
+        ]);
+    }
+
+    // Lưu thời khóa biểu mới.
     public function Luu_TKB_Moi(Request $R)
     {
         try {
@@ -105,10 +131,38 @@ class TKBController extends Controller
         }
     }
 
-    public function GetSoLuongTKB(Request $R)
+    // Xóa thời khóa biểu.
+    public function Delete_TKB(Request $R)
     {
-        $so_luong = XepTKB::GetSoTkb($R->mssv);
-        $stt = $so_luong + 1;
-        return $stt;
+        try {
+            // Xóa dữ liệu.
+            XepTKB::Delete_XepTKB($R->mssv, $R->stt);
+
+            // Lấy năm học hiện tại.
+            $namhoc = \DB::select('select * from namhoc', [1]);
+            $namhoc = $namhoc[0]->NAMHOC;
+
+            // Lấy học kì hiện tại.
+            $hocki = \DB::select('select * from hocki', [1]);
+            $hocki = $hocki[0]->HOCKI;
+
+            // Xóa ảnh thu nhỏ.
+            File::delete(public_path('tkb_img/'.$R->mssv.'/'.$R->stt.'_'.$hocki.'_'.$namhoc.'.png'));
+
+            // Đổi tên thứ tự các ảnh sau thời khóa biểu đã xóa.
+            $i = $R->stt;
+            while(file_exists(public_path('tkb_img/'.$R->mssv.'/'.($i + 1).'_'.$hocki.'_'.$namhoc.'.png'))) {
+                File::move(
+                    public_path('tkb_img/'.$R->mssv.'/'.($i + 1).'_'.$hocki.'_'.$namhoc.'.png'),
+                    public_path('tkb_img/'.$R->mssv.'/'.$i.'_'.$hocki.'_'.$namhoc.'.png')
+                );
+                $i++;
+            }
+            
+            return "ok";
+        } catch (Exception $e) {
+            // return $e->getMessage();
+            return "fail";
+        }
     }
 }

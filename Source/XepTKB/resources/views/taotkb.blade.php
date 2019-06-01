@@ -77,7 +77,7 @@
         </div>        
 
         <!-- Debug -->
-        <div id="result"></div>
+        <!-- <div id="result"></div> -->
 
         <!-- Form Upload ảnh thu nhỏ tkb lên server -->
         <form id="form_upload_tkb" style="display: none;">

@@ -853,10 +853,16 @@ function Luu_TKB() {
                         dataType: "JSON",
                         success: function (response) {
                             thongBaoKetQua(response, "Đã lưu");
+                            setTimeout(function () {
+                               window.location.replace("/taotkb");
+                            }, 800);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             if (jqXHR.status == 200) {
                                 thongBaoKetQua("ok", "Đã lưu");
+                                setTimeout(function () {
+                                   window.location.replace("/taotkb");
+                                }, 800);
                             }
                             else{
                                 thongBaoKetQua("fail");

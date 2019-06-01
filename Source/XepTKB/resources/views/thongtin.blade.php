@@ -83,8 +83,7 @@
                 <form>
                 <legend><span class="glyphicon glyphicon-globe"></span>Thông tin trang web</legend>
                 <blockquote>
-                    <p>Website xếp thời khóa biểu online được xây dựng cho sinh viên Đại học Cần thơ. 
-                    Hệ thống phục vụ cho việc xây dựng các thời khóa biểu trực quan nhầm hỗ trợ cho quá trình đăng ký học phần được dễ dàng hơn.</p>
+                    <p>Website xếp thời khóa biểu CTU được xây dựng cho sinh viên Đại học Cần thơ nhầm hỗ trợ cho quá trình xếp thời khóa biểu được trực quan và đơn giản hơn.</p>
                     <footer>Admin</footer>
                 </blockquote>
                 <address>
