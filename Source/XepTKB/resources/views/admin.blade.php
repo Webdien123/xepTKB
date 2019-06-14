@@ -38,9 +38,16 @@
                             font-weight: bold">
                             TẠO TKB MỚI
                         </a></li>' !!}
-                        
                     @else
                         {!! '<li><a href="/taotkb">TẠO TKB MỚI</a></li>' !!}
+                    @endif
+
+                    @if (strpos ($_SERVER['REQUEST_URI'], 'edit_tkb'))
+                        {!! '<li><a href='.$_SERVER["REQUEST_URI"].'\ 
+                            style="color: #ffcc80; padding-bottom:25px; border-bottom: #ffcc80 solid 5px;
+                            font-weight: bold">
+                            Cập nhật thời khóa biểu
+                        </a></li>' !!}
                     @endif
 
                     @if (strpos ($_SERVER['REQUEST_URI'], 'qly_tkb'))

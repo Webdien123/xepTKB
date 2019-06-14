@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">        
 
         <!-- Icon website -->
-        <link rel="icon" href="http://c2.cdn.truelife.vn/webtube/201405/2420219/logo_tkb.png?f=mVb|9h5fLD2FKo/li54snA==">
+        <link rel="icon" href="{{ asset('image/logo_tkb.png') }}">
 
         <!-- Tạo mã token global -->
 	    <meta name="csrf-token" content="{{ csrf_token() }}">

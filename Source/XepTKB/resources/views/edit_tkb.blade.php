@@ -1,10 +1,10 @@
-{{--  Mở rộng cho trang admin  --}}
+{{--  Định nghĩa trang thông tin cán bộ  --}}
 @extends('admin')
 
-{{--  Đặt title webpage  --}}
-@section('title', 'Tạo thời khóa biểu')
+{{--  Tiêu đề trang  --}}
+@section('title', 'Chỉnh sửa tkb')
 
-{{--  Phần nội dung sẽ dẫn vào trang admin  --}}
+{{--  Định nghĩa phần import vào layout cha  --}}
 @section('noidung')
 
     {{--  Đặt màu cho cột thứ và tiết thời khóa biểu  --}}
@@ -53,13 +53,29 @@
 
         // Số thứ tự tkb sẽ lưu.
         var stt = "{{ $stt_tkb }}";
+
+        // Danh sách tkb cũ.
+        var tkb_list = <?php echo json_encode($tkb); ?>;
     </script>
 
     {{--  Script xử lý tìm thông tin học phần.  --}}
     <script src="{{ asset('js/tim_hp.js') }}"></script>
 
     {{--  Script xử lý trang tạo thời khóa biểu.  --}}
-    <script src="{{ asset('js/tao_tkb.js') }}"></script>
+    <script src="{{ asset('js/edit_tkb.js') }}"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+
+            so_luong_tkb = tkb_list.length;
+
+            for (var i = 0; i < so_luong_tkb; i++) {
+                them_hp(tkb_list[i]["MAHP"], tkb_list[i]["KIHIEU"]);
+            }
+        });
+
+
+    </script>
 
     {{--  Nội dung trang tạo tkb.  --}}
     <div class="container-fluid">
@@ -91,7 +107,7 @@
         {{--  Phần hiển thị tên trang và học kì hiện tại.  --}}
         <div class="row text-success">
             <div class="col-xs-12 col-sm-4">
-                <h4><b>Tạo thời khóa biểu mới</b></h4>
+                <h4><b>Cập nhật thời khóa biểu</b></h4>
             </div>
 
             <div class="col-xs-12 col-sm-8">

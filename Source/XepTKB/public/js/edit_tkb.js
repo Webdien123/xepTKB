@@ -906,7 +906,7 @@ function Luu_TKB() {
                 ds_hp_can_luu: ds_hp_can_luu,
                 mssv: mssv_login,
                 stt: stt,
-                update: "0"
+                update: "1"
             },
             success: function (response) {
 
@@ -927,20 +927,20 @@ function Luu_TKB() {
                     
                     $.ajax({
                         type: "POST",
-                        url: "save_tkb_img",
+                        url: "/save_tkb_img",
                         data: $("#form_upload_tkb").serialize(),
                         dataType: "JSON",
                         success: function (response) {
                             thongBaoKetQua(response, "Đã lưu");
                             setTimeout(function () {
-                               window.location.replace("/taotkb");
+                               window.location.replace("/qly_tkb");
                             }, 800);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             if (jqXHR.status == 200) {
                                 thongBaoKetQua("ok", "Đã lưu");
                                 setTimeout(function () {
-                                   window.location.replace("/taotkb");
+                                   window.location.replace("/qly_tkb");
                                 }, 800);
                             }
                             else{

@@ -7,76 +7,8 @@
 {{--  Phần nội dung sẽ dẫn vào trang admin  --}}
 @section('noidung')
 
-
-    {{--  Đặt margin giữa các thời khóa biểu thu nhỏ  --}}
-    <style>
-        .top-buffer { 
-            margin-top: 2%; 
-        }
-        .left-buffer { 
-            margin-left: 5%;
-        }
-        @media only screen and (max-width: 992px) {
-            .left-buffer { 
-                margin-left: 0%;
-            }
-        }
-
-        .timeline{
-            position: relative;
-        }
-
-        /*Line*/
-        .timeline>li::before{
-            content:'';
-            position: absolute;
-            width: 1px;
-            background-color: #33bbff;
-            top: 0;
-            bottom: 0;
-            left:-19px;
-        }
-
-        /*Circle*/
-        .timeline>li::after{
-            text-align: center;
-            padding-top:10px;
-            z-index: 10;
-            content:counter(item);
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border:3px solid white;
-            background-color: #33bbff;
-            border-radius: 50%;
-            top:0;
-            left:-43px;
-        }
-
-        /*Content*/
-        .timeline>li{
-            counter-increment: item;
-            padding: 10px 10px;
-            color: white;
-            font-weight: bold;
-            font-size: larger;
-            margin-left: 0px;
-            min-height:70px;
-            position: relative;
-            background-color: white;
-            list-style: none;
-        }
-        
-        .timeline>li:nth-last-child(1)::before{
-            width: 0px;
-        }
-
-        .tkb_items:hover {
-          border: 2px solid #33bbff; 
-          padding-left: 20px;
-          border-radius: 1%;
-        }
-    </style>
+    {{--  Tùy chỉnh css cho các thời khóa biểu thu nhỏ  --}}
+    <link rel="stylesheet" href="{{ asset('css/qly_tkb.css') }}">
 
     <?php
         $namhoc_1 =  (int)substr($namhoc_hientai, 0, 2);
@@ -118,6 +50,8 @@
 
         <script type="text/javascript">
 
+            var disable = false;
+
             // Thông báo kết quả xử lý cho người dùng.
             function thongBaoKetQua(result, text_content = null) {
                 if (result == "ok") {
@@ -141,6 +75,9 @@
 
             // Xử lý xóa tkb.
             function Xoa_TKB(stt) {
+                // Tắt event click trên ảnh thời khóa biểu.
+                disable = true;
+
                 if(window.confirm('Xóa thời khóa biểu số ' + stt + '?')){
                     $.ajax({
                         type: "POST",
@@ -178,8 +115,22 @@
                     $(this).find('.btn-group').eq(0).css('display','none');
                 });
 
+                // Click trực tiếp lên tkb.
+                $(".tkb_items").click(function(event) {
+                    if (!disable) {
+                        link = $(this).find('a').attr("href");
+                        window.open(link); 
+                    }
+                    else{
+                        disable = false;
+                    }
+                });
+
                 // Click nút tạo bản in.
                 $('.btn_print').click(function () {
+
+                    // Tắt event click trên ảnh thời khóa biểu.
+                    disable = true;
 
                     $("img.img_tkb").attr("width", "800px");
                     $("img.img_tkb").attr("height", "530px");
@@ -215,7 +166,7 @@
             <ol class="timeline">
             @for ($i = 1; $i <= $so_luong_tkb; $i++)
             <li class="col-xs-8" style="margin-left: 50px">
-                <div class="tkb_items">
+                <div class="tkb_items" style="cursor: pointer;">
                     <div class="btn-group" style="position:absolute; top:0px; right:10px; display: none;">
                         <a href="/edit_tkb/{{$i}}" target="_blank" title="Chỉnh sửa TKB" class="btn btn-warning">
                             <i class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i>

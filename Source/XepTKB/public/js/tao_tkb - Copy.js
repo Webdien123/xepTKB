@@ -96,10 +96,9 @@ function XemLichHoc(ma_hp, tenhp) {
             $("#modal_xem_lich_hoc").find('.modal-title').text("Lịch học " + tenhp);
             $("#modal_xem_lich_hoc").find('.modal-body').html("<span class='text-success' style='font-weight: bold;font-size:18;'>Click vào số nhóm để đổi nhóm.</span>" + lichhoc);
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // var dom_nodes = $($.parseHTML(jqXHR.responseText));
-            // var message = dom_nodes.find("p.trace-message").eq(0).text();
-            // $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
+        error: function(xhr,err){
+            alert("LOI");
+            console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
         }
     });
 }
@@ -568,7 +567,7 @@ function dien_tkb(ma_hp, kihieu) {
 }
 
 // Hàm thêm học phần mới lên bảng học phần.
-function them_hp(ma_hp, kihieu = '') {
+function them_hp(ma_hp) {
 
     $.ajax({
         url: '/lay_tgian_hoc',
@@ -584,27 +583,71 @@ function them_hp(ma_hp, kihieu = '') {
             // Ẩn thông báo trùng học phần.
             $("#error_trung_hp").hide(0);
 
-            // Ẩn thông báo chưa có học phần.
-            $("#tr_no_hp").hide(0);
-
-            // Biến lưu danh sách kí hiệu lớp học phần.
-            var ds_kihieu = [];
-            var option_kihieu = "";
-
             // Nếu hp chưa thêm.
-            if (da_them_hp() == false) {  
+            if (da_them_hp() == false) {
 
-                if (kihieu != '') {
-                    
-                    // Tính danh sách kí hiệu lớp học phần.
-                    $.each(hp_vua_them, function(i, el){
+                // Ẩn thông báo chưa có học phần.
+                $("#tr_no_hp").hide(0);
 
-                        if (el.KIHIEU == kihieu) {
-                            option_kihieu += '<option value="'+ el.KIHIEU +'" selected>' + el.KIHIEU + '</option>';
-                        } else {
-                            option_kihieu += '<option value="'+ el.KIHIEU +'">' + el.KIHIEU + '</option>';
+                // Biến lưu danh sách kí hiệu lớp học phần.
+                var ds_kihieu = [];
+                var option_kihieu = "";
+
+                // Đã chọn được nhóm không trùng các HP trước đó.
+                var da_chon_nhom = false;
+
+                // Nếu kí hiệu vừa chọn trùng lịch với các học phần trước đó.
+                var mon_bi_trung = [];        
+
+                // Tính danh sách kí hiệu lớp học phần.
+                $.each(hp_vua_them, function(i, el){
+                    if($.inArray(el.KIHIEU, ds_kihieu) === -1) {
+                        ds_kihieu.push(el.KIHIEU);
+
+                        if ($(".tr_hp").length != 0) {
+
+                            if (da_chon_nhom == false) {
+
+                                // Tính nhóm cần thêm mà không bị trùng các HP trước đó.
+                                // (nếu nhóm không trùng trả về chính kí hiệu đó, ngược lại trả về chuỗi rỗng)
+                                nhom_can_them = Kiem_Tra_Nhom_Trung_Lich(ds_kihieu[ds_kihieu.length-1]);                        
+            
+                                if (nhom_can_them != '') {
+                                    option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'" selected>' + ds_kihieu[ds_kihieu.length-1] + '</option>';
+                                    da_chon_nhom = true;
+                                }
+                                else{
+                                    option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'">' + ds_kihieu[ds_kihieu.length-1] + '</option>';
+                                }
+                            }
+                            else{
+                                option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'">' + ds_kihieu[ds_kihieu.length-1] + '</option>';
+                            }
                         }
-                    });
+                        else{
+                            if (ds_kihieu.length == 1) {
+                                option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'" selected>' + ds_kihieu[ds_kihieu.length-1] + '</option>';
+                            }
+                            else{
+                                option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'">' + ds_kihieu[ds_kihieu.length-1] + '</option>';
+                            }
+                        }    
+                    }
+                });
+
+                // Nếu không tính ra nhóm cần thêm hoặc đã có HP trước đó.
+                if (da_chon_nhom == false && $(".tr_hp").length != 0) {
+                    // Ẩn model thêm HP mới.
+                    $('#modal-them-hp').modal('toggle');
+
+                    // Báo đụng lịch các môn đã có.
+                    $("#trung_lich_hp").show();
+                    $("#trung_lich_hp").html("Không thể thêm HP " + hp_vua_them[0].MAHP + 
+                        ". <button onclick='XemLichHoc(\"" + hp_vua_them[0].MAHP + "\", \"" + hp_vua_them[0].TENHP + "\")' class='btn btn-link' id='btn_xemlich_trung' data-toggle='modal' href='#modal_xem_lich_hoc'>xem lịch học</button>"
+                    );
+                }
+                else{
+                    $("#trung_lich_hp").hide();
 
                     // Lưu trữ html của tr chứa học phần cần thêm và dòng thông báo khi hp không có lịch.
                     class_mau_can_to = "";
@@ -616,7 +659,7 @@ function them_hp(ma_hp, kihieu = '') {
                         no_tkb = '</br><span id="no_tkb_' + hp_vua_them[0].MAHP + '" class="text-danger">(Liên hệ GV để xếp lịch)</span>'
                     } else {
                         no_tkb = '</br><span id="no_tkb_' + hp_vua_them[0].MAHP + '" class="text-danger"></span>'
-                    }  
+                    }                    
 
                     // Tính html cho dòng học phần cần thêm.
                     data_row =
@@ -652,9 +695,7 @@ function them_hp(ma_hp, kihieu = '') {
                     $("#kihieu_"+ hp_vua_them[0].MAHP).text(khieu);
 
                     // Thêm thông tin hp vào mảng toàn cục.
-                    ds_hp.push(hp_vua_them); 
-
-                    console.log(ds_hp);           
+                    ds_hp.push(hp_vua_them);            
 
                     // Lấy kí hiệu nhóm HP đã chọn của HP vừa thêm.
                     kihieu_nhom_hp = $('#sl_' + hp_vua_them[0].MAHP).children(":selected").text();
@@ -662,122 +703,9 @@ function them_hp(ma_hp, kihieu = '') {
                     // Điền HP lên thời khóa biểu theo kí hiệu đã chọn.
                     dien_tkb(hp_vua_them[0].MAHP, kihieu_nhom_hp);
 
-                } else {
-
-                    // Đã chọn được nhóm không trùng các HP trước đó.
-                    var da_chon_nhom = false;
-
-                    // Nếu kí hiệu vừa chọn trùng lịch với các học phần trước đó.
-                    var mon_bi_trung = [];        
-
-                    // Tính danh sách kí hiệu lớp học phần.
-                    $.each(hp_vua_them, function(i, el){
-                        if($.inArray(el.KIHIEU, ds_kihieu) === -1) {
-                            ds_kihieu.push(el.KIHIEU);
-
-                            if ($(".tr_hp").length != 0) {
-
-                                if (da_chon_nhom == false) {
-
-                                    // Tính nhóm cần thêm mà không bị trùng các HP trước đó.
-                                    // (nếu nhóm không trùng trả về chính kí hiệu đó, ngược lại trả về chuỗi rỗng)
-                                    nhom_can_them = Kiem_Tra_Nhom_Trung_Lich(ds_kihieu[ds_kihieu.length-1]);                        
-                
-                                    if (nhom_can_them != '') {
-                                        option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'" selected>' + ds_kihieu[ds_kihieu.length-1] + '</option>';
-                                        da_chon_nhom = true;
-                                    }
-                                    else{
-                                        option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'">' + ds_kihieu[ds_kihieu.length-1] + '</option>';
-                                    }
-                                }
-                                else{
-                                    option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'">' + ds_kihieu[ds_kihieu.length-1] + '</option>';
-                                }
-                            }
-                            else{
-                                if (ds_kihieu.length == 1) {
-                                    option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'" selected>' + ds_kihieu[ds_kihieu.length-1] + '</option>';
-                                }
-                                else{
-                                    option_kihieu += '<option value="'+ ds_kihieu[ds_kihieu.length-1] +'">' + ds_kihieu[ds_kihieu.length-1] + '</option>';
-                                }
-                            }    
-                        }
-                    });
-
-                    // Nếu không tính ra nhóm cần thêm hoặc đã có HP trước đó.
-                    if (da_chon_nhom == false && $(".tr_hp").length != 0) {
-                        // Ẩn model thêm HP mới.
-                        $('#modal-them-hp').modal('toggle');
-
-                        // Báo đụng lịch các môn đã có.
-                        $("#trung_lich_hp").show();
-                        $("#trung_lich_hp").html("Không thể thêm HP " + hp_vua_them[0].MAHP + 
-                            ". <button onclick='XemLichHoc(\"" + hp_vua_them[0].MAHP + "\", \"" + hp_vua_them[0].TENHP + "\")' class='btn btn-link' id='btn_xemlich_trung' data-toggle='modal' href='#modal_xem_lich_hoc'>xem lịch học</button>"
-                        );
-                    }
-                    else{
-                        $("#trung_lich_hp").hide();
-
-                        // Lưu trữ html của tr chứa học phần cần thêm và dòng thông báo khi hp không có lịch.
-                        class_mau_can_to = "";
-                        mau_can_to = '<tr class="tr_hp">';
-                        no_tkb = "";
-
-                        // Nếu HP không có lịch học thì không gán lớp "can_to_mau".
-                        if (hp_vua_them[0].THU == '0') {
-                            no_tkb = '</br><span id="no_tkb_' + hp_vua_them[0].MAHP + '" class="text-danger">(Liên hệ GV để xếp lịch)</span>'
-                        } else {
-                            no_tkb = '</br><span id="no_tkb_' + hp_vua_them[0].MAHP + '" class="text-danger"></span>'
-                        }                    
-
-                        // Tính html cho dòng học phần cần thêm.
-                        data_row =
-                            mau_can_to +
-                                '<td class="text-center">' + hp_vua_them[0].MAHP + '</td>\
-                                <td><span>' + 
-                                    hp_vua_them[0].TENHP + "</span><hr style='margin-top: 2px; margin-bottom: 2px;'>" +
-                                    '<span class="small ' + hp_vua_them[0].MAHP + '_tuanhoc">' + hp_vua_them[0].TUANHOC +  '</span>' + 
-                                    no_tkb
-                                + '</td>\
-                                <td class="hide"></td>\
-                                <td class="hide td_ki_hieu text-center" id="kihieu_'+ hp_vua_them[0].MAHP +'"></td>\
-                                <td class="td_select_hp">\
-                                    <select class="form-control" id="sl_'+ hp_vua_them[0].MAHP +'" onchange="Doi_Ki_hieu(\'' + hp_vua_them[0].MAHP + '\')">' +
-                                        option_kihieu
-                                    + '</select>\
-                                </td>\
-                                <td class="hide_to_snip"><div class="btn-group">\
-                                    <a title="xóa học phần" style="margin-right: 2px" class="btn btn-danger btn_xoa_hp">\
-                                        <i class="fa fa-trash" aria-hidden="true"></i>\
-                                    </a>\
-                                    <a title="xem lịch học" data-toggle="modal" href="#modal_xem_lich_hoc" style="margin-left: 2px;" class="btn btn-info btn_xemlichhoc">\
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>\
-                                    </a>\
-                                </div></td>\
-                            </tr>';
-
-                        // Thêm thông tin lên trang tạo tkb.
-                        $('#tb_hp tbody').append(data_row); 
-                        
-                        // Gán giá trị nhóm cho cột kí hiệu hiển thị khi chụp ảnh.
-                        khieu = $("#sl_" + hp_vua_them[0].MAHP).val();
-                        $("#kihieu_"+ hp_vua_them[0].MAHP).text(khieu);
-
-                        // Thêm thông tin hp vào mảng toàn cục.
-                        ds_hp.push(hp_vua_them);            
-
-                        // Lấy kí hiệu nhóm HP đã chọn của HP vừa thêm.
-                        kihieu_nhom_hp = $('#sl_' + hp_vua_them[0].MAHP).children(":selected").text();
-
-                        // Điền HP lên thời khóa biểu theo kí hiệu đã chọn.
-                        dien_tkb(hp_vua_them[0].MAHP, kihieu_nhom_hp);
-
-                        // Sắp xếp tăng dần theo sỉ sổ.
-                        // sortTable();
-                    }
-                } 
+                    // Sắp xếp tăng dần theo sỉ sổ.
+                    // sortTable();
+                }        
             }
             // Nếu hp đã thêm trước đó.
             else {
@@ -786,11 +714,8 @@ function them_hp(ma_hp, kihieu = '') {
                 $("#error_trung_hp").hide(3000);
             }
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-
-            var dom_nodes = $($.parseHTML(jqXHR.responseText));
-            var message = dom_nodes.find("p.trace-message").eq(0).text();
-            $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
+        error: function(xhr,err){
+            console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
         }
     });
 }
@@ -885,11 +810,8 @@ function TinhLichCoVan() {
                 $("#lich_co_van").text("Không có lịch họp cố vấn.");
             }
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-
-            // var dom_nodes = $($.parseHTML(jqXHR.responseText));
-            // var message = dom_nodes.find("p.trace-message").eq(0).text();
-            // $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
+        error: function(xhr,err){
+            console.log("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
         }
     });
 }
@@ -905,8 +827,7 @@ function Luu_TKB() {
                 _token: token,
                 ds_hp_can_luu: ds_hp_can_luu,
                 mssv: mssv_login,
-                stt: stt,
-                update: "0"
+                stt: stt
             },
             success: function (response) {
 

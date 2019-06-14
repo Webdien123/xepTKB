@@ -79,12 +79,19 @@ class TKBController extends Controller
 
             // Lấy năm học hiện tại.
             $namhoc = \DB::select('select * from namhoc', [1]);
-            $namhoc = $namhoc[0]->NAMHOC;          
+            $namhoc = $namhoc[0]->NAMHOC;
+            
+            // Lấy thông tin tkb đã lưu theo stt.
+            $tkb = XepTKB::GetXepTKB(
+                \Session::get('mssv_login'),
+                $stt
+            );
 
             return view('edit_tkb', [
                 'hki_hientai' => $hocki,
                 'namhoc_hientai' => $namhoc,
-                'stt_tkb' => $stt
+                'stt_tkb' => $stt,
+                'tkb' => $tkb
             ]);
         }
         return view('login', [
@@ -93,7 +100,7 @@ class TKBController extends Controller
         ]);
     }
 
-    // Lưu thời khóa biểu mới.
+    // Lưu thời khóa biểu mới. (hoặc cập nhật tkb cũ nếu tham só update = 1)
     public function Luu_TKB_Moi(Request $R)
     {
         try {
@@ -115,12 +122,24 @@ class TKBController extends Controller
 
             $size = sizeof($array);
 
+            if ($R->update == "1") {
+                // Xóa dữ liệu.
+                XepTKB::Delete_XepTKB($R->mssv, $R->stt);
+            }
+
             for ($i=0; $i < $size; $i++) {
                 $mahp = $array[$i]["MAHP"];
                 $kihieu = $array[$i]["KIHIEU"];
 
                 if ($i == 0 || ($i > 0 && $array[$i]["MAHP"] != $array[$i-1]["MAHP"]) ) {
-                    XepTKB::InsertXepTKB($mssv, $mahp, $kihieu, $namhoc, $hocki, $stt);
+
+                    if ($R->update == "1") {
+                        XepTKB::UpdateXepTKB($mssv, $mahp, $kihieu, $namhoc, $hocki, $stt);
+                    } else {
+                        XepTKB::InsertXepTKB($mssv, $mahp, $kihieu, $namhoc, $hocki, $stt);
+                    }
+                    
+                    
                 }
             }
 

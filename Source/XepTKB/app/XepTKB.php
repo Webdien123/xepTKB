@@ -18,7 +18,11 @@ class XepTKB extends Model
     // Lấy thông tin đăng ký học phần.
     public static function GetXepTKB($mssv, $stt)
     {
-        
+        $tkb = \DB::select('SELECT * FROM `xep_tkb` WHERE MSSV = ? AND STT = ?', [
+            $mssv, $stt
+        ]);
+
+        return $tkb;
     }
 
     // Thêm thông tin đăng ký học phần mới.
@@ -26,6 +30,14 @@ class XepTKB extends Model
     {
         // \DB::delete('delete from xep_tkb where 1');
 
+        \DB::insert('insert into xep_tkb (`MSSV`, `MAHP`, `KIHIEU`, `NAMHOC`, `HOCKI`, `STT`) VALUES (?, ?, ?, ?, ?, ?) ', [
+            $mssv, $mahp, $kihieu, $namhoc, $hocki, $stt
+        ]);
+    }
+
+    // Cập nhât thông tin đăng ký học phần.
+    public static function UpdateXepTKB($mssv, $mahp, $kihieu, $namhoc, $hocki, $stt)
+    {
         \DB::insert('insert into xep_tkb (`MSSV`, `MAHP`, `KIHIEU`, `NAMHOC`, `HOCKI`, `STT`) VALUES (?, ?, ?, ?, ?, ?) ', [
             $mssv, $mahp, $kihieu, $namhoc, $hocki, $stt
         ]);
