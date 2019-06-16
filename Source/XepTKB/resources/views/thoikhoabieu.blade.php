@@ -73,6 +73,14 @@
                 }
             }
 
+            // Chỉnh sửa tkb.
+            function Edit_TKB(stt) {
+                // Tắt event click trên ảnh thời khóa biểu.
+                disable = true;
+
+                window.open("/edit_tkb/" + stt); 
+            }
+
             // Xử lý xóa tkb.
             function Xoa_TKB(stt) {
                 // Tắt event click trên ảnh thời khóa biểu.
@@ -168,9 +176,11 @@
             <li class="col-xs-8" style="margin-left: 50px">
                 <div class="tkb_items" style="cursor: pointer;">
                     <div class="btn-group" style="position:absolute; top:0px; right:10px; display: none;">
-                        <a href="/edit_tkb/{{$i}}" target="_blank" title="Chỉnh sửa TKB" class="btn btn-warning">
+                        <a href="/edit_tkb/{{$i}}" style="display: none"></a>
+                        <button type="button" title="Cập nhật TKB" class="btn btn-warning" 
+                        onclick="Edit_TKB('{{$i}}')">
                             <i class="fa fa-2x fa-pencil-square-o" aria-hidden="true"></i>
-                        </a>
+                        </button>
                         <button type="button" title="Tạo bản in" class="btn btn-info btn_print">
                             <i class="fa fa-2x fa-print" aria-hidden="true"></i>
                         </button>

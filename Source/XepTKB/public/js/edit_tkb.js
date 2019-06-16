@@ -906,7 +906,7 @@ function Luu_TKB() {
                 ds_hp_can_luu: ds_hp_can_luu,
                 mssv: mssv_login,
                 stt: stt,
-                update: "1"
+                update: update
             },
             success: function (response) {
 
@@ -916,6 +916,7 @@ function Luu_TKB() {
                 // Điều chỉnh hiển thị tkb trước khi chụp.
                 $(".hide_to_snip").hide(0);
                 $(".td_select_hp").hide(0);
+                $("#trung_lich_hp").hide(0);
                 $(".td_ki_hieu").removeClass("hide");
                 $("#col_hp").removeClass().addClass("col-xs-6");
                 $("#col_tkb").removeClass().addClass("col-xs-12");

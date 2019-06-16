@@ -161,15 +161,15 @@ function sortTable(){
 }
 
 // Hàm tính màu cần tô.
-function Tinh_Mau_Can_To() {
-    for (let index = 1; index <= 15; index++) {
-        ten_class = ".hp_" + index + "_bg";
-        if ($(ten_class).length == 0) {
-            return "hp_" + index + "_bg";
-        }
-    }
-    return "";
-}
+// function Tinh_Mau_Can_To() {
+//     for (let index = 1; index <= 15; index++) {
+//         ten_class = ".hp_" + index + "_bg";
+//         if ($(ten_class).length == 0) {
+//             return "hp_" + index + "_bg";
+//         }
+//     }
+//     return "";
+// }
 
 // Hàm kiểm tra 2 buổi học có trùng lịch nhau không.
 function KiemTra_TrungLich(bhoc1, bhoc2) {
@@ -906,7 +906,7 @@ function Luu_TKB() {
                 ds_hp_can_luu: ds_hp_can_luu,
                 mssv: mssv_login,
                 stt: stt,
-                update: "0"
+                update: update
             },
             success: function (response) {
 
@@ -916,6 +916,7 @@ function Luu_TKB() {
                 // Điều chỉnh hiển thị tkb trước khi chụp.
                 $(".hide_to_snip").hide(0);
                 $(".td_select_hp").hide(0);
+                $("#trung_lich_hp").hide(0);
                 $(".td_ki_hieu").removeClass("hide");
                 $("#col_hp").removeClass().addClass("col-xs-6");
                 $("#col_tkb").removeClass().addClass("col-xs-12");
@@ -946,9 +947,9 @@ function Luu_TKB() {
                             else{
                                 thongBaoKetQua("fail");
                             }
-                            // var dom_nodes = $($.parseHTML(jqXHR.responseText));
-                            // var message = dom_nodes.find("p.trace-message").eq(0).text();
-                            // $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
+                            var dom_nodes = $($.parseHTML(jqXHR.responseText));
+                            var message = dom_nodes.find("p.trace-message").eq(0).text();
+                            $('#result').html('<p>SAVE TKB IMG</p><p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
                         }
                     });
                 });

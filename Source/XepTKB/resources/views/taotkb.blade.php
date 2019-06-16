@@ -53,6 +53,9 @@
 
         // Số thứ tự tkb sẽ lưu.
         var stt = "{{ $stt_tkb }}";
+
+        // Cờ bậc tắt cập nhật vào tkb cũ.
+        var update = '0';
     </script>
 
     {{--  Script xử lý tìm thông tin học phần.  --}}
